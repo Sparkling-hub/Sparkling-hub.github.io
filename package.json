@@ -14,7 +14,7 @@
     "@mui/material": "^5.14.18",
     "@reduxjs/toolkit": "^2.0.1",
     "aos": "^2.3.4",
-    "axios": "^1.6.2",
+    "axios": "^1.6.8",
     "chroma-js": "^2.4.2",
     "clamscan": "^2.1.2",
     "cors": "^2.8.5",

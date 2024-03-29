@@ -5,7 +5,7 @@ import Submit from "../ui/input-sumbit-component";
 import Select from "../ui/select-component";
 import { sendContactForm } from "../../lib/api";
 import Link from "next/link";
-import ReCAPTCHA from 'react-google-recaptcha';
+import ReCAPTCHA from "../reCAPTCHA";
 import rolesData from '@/data/data-contact/data-contact';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -23,10 +23,11 @@ import {
 } from '@/store/redusers/navigationReducer';
 const Form: React.FC = () => {
   const dispatch = useDispatch();
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+
   const { formData, check, checkForm } = useSelector(selectForm);
+
   const { lastPageSlug } = useSelector(selectNavigation);
-  console.log(formData.recaptcha)
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
@@ -43,7 +44,7 @@ const Form: React.FC = () => {
 
   };
   useEffect(() => {
-    console.log(rolesData[lastPageSlug])
+
     dispatch(resetFormData());
     dispatch(resetCheckForm())
     dispatch(setFormData({
@@ -106,16 +107,10 @@ const Form: React.FC = () => {
           onChange={handleInputChange}
           checked={checkForm.message.length > 0}
         />
-        <div className="w-full m-auto flex justify-center"> 
-         <ReCAPTCHA
-          className="g-recaptcha"
-          sitekey={'6Ld4gKgpAAAAAEHQMgmH9Hnxunfcng73qaDpd3z3'}
+        <div className="w-full m-auto flex justify-center">
+          <ReCAPTCHA></ReCAPTCHA>
 
-          onChange={(value) =>     dispatch(setFormData({
-            ...formData,
-            recaptcha: value
-          }))}
-        /></div>
+        </div>
 
         <br />
 
@@ -124,13 +119,13 @@ const Form: React.FC = () => {
             type="submit"
             name="submit"
 
-            disabled={!!(formData.name && formData.email && formData.message)}
+            disabled={!!(formData.name && formData.email && formData.message && formData.recaptcha)}
 
-            onClick={sendContactForm} requiredKeys={['name', 'email', 'message']}
+            onClick={sendContactForm} requiredKeys={['name', 'email', 'message','recaptcha']}
 
           />
         </div>
-      
+
       </div>
       <Link href="mailto:l.arthofer@sparkling.co.com" target="_blank"
         className="blank m-10 bg-white rounded-md text-left rounded-lg justify-center flex flex-col h-26 w-[300px] bg-teal-900">

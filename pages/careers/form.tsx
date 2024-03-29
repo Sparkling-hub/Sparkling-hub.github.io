@@ -6,6 +6,7 @@ import Submit from "../../components/ui/input-sumbit-component";
 import MainLayout from '../../layouts/MainLayuout';
 import Jobs from '../../data/data-jobs';
 import Link from "next/link";
+import ReCAPTCHA from "../../components/reCAPTCHA";
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectForm,
@@ -200,14 +201,17 @@ const Faq = () => {
 									)}
 								</div>
 							</div>
+						
+          <ReCAPTCHA></ReCAPTCHA>
 
-							<div className="relative">
+    
+							<div className="relative mt-4">
 								<Submit
 									type="submit"
 									name="submit"
 									file={fileForm}
-									requiredKeys={['name', 'email', 'phone', 'file']}
-									disabled={!!(formData.name && formData.email && formData.phone && formData.file)}
+									requiredKeys={['name', 'email', 'phone', 'file','recaptcha']}
+									disabled={!!(formData.name && formData.email && formData.phone && formData.file && formData.recaptcha)}
 									onClick={sendContactForm}
 								/>
 							</div>

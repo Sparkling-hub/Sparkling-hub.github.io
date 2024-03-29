@@ -2,7 +2,8 @@ import multer from "multer";
 import { mailOptions, transporter } from "../../config/nodemailer";
 import fs from "fs";
 import path from "path";
-
+import axios from "axios";
+import { secretKey} from "../../config/reCaptha";
 const CONTACT_MESSAGE_FIELDS = {
   vacancy: "Vacancy",
   name: "Name",
@@ -93,7 +94,7 @@ export default async function handler(req, res) {
       throw new Error("Missing reCAPTCHA token");
     }
 
-    const secretKey = process.env.RECAPTCHA_SECRET_KEY; 
+   
     const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
 
     const response = await axios.post(verificationUrl); 
