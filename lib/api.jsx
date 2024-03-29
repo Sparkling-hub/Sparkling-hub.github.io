@@ -39,7 +39,7 @@ export const getKey = async (formData, fileData) => {
     }
 
     const { siteKey } = await response.json();
-  
+
     return siteKey;
   } catch (error) {
     throw new Error("Failed to fetch");
