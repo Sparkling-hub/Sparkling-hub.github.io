@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { getKey } from "../../lib/api";
 
-const reCAPTCHA: React.FC = () => {
+const Recaptcha: React.FC = () => {
   const [key, setKey] = useState(''); 
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const dispatch = useDispatch();
@@ -49,4 +49,4 @@ const reCAPTCHA: React.FC = () => {
 
 
 
-export default reCAPTCHA
+export default Recaptcha
