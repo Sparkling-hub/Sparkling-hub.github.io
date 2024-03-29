@@ -88,7 +88,18 @@ export default async function handler(req, res) {
       });
     });
 
-    
+    const recaptchaToken = req.body.recaptcha; 
+    if (!recaptchaToken) {
+      throw new Error("Missing reCAPTCHA token");
+    }
+
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY; 
+    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
+
+    const response = await axios.post(verificationUrl); 
+    if (!response.data.success) {
+      throw new Error("Invalid reCAPTCHA token");
+    }
 
     if (!req.body.name || !req.body.email) {
       throw new Error("Missing required fields in request body");

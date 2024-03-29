@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +22,6 @@ interface InputSubmitProps {
 }
 
 const InputSubmit: React.FC<InputSubmitProps> = ({ name, type, disabled, onClick,file, requiredKeys}) => {
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
 
   const { formData } = useSelector(selectForm);
   const dispatch = useDispatch();
@@ -85,15 +84,37 @@ const InputSubmit: React.FC<InputSubmitProps> = ({ name, type, disabled, onClick
         .map(key => { dispatch(setCheckFormByKey({ key: key, value: 'Fill in the following fields:' })) });
     }
   }
+  const verifyRecaptcha = async (token: string) => {
+    // Replace with your actual server-side verification URL
+    const verificationUrl = 'https://your-server.com/api/verify-recaptcha';
 
+    try {
+      const response = await fetch(verificationUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed reCAPTCHA verification');
+      }
+
+      const data = await response.json();
+      return data.success; // Replace with the key indicating successful verification in your response
+    } catch (error) {
+      console.error('Error verifying reCAPTCHA:', error);
+      toast.error('An error occurred during reCAPTCHA verification.', {
+        transition: Bounce,
+      });
+      return false;
+    }
+  };
   const buttonClass = disabled && selectIsValidEmail(formData.email) ? 'bg-teal-500' : 'bg-color-primary-dark';
 
   return (
-    <>   <ReCAPTCHA
-    className="g-recaptcha"
-    sitekey={'6LfyIacpAAAAAFGCRDEuhC5Fx7WvIjtQMp8Z-jQ4'}
-    onChange={(value: string | null) => setRecaptchaValue(value)}
-  />
+    <>   
+
+
       <input
         name={name}
         type={type}

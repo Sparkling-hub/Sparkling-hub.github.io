@@ -13,6 +13,7 @@ interface FormValues {
   linkedin: string;
   file: string;
   [key: string]: string | File | null  ;
+  recaptcha:string | null;
 }
 
 interface FormState {
@@ -37,6 +38,7 @@ const initialState: FormState = {
     phone: '',
     linkedin: '',
     file: '',
+    recaptcha:''
   },
   check: null,
   checkForm: {
@@ -49,6 +51,7 @@ const initialState: FormState = {
     phone: '',
     linkedin: '',
     file: '',
+    recaptcha:''
   },
 };
 

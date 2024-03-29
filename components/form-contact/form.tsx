@@ -1,11 +1,11 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Input from "../ui/input-component/input";
 import TextArea from "../ui/text-area-component/text-area";
 import Submit from "../ui/input-sumbit-component";
 import Select from "../ui/select-component";
 import { sendContactForm } from "../../lib/api";
 import Link from "next/link";
-
+import ReCAPTCHA from 'react-google-recaptcha';
 import rolesData from '@/data/data-contact/data-contact';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,12 +19,14 @@ import {
 } from '@/store/redusers/FormSliceReduser';
 import {
   selectNavigation,
- 
+
 } from '@/store/redusers/navigationReducer';
 const Form: React.FC = () => {
   const dispatch = useDispatch();
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const { formData, check, checkForm } = useSelector(selectForm);
-const {lastPageSlug} = useSelector(selectNavigation);
+  const { lastPageSlug } = useSelector(selectNavigation);
+  console.log(formData.recaptcha)
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
@@ -42,19 +44,19 @@ const {lastPageSlug} = useSelector(selectNavigation);
   };
   useEffect(() => {
     console.log(rolesData[lastPageSlug])
-		dispatch(resetFormData());
-        dispatch(resetCheckForm())
-		  dispatch(setFormData({
-			...formData,
-			['vacancy']: 'Contact Us',
-		  }));
-      dispatch(setFormData({
-        ...formData,
-        select: rolesData[lastPageSlug]
-        }));
+    dispatch(resetFormData());
+    dispatch(resetCheckForm())
+    dispatch(setFormData({
+      ...formData,
+      ['vacancy']: 'Contact Us',
+    }));
+    dispatch(setFormData({
+      ...formData,
+      select: rolesData[lastPageSlug]
+    }));
 
-	  }, []);
-    
+  }, []);
+
   return (
     <form
       method="post"
@@ -104,9 +106,19 @@ const {lastPageSlug} = useSelector(selectNavigation);
           onChange={handleInputChange}
           checked={checkForm.message.length > 0}
         />
+        <div className="w-full m-auto flex justify-center"> 
+         <ReCAPTCHA
+          className="g-recaptcha"
+          sitekey={'6Ld4gKgpAAAAAEHQMgmH9Hnxunfcng73qaDpd3z3'}
+
+          onChange={(value) =>     dispatch(setFormData({
+            ...formData,
+            recaptcha: value
+          }))}
+        /></div>
 
         <br />
-        
+
         <div className="w-fit m-auto relative">
           <Submit
             type="submit"
@@ -118,6 +130,7 @@ const {lastPageSlug} = useSelector(selectNavigation);
 
           />
         </div>
+      
       </div>
       <Link href="mailto:l.arthofer@sparkling.co.com" target="_blank"
         className="blank m-10 bg-white rounded-md text-left rounded-lg justify-center flex flex-col h-26 w-[300px] bg-teal-900">
