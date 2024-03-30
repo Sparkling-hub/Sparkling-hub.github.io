@@ -2,7 +2,7 @@
 
 const head = 'Sales Associate'
 
-const experience = "PAID POSITION"
+const experience = "Sparkling UK"
 
 const text =[`Full time`,'Hybrid work']
 
@@ -61,7 +61,7 @@ const jobs = {
     experienceHTML: experience,
     head: head,
     text: text,
-    workMode:"Remote",
+    workMode:"Hybrid",
     slug:"sales-associate",
     experience: 'Sales',
     overview: overview,
