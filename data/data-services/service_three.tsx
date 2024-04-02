@@ -25,7 +25,7 @@ const content = <div className="lg:mb-12">
 </div>
 
 
-const image = <img src='/img/services/it_consulting_icon.png' alt="IT Consulting" />;
+const image = <img src='/img/services/IT_Consulting_icon.png' alt="IT Consulting" />;
 
 const button = <Button href="/consulting" text="Find out more" />
 
