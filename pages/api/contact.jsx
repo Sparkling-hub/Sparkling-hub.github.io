@@ -18,14 +18,14 @@ const CONTACT_MESSAGE_FIELDS = {
 
 const generateEmailContent = (data) => {
   const stringData = Object.entries(data).reduce((str, [key, val]) => {
-    if (CONTACT_MESSAGE_FIELDS[key] && val && val != undefined) {
+    if (CONTACT_MESSAGE_FIELDS[key] && val && val !== undefined) {
       return `${str}${CONTACT_MESSAGE_FIELDS[key]}: \n${val} \n \n`;
     }
     return str;
   }, "");
 
   const htmlData = Object.entries(data).reduce((str, [key, val]) => {
-    if (val && CONTACT_MESSAGE_FIELDS[key] && val  != undefined) {
+    if (val && CONTACT_MESSAGE_FIELDS[key] && val  !== undefined) {
 
       return `${str}<h3 class="form-heading" align="left">${CONTACT_MESSAGE_FIELDS[key]}</h3><p class="form-answer" align="left">${val}</p>`;
     }
