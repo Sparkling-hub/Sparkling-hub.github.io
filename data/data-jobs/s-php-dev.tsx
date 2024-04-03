@@ -45,12 +45,11 @@ const coreResponsibilities = [
     "English lessons"
   ];
   
-
-const locationPath = "/img/jobs/ukraine.png"
-const location ='Tunisia, Tunis'
+  const locationPath = '/img/jobs/ukraine.png'
+  const location= "Ukraine, Zaporizhzhia"
 const jobs = {
     locationPath:locationPath,
-    location: "Ukraine",
+    location: "Tunis",
     namePosition: "Senior PHP Developer",
     locationHTML: location,
     experienceHTML: experience,

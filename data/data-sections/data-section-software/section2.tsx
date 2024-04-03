@@ -7,7 +7,7 @@ const header =
 
 const content = <p className="text-white text-center text-xl font-light  mt-3">Want to develop your project? Or perhaps enhance your development efforts?
 <br/>
-<span className="text-teal-300 font-semibold">With Sparkling you make a collaborative partnership, not simple outsourcing.</span></p>
+<span className="font-semibold">With Sparkling you make a collaborative partnership, not simple outsourcing.</span></p>
 
 
 const element = {

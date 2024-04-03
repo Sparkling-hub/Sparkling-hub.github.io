@@ -77,10 +77,11 @@ const DisabledSelect: React.FC<IDropList> = ({ name, DataLink, mobileMenuOpen })
                     before:border-b-white before:border-r-[18px] 
                     before:border-b-[18px]
                     before:absolute
-                    before:left-[43%]
+                    before:left-[41%]
                     before:border-l-[18px]
                     before:drop-shadow-[0_-3px_3px_rgba(0,0,0,0.0.1)]
-                    before:top-[-15px]"
+                    before:top-[-15px]
+                    safari-specific"
               >
                 {DataLink.map((service, index) => (
                   <Link key={service.id} className="p-3 m-2 transform transition-transform hover:scale-110 " href={service.href}>

@@ -48,7 +48,7 @@ const benefits = [
 
 const jobs = {
     locationPath:locationPath,
-    location: "Tunis",
+    location: "Ukraine",
     namePosition: "Senior JavaScript Developer",
     locationHTML: location,
     experienceHTML: experience,

@@ -30,24 +30,27 @@ const config: Config = {
     
       backgroundColor: {
         'primary-light-light': '#CBF0E9',
-        'primary-dark': '#285c5c',
+        'primary-dark': '#255F5A',
         'active-office-color': '#C73926',
         // 'partner-office-color': '#D3E5EB',
         'partner-office-color': '#3498db',
-        'green-color': '#AFCB1A'
+        'green-color': '#AFCB1A',
+        'darkTeal':'#255F5A',
+        'lightTeal':'#409588' 
       },
       borderColor: {
         'primary-light-light': '#CBF0E9',
-        'primary-dark': '#285c5c',
+        'primary-dark': '#255F5A',
         'active-office-color': '#C73926',
         // 'partner-office-color': '#D3E5EB',
         'partner-office-color': '#3498db',
       },
       colors: {
         primary: {
-          light: '#86C0BB', 
+          light: '#409588', 
           yellow: '#AECA13',
-          darkTeal:'#1A5858'      
+          darkTeal:'#255F5A',
+          lightTeal:'#409588'    
         },
       },
 

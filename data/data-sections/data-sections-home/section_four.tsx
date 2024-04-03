@@ -1,8 +1,8 @@
 import ContentBenefits from '../../../components/row-benefits/row-benefits'
 const header =
-<h2 className="w-fit  m-auto items-center justify-center p-4 text-center text-5xl mb-4  font-light">
+<h2 className="w-fit  m-auto items-center justify-center p-4 text-center text-5xl mb-4  text-primary-darkTeal font-light">
 
-    <span className="color-primary-light font-medium">Benefits
+    <span className="text-primary-light font-medium">Benefits
 </span> of Partnering with Us
 
 

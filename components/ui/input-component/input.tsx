@@ -27,7 +27,7 @@ const Input: React.FC<InputProps> = ({ name, type, placeholder, value, onChange,
       onChange={onChange}
       onClick={onClick as MouseEventHandler<HTMLInputElement>}
       accept=".pdf" 
-      className={`border  rounded-3xl p-4 w-full my-5 ${ checked ? 'border-red-500':'border-green-500' }`}
+      className={`border  rounded-3xl p-4 w-full my-5 ${ checked ? 'border-red-500':'border-primary-dark' }`}
     />
     {value?.length === 0 ?
     <p className='absolute top-0 select-none flex h-full items-center text-gray-400 pointer-events-none	  p-5'>{placeholder}{`

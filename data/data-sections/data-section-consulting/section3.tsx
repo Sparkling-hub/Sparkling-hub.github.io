@@ -6,18 +6,18 @@ import ConsultingItemList from "@/components/consulting-item-list"
 
 
 const header =
-    <div>
+    <div className="text-primary-darkTeal">
         <h2 className="text-5xl mt-24 text-center font-light  font-Ralevay_Light">
-            <span className="text-teal-500 font-medium">Customised Solutions</span>{' '}
+            <span className="text-primary-lightTeal font-medium">Customised Solutions</span>{' '}
             for Every Project
         </h2>
         <br />
         <h3 className="text-3xl text-center ">
             Understanding that{' '}
-            <span className="text-teal-500 font-normal">“one size, does NOT fit all”</span>{/*
+            <span className="text-primary-lightTeal font-normal">“one size, does NOT fit all”</span>{/*
   */}, our Consulting Projects are fully adaptable to meet your needs.
             Explore some of the{' '}
-            <span className="text-teal-500 font-normal">challenges we can solve together.</span>
+            <span className="text-primary-lightTeal font-normal">challenges we can solve together.</span>
         </h3>
 
     </div>

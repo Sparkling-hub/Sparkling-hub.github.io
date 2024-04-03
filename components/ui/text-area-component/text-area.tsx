@@ -14,7 +14,7 @@ const TextArea: React.FC<TextAreaProps> = ({ name, placeholder, value, onChange,
     <textarea
 name={name}
       value={value}
-      className={`border border-green-500 rounded-3xl p-4 w-full my-5 h-40 resize-none ${checked?'border-red-500':'border-green-500'}`} 
+      className={`border border-primary-dark rounded-3xl p-4 w-full my-5 h-40 resize-none ${checked?'border-red-500':'border-primary-dark'}`} 
       onChange={onChange}
     />
     {value?.length === 0 ?

@@ -36,7 +36,7 @@ const StartupTechnologiesIconList: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className='m-20 p-4 underline underline-offset-8 text-teal-500/100 text-xl font-bold hidden lg:flex text-center'>
+      <div className='m-20 p-4 underline underline-offset-8 text-white text-xl font-bold hidden lg:flex text-center'>
         <Link className='' href='/contact'>
           The technology you need isn&apos;t here? Contact us to see if we can help!
         </Link>

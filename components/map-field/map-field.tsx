@@ -26,7 +26,9 @@ const MapField: React.FC = () => {
   return (
     <div className="map-container  w-3/4 pt-40 lg:col-span-9 lg:gh-4 lg:gh-4 lg:p-14 pt-global lg:block relative">
       <div className='relative'>
-        {mapsData[0] ? mapsData[0].image : ''}    <Card /> 
+        {mapsData[0] ? mapsData[0].image : ''}    
+        
+        <Card /> 
       </div>
       
 

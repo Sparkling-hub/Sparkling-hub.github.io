@@ -42,6 +42,7 @@ const mapsSlice = createSlice({
       state.activeOfficePoint = action.payload;
     },
     setActiveOfficePointCoords: (state, action: PayloadAction<number[]>) => {
+      state.activeOfficePointCoords = [];
       state.activeOfficePointCoords = action.payload;
     },
     setOfficeCard: (state, action: PayloadAction<IOfficeCards | null>) => {

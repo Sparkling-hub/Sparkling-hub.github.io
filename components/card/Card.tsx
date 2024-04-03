@@ -51,7 +51,7 @@ const Card: React.FC = () => {
 
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [activeOfficePointCoords]);
+  }, []);
 
   return (
     <div ref={cardRef}
@@ -72,12 +72,13 @@ const Card: React.FC = () => {
       before:overflow-visible
       before:transition-all before:duration-300 before:ease-in-out 
       absolute w-full text-black w-screen max-w-[200px]  
- 
+    adaptive
       ${(isVisible) ? 'opacity-95 z-[1] before:bottom-[-50px] before:border-b-[60px] h-[180px] transition-all  duration-300 ease-in-out' : ' h-[20px] before:bottom-[0px] opacity-0 z-[-1] before:border-b-[0px]'} 
       `}
-      style={{ top: `${Math.round(activeOfficePointCoords[0]-199)}px`, left: `${Math.round(activeOfficePointCoords[1])-85}px` }}
-
-    > <div className={`overflow-hidden flex items-center justify-center relative lg:absolute w-full bg-[#B0D311] duration-300 rounded-3xl ease-out  transition-height  ${isVisible ? 'opacity-100 h-[100%] top-[0%] ' : '100 h-[100%] top-[0%]'}`} >
+      style={{
+        top: `calc(${Math.round(activeOfficePointCoords[0] - 199)}px)`,
+        left: `calc(${Math.round(activeOfficePointCoords[1] - 85)}px)`
+    }}><div className={`overflow-hidden flex items-center justify-center relative lg:absolute w-full bg-[#B0D311] duration-300 rounded-3xl ease-out  transition-height  ${isVisible ? 'opacity-100 h-[100%] top-[0%] ' : '100 h-[100%] top-[0%]'}`} >
         <div className={`w-full left-0 px-6`}>
 
 

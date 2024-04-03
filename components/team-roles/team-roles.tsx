@@ -19,7 +19,7 @@ const Benefit: React.FC = () => {
             <div className='w-full lg:w-1/2'>
                 <div className='border-gray-100 border-[1px] rounded-3xl my-5 lg:m-5 p-5 h-8/12'>
                     <h3 className='flex justify-center text-xl mb-5'>
-                        Roles<strong className='font-medium text-teal-500'>
+                        Roles<strong className='font-medium text-primary-lightTeal'>
                             {'\u00A0'}We Cover
                         </strong>:
                     </h3>

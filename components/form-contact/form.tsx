@@ -58,6 +58,7 @@ const Form: React.FC = () => {
 
   }, []);
 
+
   return (
     <form
       method="post"
@@ -134,7 +135,7 @@ const Form: React.FC = () => {
             <p className="text-3xl text-black font-normal">
               Prefer Email?
             </p>
-            <p className="text-2xl text-green-500 mt-5 font-normal">
+            <p className="text-2xl text-primary-darkTeal mt-5 font-normal">
               Drop us a line
             </p>
           </div>

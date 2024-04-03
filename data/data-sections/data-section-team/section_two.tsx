@@ -6,7 +6,7 @@ const content = (<div>
 
 Buried under a mountain of development tasks and the finish line seems unattainable?
 
-<br /> <strong className="font-bold text-teal-400">   Alleviate the bottleneck with skilled engineers from our expert teams!</strong>
+<br /> <strong className="font-bold">   Alleviate the bottleneck with skilled engineers from our expert teams!</strong>
 </p></div>
 );
 

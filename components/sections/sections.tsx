@@ -16,8 +16,9 @@ const Section: React.FC<SectionType> = ({ header, content, image, button, backgr
 					<div className='flex items-center whitespace-normal w-full  lg:flex-row flex-col'>
 						<div className='flex justify-center flex-col w-full items-center lg:items-start'>
 							<div className='lg:text-left text-center w-full text-5xl  z-[10]'>{header}</div>
-							{!image ? null : <div className='w-fit h-full flex lg:hidden z-[10 ] p-8'>  {image}
-							
+
+							{!image ? null : <div className='w-fit  flex lg:hidden z-[10 ] p-8'>  {image}
+
 							</div>}
 							<div className='text-left w-full  z-[20]'>{content}</div>
 							{button ? <div className=' h-full   py-12 w-full'>

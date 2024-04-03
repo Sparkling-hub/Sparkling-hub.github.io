@@ -3,7 +3,7 @@ const header =
     <h2 className="p-4 text-white">
         <div className=" text-5xl mb-8  font-light mx-auto w-fit ">
 
-            <span className="text-teal-500 font-bold">Assisting you</span>{' '}
+            <span className="text-primary-lightTeal font-bold">Assisting you</span>{' '}
             all the way through
         </div>
         <div className="text-lg w-fit m-auto lg:w-2/3">

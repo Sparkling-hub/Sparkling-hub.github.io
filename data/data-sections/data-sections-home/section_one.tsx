@@ -1,16 +1,16 @@
 import Button from "../../../components/button";
 
 const header = (
-  <h1 className="text-5xl my-4 leading-12 lg:leading-[100px] font-Roboto">
-    We<span className="color-primary-light mx-1"> build </span>software to
+  <h1 className="text-5xl my-2 leading-12 lg:leading-[60px] font-Roboto text-primary-darkTeal ">
+    We<span className="text-primary-lightTeal mx-1"> build </span>software to
     <br className="hidden lg:block"/>
-    <strong className="text-teal-800  font-bold uppercase "> reach your goals</strong>
+    <strong className=" font-bold uppercase "> reach your goals</strong>
   </h1>
 );
 
 
 const content = (
-  <p className="text-xl">
+  <p className="text-xl  text-primary-darkTeal">
   
     Whether you are looking to expand your Development Team, build your idea
     from scratch, or do some good old Research and Development (R&D) you need
@@ -19,7 +19,7 @@ const content = (
   </p>
 );
 
-const image = <img src="/img/section/sectionHome.png" className="lg:w-auto w-full" alt='sectionOne' />;
+const image = <img src="/img/section/sectionHome.svg" className="lg:w-auto w-full" alt='sectionOne' />;
 
 const button = <Button href="/contact" text="Get in touch" />;
 const element = {

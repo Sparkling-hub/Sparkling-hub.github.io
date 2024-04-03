@@ -1,9 +1,9 @@
 import Services from "@/components/services"
 
 const header =
-  <h1 className="m-auto w-fit  text-teal-500 my-16">
+  <h1 className="m-auto w-fit  text-primary-lightTeal my-16">
 
-Explore our <strong className="text-teal-800 font-medium">Solutions</strong> 
+Explore our <strong className="text-primary-darkTeal font-medium">Solutions</strong> 
   </h1>
 
 const content = <Services />

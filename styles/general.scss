@@ -20,6 +20,16 @@ $colorActiveStep: #fce205;
 $widhConainers: 1440px;
 $weight-text: 400px;
 
+@media not all and (min-resolution:.001dpcm) { 
+  
+        .safari-specific {
+            &::before {
+                top: 24px !important;
+				left: 45% !important;
+            }
+        }
+	
+}
 
 
 

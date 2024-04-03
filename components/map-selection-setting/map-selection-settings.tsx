@@ -10,34 +10,32 @@ const MapSelectionSettings: React.FC = () => {
 	const dispatch = useDispatch();
 	const { hovered, activeOfficePoint } = useSelector(selectMaps);
 	const handlePointsClick = (activePoint: any) => {
-        dispatch(setActiveOfficePointCoords(updateElementPosition(activePoint)));    
-        dispatch(setActiveOfficePoint(activePoint));
-
+   
         const hoveredElements = document.querySelectorAll('.office_point');
        
 		for (const element of hoveredElements) {
 			element.classList.remove('hidden');
-			if(element.id==activePoint){element.classList.add('hidden')
-			dispatch(setActiveOfficePointCoords(updateElementPosition(activePoint)));
-			dispatch(setActiveOfficePoint(activePoint));}
-		}
 	
+		}
+		dispatch(setActiveOfficePointCoords(updateElementPosition(activePoint)));    
+        dispatch(setActiveOfficePoint(activePoint));
+
     };
 	
-	
+	const handleResize = () => {
+		if (activeOfficePoint) {
+		  dispatch(setActiveOfficePointCoords(updateElementPosition(activeOfficePoint)));
+		}
+	  };
 	useEffect(() => {
-		const handleResize = () => {
-		  if (activeOfficePoint) {
-			dispatch(setActiveOfficePointCoords(updateElementPosition(activeOfficePoint)));
-		  }
-		};
+		
 	
 		window.addEventListener('resize', handleResize);
 	
 		return () => {
 		  window.removeEventListener('resize', handleResize);
 		};
-	  }, [activeOfficePoint, dispatch]);
+	  }, [dispatch]);
 	
 	  const handleHoverOut = () => {
 		

@@ -1,6 +1,6 @@
 
 const header =
-<h1 className="text-5xl mb-5   text-primary-light text-center">
+<h1 className="text-5xl mb-5   text-white text-center">
 Accelerator
 </h1>
 
