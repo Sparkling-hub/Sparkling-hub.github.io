@@ -5,7 +5,7 @@
     @supports (-webkit-appearance:none) {
    
         #icons {
-            transform: translateX(200px);
+            transform: translateX(-200px);
         }
 
 
