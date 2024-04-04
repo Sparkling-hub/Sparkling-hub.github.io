@@ -923,7 +923,7 @@
     
         <animate
             attributeName="fill"
-            values="#a1a100;#AECA13;#d7d700;#AECA13"
+              values="#a1a100;#AFCB1A;#d7d700;#AFCB1A"
             dur="0.9s"
             repeatCount="1"
             begin="1.5s"
