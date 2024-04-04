@@ -7,7 +7,7 @@
         #icons {
             transform: translateX(0px);
         }
-.line {     transform: translateX(0px);}
+.line {     transform: translateX(-0px);}
 
     }
 }
@@ -210,7 +210,7 @@
         d="M477.76 192.433H500.624V521.217C493.129 512.11 485.568 501.891 477.76 490.633V192.433Z"
         fill="#29584E" />
         <g>
-            <linearGradient id="grad" x1="0%" y1="100%" x2="0%" y2="100%">
+            <linearGradient id="grad" x1="100%" y1="100%" x2="100%" y2="100%">
                 <stop offset="10%" style="stop-color:black;stop-opacity:1" />
                 <stop offset="30%" style="stop-color:yellow;stop-opacity:1" />
                 <stop offset="80%" style="stop-color:black;stop-opacity:1" />
