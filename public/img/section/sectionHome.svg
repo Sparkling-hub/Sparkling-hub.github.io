@@ -8,10 +8,7 @@
             transform: translateX(200px);
         }
 
-        .safari-specific::before {
-            top: 24px !important;
-            left: 45% !important;
-        }
+
     }
 }
   </style>      </defs>
