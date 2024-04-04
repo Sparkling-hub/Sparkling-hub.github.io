@@ -5,9 +5,9 @@
     @supports (-webkit-appearance:none) {
    
         #icons {
-            transform: translateX(-200px);
+            transform: translateX(0px);
         }
-.line {     transform: translateX(-50px);}
+.line {     transform: translateX(0px);}
 
     }
 }
