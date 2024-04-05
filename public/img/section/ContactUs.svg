@@ -29,17 +29,27 @@
               @keyframes dashAnimation {
                      0% {
                      stroke-dasharray: 0 5000;
-                     stroke-opacity: 0;
+                 
                      }
                      100% {
                      stroke-dasharray: 5000 0;
+                     
+                     }
+              }
+                   @keyframes opacityAnimation {
+                     0% {
+                 
+                     stroke-opacity: 0;
+                     }
+                     100% {
+            
                      stroke-opacity: 1;
                      }
               }
 
               #motionPath {
-                     animation: dashAnimation 1.5s cubic-bezier(0.1, 1, 1, 0.5) 0.3s 1 forwards,
-                            opacityAnimation 0.1s cubic-bezier(0.2, 0, 1, 1) 0.3s 1 forwards;
+                     animation: dashAnimation 1.5s cubic-bezier(0.8, 1, 1, 0.5) 0.6s 1 forwards,
+                            opacityAnimation 0.1s 0.7s 1 forwards;
               }
                @keyframes rotateAnimationPlane {
                      0% {
@@ -48,13 +58,14 @@
                      25%{
                      transform: rotate(-30deg);
                      }
-                     100% {
+                 
+                             100% {
                      transform: rotate(372deg);
                      }
               }
 
               #g65 {
-                     animation: rotateAnimationPlane 1.3s cubic-bezier(0.1, 0.1, 0.3, 1) 0s 1 forwards;
+                     animation: rotateAnimationPlane 1.5s cubic-bezier(0.1, 0.1, 0.3, 1) 0.5s 1 forwards;
               }
               </style>
        </defs>
@@ -184,25 +195,26 @@
 
                             </g>
 
-                            <animateTransform attributeName="transform" attributeType="XML" type="scale" from="0.1" to="1" dur="1.5s" calcMode="spline" begin="0s" keySplines="0.2 0 0.8 1" fill="freeze" />
+                            <animateTransform attributeName="transform" attributeType="XML" type="scale" from="0.1" to="1" dur="1.5s" calcMode="spline" begin="0.5s" keySplines="0.2 0 0.8 1" fill="freeze" />
                      </g>
                      <!-- <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0" to="-30" dur="0.2s" calcMode="spline" begin="0s" keySplines="0.1 0.1 0.3 1;" fill="freeze" />
                      <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="-30" to="372  " dur="1s" calcMode="spline" begin="0.3s" keySplines="0.1 0.1 0.3 1;" fill="freeze" /> -->
 
 
-                     <animateMotion dur="1.5s" begin="0.1s" fill="freeze" timing-function="cubic-bezier(0.1 1 1 0.1)">
+                     <animateMotion dur="1.5s" begin="0.5s" fill="freeze" timing-function="cubic-bezier(0.1 1 1 0.1)">
                             <mpath href="#motionPath" />
                      </animateMotion>
 
                      
-              </g><animateTransform
+              </g>
+              <animateTransform
                      attributeName="transform"
                      attributeType="XML"
                      fill="freeze"
                      type="translate"
-                     values="-200 550; -250 -100;0 -120;50 100; 20  0"
+                     values="0 550; 200 -50;0 -20;-150 0;100 -120; 20  0"
                      dur="1.3s"
-                     begin="0.3s"
+                     begin="0.5s"
                      repeatCount="1" /></g>
 
               <g id="_2906669070160">
