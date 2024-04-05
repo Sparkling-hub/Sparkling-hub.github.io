@@ -26,6 +26,165 @@
     .fil5 {fill:#373435;fill-rule:nonzero}
     .fil2 {fill:#136868;fill-rule:nonzero}
    ]]>
+
+   
+              @keyframes dashAnimation {
+                     0% {
+                     stroke-dasharray: 0 5000;
+                 
+                     }
+                     100% {
+                     stroke-dasharray: 5000 0;
+                     
+                     }
+              }
+                   @keyframes opacityAnimation {
+                     0% {
+                 
+                     stroke-opacity: 0;
+                     }
+                     100% {
+            
+                     stroke-opacity: 1;
+                     }
+              }
+
+              #motionPath {
+                     animation: dashAnimation 1.5s cubic-bezier(0.8, 1, 1, 0.5) 0.6s 1 forwards,
+                            opacityAnimation 0.1s 0.7s 1 forwards;
+              }
+               @keyframes rotateAnimationPlane {
+                     0% {
+                     transform: rotate(0deg);
+                     }
+                     25%{
+                     transform: rotate(-30deg);
+                     }
+                 
+                             100% {
+                     transform: rotate(372deg);
+                     }
+              }
+@keyframes translateAnimation {
+  0% {
+    transform: translateY(550px);
+  }
+  25% {
+    transform: translate(200px, -50px);
+  }
+  50% {
+    transform: translate(0, -20px);
+  }
+  75% {
+    transform: translate(-150px, 0);
+  }
+  100% {
+    transform: translate(100px, -120px);
+  }
+}
+
+#g {
+  animation-name: translateAnimation;
+  animation-duration: 1.3s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+              #g65 {
+                     animation: rotateAnimationPlane 1.5s cubic-bezier(0.1, 0.1, 0.3, 1) 0.5s 1 forwards;
+              }
+              @keyframes translateAnimation {
+  0% {
+    transform: translateY(50px);
+  }
+  25% {
+    transform: translate(50px, 150px);
+  }
+  50% {
+    transform: translate(0px, -10px);
+  }
+  75% {
+    transform: translate(30px, 0);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+#plane {
+  animation-name: translateAnimation;
+  animation-duration: 1.3s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+   #plane {
+animation-name: translateAnimon;
+}
+          @keyframes dashAnimation {
+                     0% {
+                     stroke-dasharray: 0 5000;
+                 
+                     }
+                     100% {
+                     stroke-dasharray: 5000 0;
+                     
+                     }
+              }
+                   @keyframes opacityAnimation {
+                     0% {
+                 
+                     stroke-opacity: 0;
+                     }
+                     100% {
+            
+                     stroke-opacity: 1;
+                     }
+              }
+
+     @keyframes translateAnimation {
+  0% {
+    transform: translateY(-550px);
+  }
+  25% {
+    transform: translate(200px, -50px);
+  }
+
+  50% {
+    transform: translate(-150px, 0px);
+  }
+  75% {
+    transform: translate(100px, -120px);
+  }
+  100% {
+    transform: translate(20px, 0px);
+  }
+}
+              #motionPath {
+                     animation: dashAnimation 1.5s cubic-bezier(0.1, 1, 1, 0.5) 0.5s 1 forwards,
+                            opacityAnimation 0.1s cubic-bezier(0.2, 0, 1, 1) 0.5s 1 forwards;
+              }
+               @keyframes rotateAnimationPlane {
+                     0% {
+                     transform: rotate(0deg);
+                     }
+                     25%{
+                     transform: rotate(-30deg);
+                     }
+                     100% {
+                     transform: rotate(372deg);
+                     }
+              }
+
+              #g65 {
+                     animation: rotateAnimationPlane 1.3s cubic-bezier(0.1, 0.1, 0.3, 1) 0.4s 1 forwards;
+              }}
+}
+
+
               </style>
        </defs>
        <g id="Layer_x0020_1" inkscape:label="Layer 1">
@@ -137,10 +296,11 @@
 
               </g>
               <path class="fil4 str4" d="M 2393.848,4583.7296 C 2298.5553,3007.484 3719.0549,3630.6218 3248.5784,3977.698 2778.1041,4324.7727 2294.7533,3392.3045 3880.3347,2885.1505" stroke-opacity="0" fill="none" id="motionPath" stroke="#000" stroke-width="2" sodipodi:nodetypes="csc">
-                     <animate attributeName="stroke-dasharray" from="0 5000" to="5000 0" dur="1.5s" fill="freeze" calcMode="spline" keySplines="0.1 1 1 0.1;" begin="0.3s" />
-                     <animate attributeName="stroke-opacity" from="0" to="1" dur="0.1s" fill="freeze" calcMode="spline" keySplines="0.2 0 1 1;" begin="0.3s" />
+                     <!-- <animate attributeName="stroke-dasharray" from="0 5000" to="5000 0" dur="1.5s" fill="freeze" calcMode="spline" keySplines="0.1 1 1 0.1;" begin="0.3s" />
+                     <animate attributeName="stroke-opacity" from="0" to="1" dur="0.1s" fill="freeze" calcMode="spline" keySplines="0.2 0 1 1;" begin="0.3s" /> -->
               </path>
               <g>
+              <g id='plane'>
               <g id="g65">
 
                      <g style="transform-origin: -220px 0px; " transform="scale(0)" id="g64">
@@ -154,27 +314,29 @@
 
                             </g>
 
-                            <animateTransform attributeName="transform" attributeType="XML" type="scale" from="0.1" to="1" dur="1.5s" calcMode="spline" begin="0s" keySplines="0.2 0 0.8 1" fill="freeze" />
+                            <animateTransform attributeName="transform" attributeType="XML" type="scale" from="0.1" to="1" dur="1.5s" calcMode="spline" begin="0.5s" keySplines="0.2 0 0.8 1" fill="freeze" />
                      </g>
-                     <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0" to="-30" dur="0.2s" calcMode="spline" begin="0s" keySplines="0.1 0.1 0.3 1;" fill="freeze" />
-                     <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="-30" to="372  " dur="1s" calcMode="spline" begin="0.3s" keySplines="0.1 0.1 0.3 1;" fill="freeze" />
+                     <!-- <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0" to="-30" dur="0.2s" calcMode="spline" begin="0s" keySplines="0.1 0.1 0.3 1;" fill="freeze" />
+                     <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="-30" to="372  " dur="1s" calcMode="spline" begin="0.3s" keySplines="0.1 0.1 0.3 1;" fill="freeze" /> -->
 
 
-                     <animateMotion dur="1.5s" begin="0.1s" fill="freeze" timing-function="cubic-bezier(0.1 1 1 0.1)">
+                     <animateMotion dur="1.5s" begin="0.5s" fill="freeze" timing-function="cubic-bezier(0.1 1 1 0.1)">
                             <mpath href="#motionPath" />
                      </animateMotion>
 
                      
-              </g><animateTransform
+              </g>
+              <animateTransform
                      attributeName="transform"
                      attributeType="XML"
                      fill="freeze"
                      type="translate"
-                     values="-200 550; -250 -100;0 -120;50 100; 20  0"
+                     values="0 550; 200 -50;0 -20;-150 0;100 -120; 20  0"
                      dur="1.3s"
-                     begin="0.3s"
-                     repeatCount="1" /></g>
-
+                     begin="0.5s"
+                     repeatCount="1" />
+                     </g>
+</g>
               <g id="_2906669070160">
                      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="0 1; 20 -10; 10 2;15 -3; 0 13; 0 1; 10 -5; 0 2;15 -3; 0 -3;  0 0; 0 0; 0 0;  0 1" dur="1.2s" repeatCount="indefinite" />
                      <path class="fil3" d="M2523.81 5032.07l89.52 -11.12c16.25,19.79 32.5,39.59 48.75,59.39 13.29,32.02 26.59,64.03 39.88,96.05 -4.98,21.28 -15.99,25.67 -32.79,13.86 -19.2,-28.66 -38.41,-57.32 -57.61,-85.98 -28.07,-23.93 -59.67,-48.26 -87.74,-72.2z" id="path65" />

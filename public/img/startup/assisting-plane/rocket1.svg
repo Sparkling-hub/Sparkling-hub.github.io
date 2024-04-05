@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg  fill="none" xmlns="http://www.w3.org/2000/svg">
- 
     <svg width="196" height="196" viewBox="-80  -80 296 296" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M98.1135 193.227C150.643 193.227 193.227 150.643 193.227 98.1135C193.227 45.5838 150.643 3 98.1135 3C45.5838 3 3 45.5838 3 98.1135C3 150.643 45.5838 193.227 98.1135 193.227Z" fill="#D2E3E9" stroke="#373435" stroke-width="5.33315" stroke-miterlimit="2.61313"/>
 </svg>
+<defs>
+<style type="text/css">
+@keyframes scaleAnimation {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+#flame {
+    transform-origin: 100px 100px;
+  animation: scaleAnimation 1s ease-in-out infinite;
+}
+</style>
+</defs>
 
     <svg width="196"  height="196"  viewBox="-140 -130 296 296" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M21.2806 79.3832H21.2786C14.0915 79.9275 7.36586 81.3969 1.40173 84.3882C6.69204 65.9495 12.625 55.2949 19.2922 53.5295H19.2951C19.0955 61.6856 19.7693 70.3099 21.2806 79.3842V79.3832Z" fill="#EAF8F8" stroke="#373435" stroke-width="1.00003" stroke-miterlimit="2.61313"/>
@@ -21,6 +40,6 @@
         <path d="M46.6191 87.7573L45.7174 98.9397" stroke="#373435" stroke-width="0.667009" stroke-miterlimit="2.61313"/>
         <path d="M50.4157 86.9834L48.4235 98.2826" stroke="#373435" stroke-width="0.667009" stroke-miterlimit="2.61313"/>
         <path fill-rule="evenodd" clip-rule="evenodd" d="M30.0393 22.9999C32.3383 17.2354 34.9937 11.7494 37.9421 6.49023C34.2614 11.209 31.4103 16.5489 30.0393 22.9999Z" fill="#FEFEFE"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M37.6578 151.253C27.6585 138.152 13.2307 108.119 30.8699 102.906C28.2632 112.357 31.346 120.197 37.6578 127.014C43.9696 120.197 47.0514 112.357 44.4447 102.906C62.084 108.119 47.6561 138.153 37.6578 151.253Z" fill="#F6EEF6" stroke="#373435" stroke-width="1.00003" stroke-miterlimit="2.61313"/>
+        <path id='flame' fill-rule="evenodd" clip-rule="evenodd" d="M37.6578 151.253C27.6585 138.152 13.2307 108.119 30.8699 102.906C28.2632 112.357 31.346 120.197 37.6578 127.014C43.9696 120.197 47.0514 112.357 44.4447 102.906C62.084 108.119 47.6561 138.153 37.6578 151.253Z" fill="#F6EEF6" stroke="#373435" stroke-width="1.00003" stroke-miterlimit="2.61313"/>
     </svg>
 </svg>

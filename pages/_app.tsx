@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 		<Provider store={store}>
 			<Head>
-				<title>Sparkling</title>
+				<title>Sparkling.co</title>
 				<meta name="author" content="Sparkling" />
 				<meta property="og:title" content="Sparkling,Co" />
 				<meta property="og:image" content="/S.svg" />

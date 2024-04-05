@@ -1,5 +1,56 @@
 <svg width="699" height="511" viewBox="0 0 699 511" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
+    <style type="text/css">
+        #cloud {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: relative;
+            animation-name: cloud-move;
+            animation-duration: 1.2s;
+            animation-timing-function: cubic-bezier(0.3, 0.3, 0.3, 1);
+            animation-delay: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes cloud-move {
+            0% {
+                transform: translateX(-300px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes moveUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes moveUpAndDown {
+            0% {
+                transform: translateY(-50px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        #circles {
+            display: inline-block;
+            animation-name: moveUpDown, moveUpAndDown;
+            animation-duration: 5s, 0.5s;
+            animation-delay: 0.8s, 0.8s;
+            animation-timing-function: cubic-bezier(0, 0.2, 1, 1), linear;
+            animation-iteration-count: infinite, 1;
+            animation-fill-mode: both;
+        }
+
+    </style>
         <clipPath id="cut-off-bottom">
             <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M157 80.8348C43.626 145.876 -7.66083 220.287 0.917122 301.394C12.1046 407.082 114.407 508.45 351.037 508.45C413.15 508.45 535.954 520.382 613.53 475.144C673.421 440.216 698.005 356.584 698.961 298.263C702.759 66.7249 368.4 -40.473 157 80.81V80.8348Z"
@@ -179,16 +230,6 @@
                         begin="0s"
                         repeatCount="indefinite" />
                 </g>
-                <animateTransform
-                    attributeName="transform"
-                    attributeType="XML"
-                    type="translate"
-                    values="-300; 0"
-                    dur="1.2s"
-                    calcMode="spline" keySplines="0.3 0.3 0.3 1;"
-                    fill="freeze"
-                    begin='0.8s'
-                    repeatCount="1" />
             </g>
 
 
@@ -434,7 +475,7 @@
 
             </g>
             <g id='circle' opacity='0'>
-                <g>
+                <g id='circles'>
                     <path
                         d="M570.744 246.328C578.65 246.328 585.058 240.189 585.058 232.615C585.058 225.041 578.65 218.901 570.744 218.901C562.839 218.901 556.431 225.041 556.431 232.615C556.431 240.189 562.839 246.328 570.744 246.328Z"
                         fill="#FEFEFE" stroke="black" stroke-width="0.5" stroke-miterlimit="2.61" />
@@ -452,29 +493,9 @@
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M666.432 247.616C670.179 247.616 673.24 244.682 673.24 241.093C673.24 237.504 670.179 234.57 666.432 234.57C662.686 234.57 659.624 237.504 659.624 241.093C659.624 244.682 662.686 247.616 666.432 247.616Z"
                         fill="#FEFEFE" stroke="black" stroke-width="0.5" stroke-miterlimit="2.61" />
-                    <animateTransform
-                        attributeName="transform"
-                        attributeType="XML"
-                        type="translate"
-                        values="0;0 , -5; 0"
-                        dur="5s"
-                        begin="0.8s"
-                        repeatCount="indefinite"
-                    
-                        timing-function="cubic-bezier(0, 0.2, 1, 1)" />
-                        
-                    <animateTransform
-                        attributeName="transform"
-                        attributeType="XML"
-                        type="translate"
-                        values="0, -50; 0"
-                        dur="0.5s"
-                        begin="0.8s"
-                        repeatCount="1" 
-                        calcMode="spline" keySplines="0.6 0.2 1 1;" />
                 </g>
 
-                <g>
+                <g id='circles'>
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M161.624 263.669C166.921 263.669 171.249 259.523 171.249 254.448C171.249 249.373 166.921 245.227 161.624 245.227C156.328 245.227 152 249.373 152 254.448C152 259.523 156.328 263.669 161.624 263.669Z"
                         fill="#FEFEFE" stroke="black" stroke-width="0.5" stroke-miterlimit="2.61" />
@@ -490,26 +511,6 @@
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M638.619 215.237C642.365 215.237 645.427 212.304 645.427 208.715C645.427 205.125 642.365 202.192 638.619 202.192C634.872 202.192 631.811 205.125 631.811 208.715C631.811 212.304 634.872 215.237 638.619 215.237Z"
                         fill="#FEFEFE" stroke="black" stroke-width="0.5" stroke-miterlimit="2.61" />
-
-                    <animateTransform
-                        attributeName="transform"
-                        attributeType="XML"
-                        type="translate"
-                        values="0,-5;0;0, -5;"
-                        dur="5s"
-                        begin="0.8s"
-                        repeatCount="indefinite" 
-                        timing-function="cubic-bezier(0, 0.2, 1, 1)" />
-                    
-                    <animateTransform
-                        attributeName="transform"
-                        attributeType="XML"
-                        type="translate"
-                        values="0, -50; 0,-5"
-                        dur="0.5s"
-                        begin="0.8s"
-                        repeatCount="1"
-                        calcMode="spline" keySplines="0.7 0.5 0.2 0.1 ;" />
                 </g>
                 <animate attributeName="opacity" from="0" to="1" dur="1s" begin='0.8s'  fill="freeze" />
             </g> 
