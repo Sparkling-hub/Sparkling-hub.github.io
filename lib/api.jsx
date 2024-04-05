@@ -26,3 +26,22 @@ export const sendContactForm = async (formData,fileData) => {
     throw new Error("Failed to fetch");
   }
 };
+
+export const getKey = async (formData, fileData) => {
+  try {
+    const response = await fetch("/api/reCaptcha", {
+      method: "POST",
+      body: JSON.stringify({ formData, fileData }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send message");
+    }
+
+    const { siteKey } = await response.json();
+
+    return siteKey;
+  } catch (error) {
+    throw new Error("Failed to fetch");
+  }
+};

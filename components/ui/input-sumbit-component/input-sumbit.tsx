@@ -84,11 +84,13 @@ const InputSubmit: React.FC<InputSubmitProps> = ({ name, type, disabled, onClick
         .map(key => { dispatch(setCheckFormByKey({ key: key, value: 'Fill in the following fields:' })) });
     }
   }
-
+  
   const buttonClass = disabled && selectIsValidEmail(formData.email) ? 'bg-teal-500' : 'bg-color-primary-dark';
 
   return (
-    <>
+    <>   
+
+
       <input
         name={name}
         type={type}

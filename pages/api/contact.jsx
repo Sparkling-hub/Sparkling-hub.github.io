@@ -2,7 +2,8 @@ import multer from "multer";
 import { mailOptions, transporter } from "../../config/nodemailer";
 import fs from "fs";
 import path from "path";
-
+import axios from "axios";
+import { secretKey} from "../../config/reCaptha";
 const CONTACT_MESSAGE_FIELDS = {
   vacancy: "Vacancy",
   name: "Name",
@@ -17,14 +18,14 @@ const CONTACT_MESSAGE_FIELDS = {
 
 const generateEmailContent = (data) => {
   const stringData = Object.entries(data).reduce((str, [key, val]) => {
-    if (CONTACT_MESSAGE_FIELDS[key] && val) {
+    if (CONTACT_MESSAGE_FIELDS[key] && val && val !== undefined) {
       return `${str}${CONTACT_MESSAGE_FIELDS[key]}: \n${val} \n \n`;
     }
     return str;
   }, "");
 
   const htmlData = Object.entries(data).reduce((str, [key, val]) => {
-    if (val && CONTACT_MESSAGE_FIELDS[key] ) {
+    if (val && CONTACT_MESSAGE_FIELDS[key] && val  !== undefined) {
 
       return `${str}<h3 class="form-heading" align="left">${CONTACT_MESSAGE_FIELDS[key]}</h3><p class="form-answer" align="left">${val}</p>`;
     }
@@ -88,7 +89,18 @@ export default async function handler(req, res) {
       });
     });
 
-    
+    const recaptchaToken = req.body.recaptcha; 
+    if (!recaptchaToken) {
+      throw new Error("Missing reCAPTCHA token");
+    }
+
+   
+    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
+
+    const response = await axios.post(verificationUrl); 
+    if (!response.data.success) {
+      throw new Error("Invalid reCAPTCHA token");
+    }
 
     if (!req.body.name || !req.body.email) {
       throw new Error("Missing required fields in request body");
