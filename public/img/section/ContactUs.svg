@@ -164,7 +164,9 @@
                      animation: rotateAnimationPlane 1.3s cubic-bezier(0.1, 0.1, 0.3, 1) 0s 1 forwards;
               }}
 }
+#plane {
 
+}
 
               </style>
        </defs>
