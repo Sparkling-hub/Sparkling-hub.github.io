@@ -96,7 +96,7 @@
               }
               @keyframes translateAnimation {
   0% {
-    transform: translateY(550px);
+    transform: translateY(50px);
   }
   25% {
     transform: translate(50px, 150px);
@@ -121,7 +121,9 @@
 }
 @media not all and (min-resolution:.001dpcm) {
     @supports (-webkit-appearance:none) {
-   
+   #plane {
+animation-name: translateAnimon;
+}
           @keyframes dashAnimation {
                      0% {
                      stroke-dasharray: 0 5000;
@@ -143,10 +145,27 @@
                      }
               }
 
+     @keyframes translateAnimation {
+  0% {
+    transform: translateY(-550px);
+  }
+  25% {
+    transform: translate(200px, -50px);
+  }
 
+  50% {
+    transform: translate(-150px, 0px);
+  }
+  75% {
+    transform: translate(100px, -120px);
+  }
+  100% {
+    transform: translate(20px, 0px);
+  }
+}
               #motionPath {
-                     animation: dashAnimation 1.5s cubic-bezier(0.1, 1, 1, 0.5) 0.3s 1 forwards,
-                            opacityAnimation 0.1s cubic-bezier(0.2, 0, 1, 1) 0.3s 1 forwards;
+                     animation: dashAnimation 1.5s cubic-bezier(0.1, 1, 1, 0.5) 0.5s 1 forwards,
+                            opacityAnimation 0.1s cubic-bezier(0.2, 0, 1, 1) 0.5s 1 forwards;
               }
                @keyframes rotateAnimationPlane {
                      0% {
@@ -161,12 +180,10 @@
               }
 
               #g65 {
-                     animation: rotateAnimationPlane 1.3s cubic-bezier(0.1, 0.1, 0.3, 1) 0s 1 forwards;
+                     animation: rotateAnimationPlane 1.3s cubic-bezier(0.1, 0.1, 0.3, 1) 0.4s 1 forwards;
               }}
 }
-#plane {
 
-}
 
               </style>
        </defs>
@@ -309,7 +326,7 @@
 
                      
               </g>
-              <!-- <animateTransform
+              <animateTransform
                      attributeName="transform"
                      attributeType="XML"
                      fill="freeze"
@@ -317,7 +334,7 @@
                      values="0 550; 200 -50;0 -20;-150 0;100 -120; 20  0"
                      dur="1.3s"
                      begin="0.5s"
-                     repeatCount="1" /> -->
+                     repeatCount="1" />
                      </g>
 </g>
               <g id="_2906669070160">
