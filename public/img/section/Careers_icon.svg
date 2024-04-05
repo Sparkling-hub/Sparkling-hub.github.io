@@ -23,6 +23,100 @@ viewBox="0 0 7142.61 5816.34"
     .fil2 {fill:#EAF8F8}
     .fil7 {fill:#F6EEF6}
    ]]>
+   #left_hand {
+    animation: rotateAnimationHand 2.5s linear infinite;
+  }
+
+  @keyframes rotateAnimationHand {
+    0% {
+      transform: rotate(-0.2deg);
+    }
+    40% {
+      transform: rotate(-0.95deg);
+    }
+    100% {
+       transform: rotate(-0.2deg);
+    }
+
+  }
+  @keyframes translateAnimationArrow1 {
+  from {
+    transform: translate(-5500px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+#arrow1 {
+  animation-name: translateAnimationArrow1;
+  animation-duration: 0.8s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.7, 0.6, 0.2, 1);
+}
+@keyframes translateAnimationArrow2 {
+  from {
+    transform: translate(-5500px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+#arrow2 {
+  animation-name: translateAnimationArrow2;
+  animation-duration: 0.5s;
+  animation-delay: 0.4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.2, 0.5, 0.5, 1);
+}
+@keyframes translateAnimationArrow3 {
+  from {
+    transform: translate(-5500px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+#arrow3 {
+  animation-name: translateAnimationArrow3;
+  animation-duration: 0.8s;
+  animation-delay: 0.6s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.7, 0.5, 0.1, 1);
+}
+@keyframes translateAnimationHand_move {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translate(20px, -30px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+#right_hand {
+  animation: translateAnimationHand_move 2.5s linear infinite;
+}
+@keyframes translateAnimation {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translate(20px, -20px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+#handshake {
+  animation: translateAnimation 2.5s linear infinite;
+}
   </style>
  </defs>
  <defs>
@@ -71,59 +165,11 @@ viewBox="0 0 7142.61 5816.34"
   </g>
   <g id='arrow'  clip-path="url(#cut-off-bottom)">  
     
-    <rect class="fil1" x="3140.19" y="1271.33" width="63.02" height="311.03"  transform="translate(-5500, 0)">
-      <animateTransform
-      attributeName="transform"
-      attributeType="XML"
-      type="translate"
-      from="-5500 0" 
-      to="0 0"
-        begin='0.5s'
-      dur="0.8s"
-      repeatCount="1"
-      calcMode="spline" 
-      keySplines="0.7 0.6 0.2 1;"
-      fill="freeze"
-      />
-
-
-  
+    <rect id='arrow1' class="fil1" x="3140.19" y="1271.33" width="63.02" height="311.03"  transform="translate(-5500, 0)">
     </rect>
-    <polygon class="fil1" points="3463.42,1271.33 4727.89,1271.33 5514.66,919.7 5467.87,807.83 5941.54,889.14 5682.04,1315.27 5638.12,1206.48 4817.34,1582.36 3463.42,1582.36 " transform="translate(-5500, 0)">
-    <animateTransform
-      attributeName="transform"
-      attributeType="XML"
-      type="translate"
-      from="-5500 0" 
-      to="0 0"
-       begin='0.4s'
-      dur="0.5s"
-      repeatCount="1"
-      calcMode="spline" 
-      keySplines="0.2 0.5 0.5 1;" 
-      fill="freeze"
-      />
-
-
-  
+    <polygon id='arrow2' class="fil1" points="3463.42,1271.33 4727.89,1271.33 5514.66,919.7 5467.87,807.83 5941.54,889.14 5682.04,1315.27 5638.12,1206.48 4817.34,1582.36 3463.42,1582.36 " transform="translate(-5500, 0)">
     </polygon>
-    <rect class="fil1" x="3268.26" y="1271.33" width="97.58" height="311.03"  transform="translate(-5500, 0)">
-      <animateTransform
-      attributeName="transform"
-      attributeType="XML"
-      type="translate"
-      from="-5500 0" 
-      to="0 0"
-         begin='0.6s'
-      dur="0.8s"
-      repeatCount="1"
-      calcMode="spline" 
-      keySplines="0.7 0.5 0.1 1;"
-      fill="freeze"
-      />
-
-
-  
+    <rect id='arrow3' class="fil1" x="3268.26" y="1271.33" width="97.58" height="311.03"  transform="translate(-5500, 0)">
     </rect>
   
   </g>
@@ -215,7 +261,7 @@ viewBox="0 0 7142.61 5816.34"
   <polyline class="fil3 str0" points="2293.26,1401.53 2535.94,1639.16 2594.16,1505.94 "/>
 
   
-    <g>
+    <g id="handshake">
 
     <path class="fil4 str0" d="M3584.01 2816.44c-43.29,35.82 -90.07,45.87 -140.73,27.27 -18.93,-12.68 -37.86,-25.37 -56.8,-38.05 -64.62,30.78 -128.04,49.01 -185.28,1.66 -33.82,47.61 -67.64,95.21 -101.47,142.82 27.41,10.3 65.3,32.18 91.05,54.06 12.1,10.28 10.44,32.16 22.54,42.44 68.2,62.13 136.39,124.26 204.58,186.39 31.79,10.98 45.61,-7.11 47.98,-31.43 30.85,18.3 54.99,12.58 71.13,-17.65 52.36,43.72 85.68,-0.53 48.53,-52.39 28.34,-68.69 54.74,-138.29 110.84,-194.11 -37.46,-40.34 -74.92,-80.68 -112.38,-121.02z"/>
     <line class="fil3 str0" x1="3585.55" y1="3131.56" x2="3514.6" y2= "3014.27" />
@@ -226,27 +272,22 @@ viewBox="0 0 7142.61 5816.34"
     <path class="fil4 str0" d="M3355.53 3134.02c-27.02,0 -48.04,20.45 -57.67,29.45 -9.63,8.99 -1.12,52.51 60.1,26.39 52.45,-22.38 13.32,-55.84 -2.43,-55.84z"/>
     <path class="fil4 str0" d="M3302.08 3096.85c-27.02,0 -49.14,25.97 -58.77,34.96 -9.63,8.99 0.67,56.35 60.1,26.39 68.44,-34.51 14.42,-61.35 -1.33,-61.35z"/>
     <path class="fil4 str0" d="M3247.03 3057.22c-25.72,8.31 -47.29,38.16 -53.69,49.68 -6.4,11.52 22.94,46.37 73.18,2.7 43.03,-37.41 -4.5,-57.23 -19.48,-52.38z"/>
-    <animateTransform attributeName="transform" attributeType="XML" type="translate"  values="0; 20 -20; 0;" dur="2s" repeatCount="indefinite" />
 
 
     </g>
     <g id="hand_move">
 
-      <g style=""> 
+      <g id="right_hand" style=""> 
       <path class="fil6"  d="M4071.93 1674.16c-60.9,83.07 -90.01,200.65 -98.41,298.72 -23.22,160.7 -46.44,321.4 -69.66,482.1 -89.7,95.56 -179.42,191.11 -269.12,286.67 -22.72,24.2 -45.44,48.41 -68.17,72.61 44,50.1 87.99,100.21 131.98,150.31 78.02,-71.41 162.93,-136.7 240.95,-208.11 30.12,-27.57 53.38,-61.27 83.5,-88.85l3.03 -3.33 48.88 -988.8 -3 -1.32z" style="transform-origin: 4000px 1850px;">
-      
-    
-     
     </path>  
-    <animateTransform attributeName="transform" attributeType="XML" type="translate" values="0;20, -30;0" dur="2s" fill="freeze" repeatCount="indefinite"/>
   </g>
 
-    <g style="transform-origin: 2300px 1850px;">
+    <g id='left_hand' style="transform-origin: 2300px 1850px;">
       <polygon class="fil1 str0" points="2975.56,2945.9 3134.55,2740 3214.81,2795.68 3063.42,3004.34 "/>
       <path class="fil7 str0" d="M2794.23 2424.14c104.26,122.78 221.75,228.7 358.02,310.74 -60.8,80.31 -121.6,160.62 -182.39,240.93 -60.8,-34.53 -121.59,-69.05 -182.39,-103.58 -290.31,-204.15 -906.55,-640.7 -741.77,-1045.07 31.8,-72.14 60.08,-83.73 63.08,-90.11 228.85,-133.7 322.82,143.94 424,395.38 94.25,96.53 180.88,194.12 261.45,291.71z"/>
       <path class="fil3 str0" d="M2249.53 1866.17c215.6,185.99 391.14,371.98 544.7,557.97 -92.15,-60.47 -193.92,-113.25 -301.59,-161.32"/>
       <circle class="fil0 str0" cx="2953.47" cy="2866.15" r="25.51"/>
-      <animateTransform attributeName="transform" attributeType="XML" type="rotate" values="-1;-2;-1;" dur="2s" repeatCount="indefinite"/>
+      
     </g>
   </g>
  </g>
