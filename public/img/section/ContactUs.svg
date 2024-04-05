@@ -26,6 +26,42 @@
     .fil5 {fill:#373435;fill-rule:nonzero}
     .fil2 {fill:#136868;fill-rule:nonzero}
    ]]>
+
+   @media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+   
+            @keyframes dashAnimation {
+                     0% {
+                     stroke-dasharray: 0 5000;
+                     stroke-opacity: 0;
+                     }
+                     100% {
+                     stroke-dasharray: 5000 0;
+                     stroke-opacity: 1;
+                     }
+              }
+
+              #motionPath {
+                     animation: dashAnimation 1.5s cubic-bezier(0.1, 1, 1, 0.5) 0.3s 1 forwards,
+                            opacityAnimation 0.1s cubic-bezier(0.2, 0, 1, 1) 0.3s 1 forwards;
+              }
+               @keyframes rotateAnimationPlane {
+                     0% {
+                     transform: rotate(0deg);
+                     }
+                     25%{
+                     transform: rotate(-30deg);
+                     }
+                     100% {
+                     transform: rotate(372deg);
+                     }
+              }
+
+              #g65 {
+                     animation: rotateAnimationPlane 1.3s cubic-bezier(0.1, 0.1, 0.3, 1) 0s 1 forwards;
+              }}
+}
+
               @keyframes dashAnimation {
                      0% {
                      stroke-dasharray: 0 5000;
@@ -97,10 +133,10 @@
     transform: translateY(550px);
   }
   25% {
-    transform: translate(50px, 50px);
+    transform: translate(50px, 150px);
   }
   50% {
-    transform: translate(-100px, -10px);
+    transform: translate(0px, -10px);
   }
   75% {
     transform: translate(30px, 0);
