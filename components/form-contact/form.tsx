@@ -56,7 +56,7 @@ const Form: React.FC = () => {
       select: rolesData[lastPageSlug]
     }));
 
-  }, []);
+  }, [lastPageSlug]);
 
 
   return (
