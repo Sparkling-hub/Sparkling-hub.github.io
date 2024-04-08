@@ -106,9 +106,7 @@ export default async function handler(req, res) {
       throw new Error("Missing required fields in request body");
       
     }
-
-    // if (req.file) {
-
+    // if ( req.file) {
     //   const clamscanConfig = {
     //     remove_infected: true,
     //     quarantine_infected: "./quarantine",
@@ -122,7 +120,6 @@ export default async function handler(req, res) {
     //         req.file
     //       );
      
-
     //     } catch (err) {
     //       return { success: false };
     //     }
@@ -130,7 +127,6 @@ export default async function handler(req, res) {
 
     //   });
     // }
-
     let attachments = [];
 
     if (req.file) {
@@ -162,8 +158,6 @@ export default async function handler(req, res) {
       } else {
         return { success: true };
       }
-  });} catch (err) {        
-    res.status(500).send(err.message);
-    return { success: false };  }
+  });} catch (err) {   }
 }
 }
