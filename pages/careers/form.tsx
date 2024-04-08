@@ -181,7 +181,7 @@ const Faq = () => {
 
 							<br />
 
-							<div className="relative">
+							{/* <div className="relative">
 								<div className="flex items-center">
 								<h3 className="mx-3 top-[-15px] text-xl flex items-center">Upload CV <span className="text-red-800 text-5xl px-1">*</span></h3> <p className="text-gray-400 contents mx-4 text-[15px]">PDF only</p>
 								</div>
@@ -204,7 +204,7 @@ const Faq = () => {
 										</div>
 									)}
 								</div>
-							</div>
+							</div> */}
 						
           <ReCAPTCHA></ReCAPTCHA>
 
@@ -214,8 +214,8 @@ const Faq = () => {
 									type="submit"
 									name="submit"
 									file={fileForm}
-									requiredKeys={['name', 'email', 'phone', 'file','recaptcha']}
-									disabled={!!(formData.name && formData.email && formData.phone && formData.file && formData.recaptcha)}
+									requiredKeys={['name', 'email', 'phone', 'recaptcha']}
+									disabled={!!(formData.name && formData.email && formData.phone && formData.recaptcha)}
 									onClick={sendContactForm}
 								/>
 							</div>
