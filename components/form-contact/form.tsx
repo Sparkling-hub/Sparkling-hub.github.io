@@ -49,14 +49,14 @@ const Form: React.FC = () => {
     dispatch(resetCheckForm())
     dispatch(setFormData({
       ...formData,
-      ['vacancy']: 'Contact Us',
+      ['vacancy']: '',
     }));
     dispatch(setFormData({
       ...formData,
       select: rolesData[lastPageSlug]
     }));
 
-  }, []);
+  }, [lastPageSlug]);
 
 
   return (

@@ -106,27 +106,27 @@ export default async function handler(req, res) {
       throw new Error("Missing required fields in request body");
       
     }
-    if (req.body.file) {
-      const clamscanConfig = {
-        remove_infected: true,
-        quarantine_infected: "./quarantine",
-      };
-      const NodeClam = require("clamscan");
-      const ClamScan = new NodeClam().init(clamscanConfig);
+    // if ( req.file) {
+    //   const clamscanConfig = {
+    //     remove_infected: true,
+    //     quarantine_infected: "./quarantine",
+    //   };
+    //   const NodeClam = require("clamscan");
+    //   const ClamScan = new NodeClam().init(clamscanConfig);
 
-      ClamScan.then(async (clamscan) => {
-        try {
-            await clamscan.isInfected(
-            req.file
-          );
+    //   ClamScan.then(async (clamscan) => {
+    //     try {
+    //         await clamscan.isInfected(
+    //         req.file
+    //       );
      
-        } catch (err) {
-          return { success: false };
-        }
-      }).catch((err) => {
+    //     } catch (err) {
+    //       return { success: false };
+    //     }
+    //   }).catch((err) => {
 
-      });
-    }
+    //   });
+    // }
     let attachments = [];
 
     if (req.file) {
