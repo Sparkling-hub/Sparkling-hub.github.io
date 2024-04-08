@@ -27,12 +27,7 @@ const Form: React.FC = () => {
   const { formData, check, checkForm } = useSelector(selectForm);
 
   const { lastPageSlug } = useSelector(selectNavigation);
-  dispatch(setFormData({
-    ...formData,
-    ['vacancy']: '',
-  }));
-  dispatch(resetFormData());
-  dispatch(resetCheckForm())
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
@@ -50,8 +45,12 @@ const Form: React.FC = () => {
   };
   useEffect(() => {
 
-
-
+    dispatch(resetFormData());
+    dispatch(resetCheckForm())
+    dispatch(setFormData({
+      ...formData,
+      ['vacancy']: '',
+    }));
     dispatch(setFormData({
       ...formData,
       select: rolesData[lastPageSlug]
