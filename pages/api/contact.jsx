@@ -120,14 +120,11 @@ export default async function handler(req, res) {
             req.file
           );
      
-        } catch (err) {       res.status(500).send(err.message);
+        } catch (err) {
           return { success: false };
         }
       }).catch((err) => {
-        res.status(500).send(err.message);
-        return { 
-   
-          success: false };
+
       });
     }
     let attachments = [];
@@ -161,8 +158,6 @@ export default async function handler(req, res) {
       } else {
         return { success: true };
       }
-  });} catch (err) {        
-    res.status(500).send(err.message);
-    return { success: false };  }
+  });} catch (err) {   }
 }
 }
