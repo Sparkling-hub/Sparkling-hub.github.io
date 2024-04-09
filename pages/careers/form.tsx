@@ -1,4 +1,3 @@
-
 import React, { ChangeEvent, useEffect, useState } from "react";
 import Input from "../../components/ui/input-component/input";
 import TextArea from "../../components/ui/text-area-component/text-area";
@@ -26,6 +25,7 @@ const Faq = () => {
 	const dispatch = useDispatch();
 	const { formData, check, checkForm } = useSelector(selectForm);
 	const [fileForm, setFile] = useState<File | null>(null)
+	const [selectedCountryName, setSelectedCountryName] = useState<string>(''); // Добавляем состояние для названия выбранной страны
 	const router = useRouter();
 	const { id } = router.query;
 	const job = Jobs.find(job => job.slug === id)
@@ -118,12 +118,15 @@ const Faq = () => {
 		}
 	};
 
-	const handlePhoneChange = (value:any) => {
+	const handlePhoneChange = (value:any, country:any) => {
 		dispatch(setFormData({
 		  ...formData,
 		  phone: value,
 		}));
+		setSelectedCountryName(country.name); // Обновляем название выбранной страны
 	  };
+
+
 	return (
 		<MainLayout>
 			{job ?
@@ -163,9 +166,9 @@ const Faq = () => {
 								checked={check === false && checkForm.email.length > 0 || check === false}
 						
 							/>
- <div>
+ <div className="relative">
 	<PhoneInput value={formData.phone} onChange={handlePhoneChange} enableSearch={true} country={'us'} />
-    
+   
     </div>
 				
 							<Input
