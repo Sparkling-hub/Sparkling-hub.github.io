@@ -17,6 +17,10 @@ import {
 } from '@/store/redusers/FormSliceReduser';
 import { useRouter } from 'next/router';
 import { sendContactForm } from "@/lib/api";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+// import "react-phone-number-input/style.css";
+// import PhoneInput from 'react-phone-number-input';
 
 const Faq = () => {
 	const dispatch = useDispatch();
@@ -25,6 +29,7 @@ const Faq = () => {
 	const router = useRouter();
 	const { id } = router.query;
 	const job = Jobs.find(job => job.slug === id)
+	
 
 	if (formData.file.length > 0) { setCheck(null) }
 	useEffect(() => {
@@ -113,7 +118,12 @@ const Faq = () => {
 		}
 	};
 
-
+	const handlePhoneChange = (value:any) => {
+		dispatch(setFormData({
+		  ...formData,
+		  phone: value,
+		}));
+	  };
 	return (
 		<MainLayout>
 			{job ?
@@ -153,16 +163,11 @@ const Faq = () => {
 								checked={check === false && checkForm.email.length > 0 || check === false}
 						
 							/>
-
-							<Input
-								type="tel"
-								name="phone"
-								value={formData.phone}
-								placeholder="Phone number"
-								onChange={handleInputChange}
-								checked={checkForm.phone.length > 0}
-							
-							/>
+ <div>
+	<PhoneInput value={formData.phone} onChange={handlePhoneChange} enableSearch={true} country={'us'} />
+    
+    </div>
+				
 							<Input
 								type="text" name="linkedin"
 								value={formData.linkedin}
