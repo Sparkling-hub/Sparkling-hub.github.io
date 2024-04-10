@@ -33,6 +33,7 @@ $weight-text: 400px;
 
 
 .flag-dropdown  {width: 10% !important;     border-radius: 1.5rem 0 0 1.5rem !important; border-color: #255F5A !important;
+	.search{background-color: white ; z-index: 5;}
 }
 .selected-flag {width: 100% !important;border-radius: 1.5rem 0 0 1.5rem !important;     padding: 25px !important;
 }
@@ -41,7 +42,7 @@ $weight-text: 400px;
     border-radius: 1.5rem !important;}
 	@media screen and (max-width: 700px) {
 		.flag{scale: 1;}
-		.selected-flag {  padding:5px !important;
+		.selected-flag {  padding:5px !important; 
 		}
 		
 .form-control { padding-left:13% !important; border-color:#255F5A !important;}
