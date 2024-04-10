@@ -19,9 +19,10 @@ interface InputSubmitProps {
   file?: File|null;
   onClick: any;
   requiredKeys: string[];
+  resetFile?: () => void | undefined;
 }
 
-const InputSubmit: React.FC<InputSubmitProps> = ({ name, type, disabled, onClick,file, requiredKeys}) => {
+const InputSubmit: React.FC<InputSubmitProps> = ({ name, type, disabled, onClick,file, requiredKeys, resetFile}) => {
 
   const { formData } = useSelector(selectForm);
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const InputSubmit: React.FC<InputSubmitProps> = ({ name, type, disabled, onClick
        await onClick(formData, file);
         dispatch(resetFormData());
         dispatch(resetCheckForm())
+        resetFile && resetFile(); 
         toast.success('Form submitted successfully!', {
        
           autoClose: 5000,

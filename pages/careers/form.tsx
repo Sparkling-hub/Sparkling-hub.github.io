@@ -25,22 +25,22 @@ const Faq = () => {
 	const router = useRouter();
 	const { id } = router.query;
 	const job = Jobs.find(job => job.slug === id)
-
+	console.log(fileForm)
 	if (formData.file.length > 0) { setCheck(null) }
 	useEffect(() => {
-		
+
 		if (job?.head && job?.location) {
 			dispatch(setFormData({
 				...formData,
 				['vacancy']: job?.head + `, ` + job?.location,
 				name: '',
-            select: '',
-            email: '',
-            company: '',
-            message: '',
-            phone: '',
-            linkedin: '',
-            file: '',
+				select: '',
+				email: '',
+				company: '',
+				message: '',
+				phone: '',
+				linkedin: '',
+				file: '',
 			}));
 		}
 		else dispatch(setFormData({
@@ -75,8 +75,8 @@ const Faq = () => {
 		if (name === "email") {
 			dispatch(setCheck(null));
 		}
-	}; 
-	
+	};
+
 	const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
 
 		dispatch(setFormData({
@@ -102,13 +102,13 @@ const Faq = () => {
 
 
 			} else {
-
+				setFile(null)
 				fileInput.value = '';
 				alert('Selected file exceeds the maximum size of 5 MB.');
 			}
 		} else {
 			fileInput.value = '';
-
+			setFile(null)
 			alert('Please select a PDF file.');
 		}
 	};
@@ -119,9 +119,9 @@ const Faq = () => {
 			{job ?
 
 				<div className="my-14 max-w-screen-2xl pb-14 mx-auto w-full px-8">
-					      <meta property="og:title" content={`Sparkling.Co. ${job.head}`} />
-			<meta property="og:description" content={job.overview} />
-			<meta property="og:url" content={`/careers/form?id=${job.slug}`} />
+					<meta property="og:title" content={`Sparkling.Co. ${job.head}`} />
+					<meta property="og:description" content={job.overview} />
+					<meta property="og:url" content={`/careers/form?id=${job.slug}`} />
 
 					<Link href='/careers' className="flex items-center text-xl  mb-4"> <img src="/img/jobs/arrowBack.png" alt="back" className="h-4" /> Explore all vacancies</Link>
 					<h1 className="text-5xl mb-6 mx-1 ">{job.head}</h1>
@@ -141,7 +141,7 @@ const Faq = () => {
 								placeholder="Full Name"
 								onChange={handleInputChange}
 								checked={checkForm.name.length > 0}
-							
+
 							/>
 
 							<Input
@@ -151,7 +151,7 @@ const Faq = () => {
 								onChange={handleInputChange}
 								placeholder="Email"
 								checked={check === false && checkForm.email.length > 0 || check === false}
-						
+
 							/>
 
 							<Input
@@ -161,14 +161,14 @@ const Faq = () => {
 								placeholder="Phone number"
 								onChange={handleInputChange}
 								checked={checkForm.phone.length > 0}
-							
+
 							/>
 							<Input
 								type="text" name="linkedin"
 								value={formData.linkedin}
 								onChange={handleInputChange}
 								placeholder="Linkedin" />
-						
+
 
 
 							<TextArea
@@ -176,24 +176,26 @@ const Faq = () => {
 								placeholder="Motivation letter"
 								value={formData.message}
 								onChange={handleInputChange}
-								
+
 							/>
 
 							<br />
 
-							{/* <div className="relative">
+							<div className="relative">
 								<div className="flex items-center">
-								<h3 className="mx-3 top-[-15px] text-xl flex items-center">Upload CV <span className="text-red-800 text-5xl px-1">*</span></h3> <p className="text-gray-400 contents mx-4 text-[15px]">PDF only</p>
+									<h3 className="mx-3 top-[-15px] text-xl flex items-center">Upload CV <span className="text-red-800 text-5xl px-1">*</span></h3> <p className="text-gray-400 contents mx-4 text-[15px]">PDF only</p>
 								</div>
 								<div className="relative">
 									<Input
 										type="file"
 										name="file"
 										onClick={(e: { target: { value: string; }; }) => {
-											e.target.value = ''; dispatch(setFormData({
+											e.target.value = '';
+											dispatch(setFormData({
 												...formData,
 												file: '',
 											}));
+											setFile(null)
 										}}
 										checked={checkForm.file.length > 0}
 										onChange={handleFileUpload} value={undefined} />
@@ -204,25 +206,26 @@ const Faq = () => {
 										</div>
 									)}
 								</div>
-							</div> */}
-						
-          <ReCAPTCHA></ReCAPTCHA>
+							</div>
 
-    
+							<ReCAPTCHA></ReCAPTCHA>
+
+
 							<div className="relative mt-4">
 								<Submit
 									type="submit"
 									name="submit"
 									file={fileForm}
-									requiredKeys={['name', 'email', 'phone', 'recaptcha']}
-									disabled={!!(formData.name && formData.email && formData.phone && formData.recaptcha)}
+									requiredKeys={['name', 'email', 'phone', 'recaptcha', 'file']}
+									disabled={!!(formData.name && formData.email && formData.phone && formData.recaptcha &&formData.file)}
 									onClick={sendContactForm}
+									resetFile={() => setFile(null)} 
 								/>
 							</div>
 						</div>
 					</form>
 				</div> : ''}
-			</MainLayout>
+		</MainLayout>
 
 	);
 };
