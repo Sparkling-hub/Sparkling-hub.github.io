@@ -167,7 +167,7 @@ const Faq = () => {
 						
 							/>
  <div className="relative">
-	<PhoneInput value={formData.phone} onChange={handlePhoneChange} enableSearch={true} country={'us'} />
+	<PhoneInput value={formData.phone} onChange={handlePhoneChange} enableSearch={true} country={'gb'} />
    
     </div>
 				
