@@ -25,7 +25,7 @@ const Faq = () => {
 	const dispatch = useDispatch();
 	const { formData, check, checkForm } = useSelector(selectForm);
 	const [fileForm, setFile] = useState<File | null>(null)
-	const [selectedCountryName, setSelectedCountryName] = useState<string>(''); // Добавляем состояние для названия выбранной страны
+
 	const router = useRouter();
 	const { id } = router.query;
 	const job = Jobs.find(job => job.slug === id)
@@ -123,7 +123,7 @@ const Faq = () => {
 		  ...formData,
 		  phone: value,
 		}));
-		setSelectedCountryName(country.name); // Обновляем название выбранной страны
+	
 	  };
 
 

@@ -21,12 +21,21 @@ import {
   selectNavigation,
 
 } from '@/store/redusers/navigationReducer';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 const Form: React.FC = () => {
   const dispatch = useDispatch();
 
   const { formData, check, checkForm } = useSelector(selectForm);
 
   const { lastPageSlug } = useSelector(selectNavigation);
+	const handlePhoneChange = (value:any, country:any) => {
+		dispatch(setFormData({
+		  ...formData,
+		  phone: value,
+		}));
+
+	  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -87,7 +96,10 @@ const Form: React.FC = () => {
           placeholder="Email"
           checked={check === false && checkForm.email.length > 0 || check === false}
         />
-
+     <div className="relative">
+	<PhoneInput value={formData.phone} onChange={handlePhoneChange} enableSearch={true} country={'gb'} />
+   
+    </div>
         <Input
           type="text"
           name="company"
@@ -114,7 +126,7 @@ const Form: React.FC = () => {
         </div>
 
         <br />
-
+   
         <div className="w-fit m-auto relative">
           <Submit
             type="submit"
