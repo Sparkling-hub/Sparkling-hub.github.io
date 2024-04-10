@@ -39,11 +39,7 @@ const generateEmailContent = (data) => {
 };
 
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "uploads/");
-    
-    },
+  storage: multer.memoryStorage(),
     
     filename: function (req, file, cb) {
       cb(null, 'cv');
@@ -51,7 +47,7 @@ const upload = multer({
     limits: {
       fileSize: 5 * 1024 * 1024,
     },
-  }),
+
   fileFilter: function (req, file, cb) {
   
     if (file.mimetype !== "application/pdf") {
@@ -106,33 +102,33 @@ export default async function handler(req, res) {
       throw new Error("Missing required fields in request body");
       
     }
-    // if ( req.file) {
-    //   const clamscanConfig = {
-    //     remove_infected: true,
-    //     quarantine_infected: "./quarantine",
-    //   };
-    //   const NodeClam = require("clamscan");
-    //   const ClamScan = new NodeClam().init(clamscanConfig);
+    if ( req.file) {
+      const clamscanConfig = {
+        remove_infected: true,
+        quarantine_infected: "./quarantine",
+      };
+      const NodeClam = require("clamscan");
+      const ClamScan = new NodeClam().init(clamscanConfig);
 
-    //   ClamScan.then(async (clamscan) => {
-    //     try {
-    //         await clamscan.isInfected(
-    //         req.file
-    //       );
+      ClamScan.then(async (clamscan) => {
+        try {
+            await clamscan.isInfected(
+            req.file
+          );
      
-    //     } catch (err) {
-    //       return { success: false };
-    //     }
-    //   }).catch((err) => {
+        } catch (err) {
+          return { success: false };
+        }
+      }).catch((err) => {
 
-    //   });
-    // }
+      });
+    }
     let attachments = [];
 
     if (req.file) {
       attachments.push({
         filename: req.file.originalname,
-        path: req.file.path,
+        content: req.file.buffer,
       });
     }
     await transporter.sendMail({
@@ -151,7 +147,7 @@ export default async function handler(req, res) {
   } finally{ 
     try {
    
-    const filePath = path.resolve("uploads",'cv');
+      const filePath = req.file.path;
     fs.unlink(filePath, (err) => {
       if (err) {
         return { success: false };
