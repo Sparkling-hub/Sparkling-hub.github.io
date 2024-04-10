@@ -216,8 +216,8 @@ const Faq = () => {
 									type="submit"
 									name="submit"
 									file={fileForm}
-									requiredKeys={['name', 'email', 'phone', 'recaptcha']}
-									disabled={!!(formData.name && formData.email && formData.phone && formData.recaptcha)}
+									requiredKeys={['name', 'email', 'phone', 'recaptcha', 'file']}
+									disabled={!!(formData.name && formData.email && formData.phone && formData.recaptcha &&formData.file)}
 									onClick={sendContactForm}
 									resetFile={() => setFile(null)} 
 								/>
