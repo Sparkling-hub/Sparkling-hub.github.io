@@ -32,6 +32,9 @@ export const getKey = async (formData, fileData) => {
     const response = await fetch("/api/reCaptcha", {
       method: "POST",
       body: JSON.stringify({ formData, fileData }),
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
 
     if (!response.ok) {
