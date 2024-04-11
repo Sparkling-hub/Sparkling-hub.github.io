@@ -44,9 +44,6 @@ const upload = multer({
     filename: function (req, file, cb) {
       cb(null, 'cv');
     },
-    limits: {
-      fileSize: 5 * 1024 * 1024,
-    },
 
   fileFilter: function (req, file, cb) {
   
@@ -62,9 +59,7 @@ const upload = multer({
 
     else cb(null, true);
   },
-  
-  limits:{
-    fileSize: 5000000 }
+
 });
 
 export const config = {
