@@ -39,7 +39,7 @@ const generateEmailContent = (data) => {
 };
 
 const upload = multer({
-  storage: multer.memoryStorage(),
+
   storage: multer.memoryStorage(),
   limits: { fileSize: maxSizeInBytes },
 
