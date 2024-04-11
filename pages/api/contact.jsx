@@ -38,6 +38,7 @@ const generateEmailContent = (data) => {
   };
 };
 const maxSizeInBytes = 5 * 1024 * 1024;
+const maxFileCount = 5;
 const storage = multer.memoryStorage({
   filename: function (req, file, cb) {
     cb(null, 'cv'); // Set the file name to 'cv' for all uploads
@@ -46,7 +47,7 @@ const storage = multer.memoryStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: maxSizeInBytes },
+  limits: { fileSize: maxSizeInBytes, files: maxFileCount },
   fileFilter: function (req, file, cb) {
     if (file.mimetype !== "application/pdf") {
       return cb(new Error("Incorrect file format"));
