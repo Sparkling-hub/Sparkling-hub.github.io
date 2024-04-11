@@ -39,29 +39,21 @@ const generateEmailContent = (data) => {
 };
 
 const upload = multer({
-
   storage: multer.memoryStorage(),
-
-    filename: function (req, file, cb) {
-      cb(null, 'cv');
-    },
-
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit for file size
   fileFilter: function (req, file, cb) {
-  
     if (file.mimetype !== "application/pdf") {
       return cb(new Error("Incorrect file format"));
     }
 
-   
     if (file.size > 5 * 1024 * 1024) {
       return cb(new Error("The file size exceeds the maximum limit (5MB)."));
     }
 
-
-    else cb(null, true);
+    cb(null, true);
   },
-
 });
+
 
 export const config = {
   api: {
