@@ -38,30 +38,24 @@ const generateEmailContent = (data) => {
   };
 };
 const maxSizeInBytes = 5 * 1024 * 1024;
+const storage = multer.memoryStorage({
+  filename: function (req, file, cb) {
+    cb(null, 'cv'); // Set the file name to 'cv' for all uploads
+  }
+});
+
 const upload = multer({
-
-  storage: multer.memoryStorage(),
+  storage: storage,
   limits: { fileSize: maxSizeInBytes },
-
-    filename: function (req, file, cb) {
-      cb(null, 'cv');
-    },
-
   fileFilter: function (req, file, cb) {
-  
     if (file.mimetype !== "application/pdf") {
       return cb(new Error("Incorrect file format"));
     }
-
-   
-    if (file.size > 5 * 1024 * 1024) {
+    if (file.size > maxSizeInBytes) {
       return cb(new Error("The file size exceeds the maximum limit (5MB)."));
     }
-
-
-    else cb(null, true);
-  },
-
+    cb(null, true);
+  }
 });
 
 export const config = {
