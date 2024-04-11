@@ -1,11 +1,7 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp, applicationDefault, getApp, getApps } from "firebase-admin/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBJKXMOYI6KodbnJhJHAH3wsjFznYhQ-pw",
   authDomain: "sparkling-website.firebaseapp.com",
@@ -16,5 +12,20 @@ const firebaseConfig = {
   measurementId: "G-RB288H6HFL"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase for the client-side
+initializeApp(firebaseConfig);
+
+// Check if there already exists a Firebase app
+if (!getApps().length) {
+  const serviceAccount = require(process.env.SERVICE_ACCOUNT_KEY);
+  console.log(serviceAccount)
+  const firebaseCredentials = applicationDefault(serviceAccount);
+
+  // Initialize Firebase Admin SDK
+  initializeApp({
+    credential: firebaseCredentials,
+    storageBucket: "gs://sparkling-website.appspot.com",
+  });
+} else {
+  getApp(); // if already initialized, use that one
+}

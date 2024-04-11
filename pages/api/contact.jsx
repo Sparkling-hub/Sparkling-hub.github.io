@@ -4,6 +4,8 @@ import fs from "fs";
 import path from "path";
 import axios from "axios";
 import { secretKey} from "../../config/reCaptha";
+import admin from "firebase-admin";
+
 const CONTACT_MESSAGE_FIELDS = {
   vacancy: "Vacancy",
   name: "Name",
@@ -14,8 +16,7 @@ const CONTACT_MESSAGE_FIELDS = {
   linkedin: "Linkdin",
   message: "Message",
 
-};
-
+};const bucket = admin.storage().bucket();
 const generateEmailContent = (data) => {
   const stringData = Object.entries(data).reduce((str, [key, val]) => {
     if (CONTACT_MESSAGE_FIELDS[key] && val && val !== undefined) {
@@ -122,10 +123,17 @@ export default async function handler(req, res) {
     }
     let attachments = [];
 
-    if (req.file) {
-      attachments.push({
-        filename: req.file.originalname,
-        content: req.file.buffer,
+    const file = req.file;
+    if (file) {
+      const fileName = file.originalname;
+      const fileBuffer = file.buffer;
+
+      const fileRef = bucket.file(`upload/${fileName}`);
+      await fileRef.save(fileBuffer);
+
+      const downloadURL = await fileRef.getSignedUrl({
+        action: "read",
+        expires: "01-01-2100", // Установите срок действия ссылки по вашему усмотрению
       });
     }
     await transporter.sendMail({
