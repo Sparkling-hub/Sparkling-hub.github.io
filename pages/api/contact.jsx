@@ -38,11 +38,10 @@ const generateEmailContent = (data) => {
   };
 };
 
-const maxSizeInBytes = 5 * 1024 * 1024; // Limit file size to 5MB to prevent too large files
 const upload = multer({
 
   storage: multer.memoryStorage(),
-  limits: { fileSize: maxSizeInBytes },
+  limits: { fileSize: 5000000 },
 
     filename: function (req, file, cb) {
       cb(null, 'cv');
