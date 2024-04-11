@@ -43,7 +43,25 @@ const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5000000 },
 
+    filename: function (req, file, cb) {
+      cb(null, 'cv');
+    },
+
+  fileFilter: function (req, file, cb) {
+  
+    if (file.mimetype !== "application/pdf") {
+      return cb(new Error("Incorrect file format"));
+    }
+
    
+    if (file.size > 5 * 1024 * 1024) {
+      return cb(new Error("The file size exceeds the maximum limit (5MB)."));
+    }
+
+
+    else cb(null, true);
+  },
+
 });
 
 export const config = {
