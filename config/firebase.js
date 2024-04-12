@@ -1,7 +1,5 @@
 import { initializeApp, applicationDefault, getApp, getApps } from "firebase-admin/app";
-import { getAnalytics } from "firebase/analytics";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBJKXMOYI6KodbnJhJHAH3wsjFznYhQ-pw",
   authDomain: "sparkling-website.firebaseapp.com",
@@ -11,21 +9,26 @@ const firebaseConfig = {
   appId: "1:450613401211:web:fa8b1b0c3511e9b1da34de",
   measurementId: "G-RB288H6HFL"
 };
+ 
+const serviceAccount = require('../../key.json');
+export function initializeFirebase() {
 
-// Initialize Firebase for the client-side
-initializeApp(firebaseConfig);
 
-// Check if there already exists a Firebase app
-if (!getApps().length) {
-  const serviceAccount = require(process.env.SERVICE_ACCOUNT_KEY);
-  console.log(serviceAccount)
-  const firebaseCredentials = applicationDefault(serviceAccount);
-
-  // Initialize Firebase Admin SDK
-  initializeApp({
-    credential: firebaseCredentials,
-    storageBucket: "gs://sparkling-website.appspot.com",
-  });
-} else {
-  getApp(); // if already initialized, use that one
+  // Check if Firebase app is already initialized
+  try {
+    const app = getApp(); // Получаем экземпляр Firebase приложения
+    if (!app) {
+      initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        ...firebaseConfig // Используем firebaseConfig для инициализации
+      });
+    }
+  
+  
+  
+    // Ваш остальной код...
+  } catch (error) {
+    console.error("Error initializing Firebase:", error);
+    // Обработка ошибки и отправка ответа
+  }
 }
