@@ -33,7 +33,17 @@ const firebaseApp = getApp();
 // Get the Firebase Storage instance using the app instance
 const storage = getStorage(firebaseApp);
 const bucket = storage.bucket();
+const CONTACT_MESSAGE_FIELDS = {
+  vacancy: "Vacancy",
+  name: "Name",
+  email: "Email",
+  select: "Select",
+  company: "Company",
+  phone: "Phone",
+  linkedin: "Linkdin",
+  message: "Message",
 
+};
 
 const generateEmailContent = (data) => {
   const stringData = Object.entries(data).reduce((str, [key, val]) => {
@@ -115,41 +125,42 @@ export default async function handler(req, res) {
    
     const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
 
-    // const response = await axios.post(verificationUrl); 
-    // if (!response.data.success) {
-    //   throw new Error("Invalid reCAPTCHA token");
-    // }
+    const response = await axios.post(verificationUrl); 
+    if (!response.data.success) {
+      throw new Error("Invalid reCAPTCHA token");
+    }
 
-    // if (!req.body.name || !req.body.email) {
-    //   throw new Error("Missing required fields in request body");
+    if (!req.body.name || !req.body.email) {
+      throw new Error("Missing required fields in request body");
       
-    // }
-    // if ( req.file) {
-    //   const clamscanConfig = {
-    //     remove_infected: true,
-    //     quarantine_infected: "./quarantine",
-    //   };
-    //   const NodeClam = require("clamscan");
-    //   const ClamScan = new NodeClam().init(clamscanConfig);
+    }
+    if ( req.file) {
+      const clamscanConfig = {
+        remove_infected: true,
+        quarantine_infected: "./quarantine",
+      };
+      const NodeClam = require("clamscan");
+      const ClamScan = new NodeClam().init(clamscanConfig);
 
-    //   ClamScan.then(async (clamscan) => {
-    //     try {
-    //         await clamscan.isInfected(
-    //         req.file
-    //       );
+      ClamScan.then(async (clamscan) => {
+        try {
+            await clamscan.isInfected(
+            req.file
+          );
      
-    //     } catch (err) {
-    //       return { success: false };
-    //     }
-    //   }).catch((err) => {
+        } catch (err) {
+          return { success: false };
+        }
+      }).catch((err) => {
 
-    //   });
-    // }
+      });
+    }
     let attachments = [];
 
     const file = req.file;
    
     if (file) {
+   
       const filePath = "upload/" + file.originalname;
       var  fileRef = bucket.file(filePath);
     
