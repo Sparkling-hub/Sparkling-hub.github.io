@@ -1,4 +1,4 @@
-const question = <p>Which languages do you speak</p>
+const question = <p>Which languages do you speak?</p>
 
 const answer =
     `
