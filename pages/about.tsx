@@ -1,5 +1,5 @@
 import MainLayout from '../layouts/MainLayuout';
-import * as Section from '../data/data-sections/data-section-about'
+import Section from '../data/data-sections/data-section-about'
 import Sections from '../components/sections/sections'
 import React, { useEffect } from 'react';
 
@@ -29,11 +29,11 @@ const AboutUs = () => {
 
             <meta property="og:url" content="/careers" />
             <div className=''>
+            {Section.map((section) => (
+                <Sections key={section.id} {...section} />
+            ))
+            }
 
-                <Sections {...Section.sections.SectionOne} />
-
-                <Sections {...Section.sections.SectionTwo} />
-                <Sections {...Section.sections.SectionThree} />
             </div>
         </MainLayout>
 

@@ -1,8 +1,8 @@
 
-import Gallery from "@/components/galleryAbout"
+import About from "@/components/row-aboutus"
 const head= <h2 className="text-primary-lightTeal m-auto mt-20 mb-12 text-5xl  w-fit">Our <strong className="text-primary-darkTeal font-bold">Core Principles</strong></h2>
 const content =
-  <Gallery  />
+  <About/>
 
 
 const element = {
@@ -10,7 +10,7 @@ const element = {
   content:content,
  
   background: '', 
-  id: "about_teem"
+  id: "principle"
 
 }
 export default element

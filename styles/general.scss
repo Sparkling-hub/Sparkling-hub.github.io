@@ -35,6 +35,12 @@ $weight-text: 400px;
 .flag-dropdown  {width: 10% !important;     border-radius: 1.5rem 0 0 1.5rem !important; border-color: #255F5A !important;
 	.search{background-color: white ; z-index: 5;}
 }
+.image_title {
+	background: linear-gradient(to bottom, rgba(255, 255, 255,  0.8), rgba(196, 196, 196, 0.9), rgba(177, 177, 177, 0.9) , rgba(158, 158, 158, 0.9),  rgba(160, 160, 160, 0.9), rgba(255, 255, 255, 1));
+	box-shadow: 0 1px 5px 5px rgb(226, 226, 226);
+  }
+
+  
 .selected-flag {width: 100% !important;border-radius: 1.5rem 0 0 1.5rem !important;     padding: 25px !important;
 }
 .flag{scale: 1.5;}
@@ -134,7 +140,7 @@ $weight-text: 400px;
 	align-items: center;
 	top: 0;
 	position: sticky;
-	background-color: rgba(255, 255, 255, 0.97);
+	background-color: rgba(255, 255, 255, 0.57);
 	width: 100%;
 }
 
