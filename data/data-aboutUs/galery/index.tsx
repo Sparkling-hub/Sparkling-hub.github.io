@@ -10,44 +10,48 @@ import photo8 from './8.png';
 const imagesData = [
   {
     image: photo1,
-    profession: 'dev',
-    name: 'qwerty sldkalsdk',
+    profession: 'Founder',
+    name: 'Andrea Arthofer',
   },
   {
     image: photo2,
-    profession: 'dev',
-    name: 'asdasd asdasd',
+    profession: 'CFO and Founder',
+    name: 'Manlio Tedesco',
   },
   {
     image: photo3,
-    profession: 'dev',
-    name: 'asdasdsad asdasdasd',
+    profession: 'Senior Business Developer ',
+    name: 'Noah Arthofe',
   },
   {
     image: photo4,
-    profession: 'dev',
-    name: 'asd asd',
+    profession: 'Technology Director',
+    name: 'Lian Arthofer',
   },
   {
     image: photo5,
-    profession: 'dev',
-    name: 'asd asdasdasd',
+    profession: 'Team Lead',
+    name: 'Alessandro Cerutti',
   },
   {
     image: photo6,
-    profession: 'dev',
-    name: 'gherwh dfsgegewgа',
+    profession: 'Team Lead',
+    name: 'Stas Volozhanin',
   },
   {
-    image: photo7,
-    profession: 'dev',
-    name: 'asdasdasf wqrqwrwqr',
+    image: photo1,
+    profession: 'UI/UX designer',
+    name: 'Adi Daniel',
   },
-  {
-    image: photo8,
-    profession: 'dev',
-    name: 'asdaf asfawqesad',
-  },
+  { image: photo8, profession: 'Full Stack Developer', name: 'Anastasia Katsura' },
+  { image: photo3, profession: 'Full Stack Developer', name: 'Dmitry Panasenko' },
+  { image: photo2, profession: 'Full Stack Developer', name: 'Maksim Sologubov' },
+  { image: photo1, profession: 'Full Stack Developer', name: 'Nikita Chumak' },
+  { image: photo8, profession: 'Full Stack Developer', name: 'Tanya Tikhonovskaya' },
+  { image: photo2, profession: 'Full Stack Developer', name: 'Vitaly Nuriev' },
+  { image: photo8, profession: 'Full Stack Developer', name: 'Yelyzaveta Rohova' },
+
+
 ];
 
 export default imagesData;

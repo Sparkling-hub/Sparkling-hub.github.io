@@ -8,20 +8,19 @@ function Gallery() {
   };
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const lenght = dataImages.length - 1;
+  const rows = Math.ceil(dataImages.length / 7);
   return (
     <div className="">
-      <div className="flex justify-between p-5">
+      <div className="flex justify-between p-[5px]">
         {" "}
         <div className=" w-1/2">
           {" "}
           <h2 className="text-4xl text-primary-darkTeal">Meet our teem</h2>{" "}
-          <p className="text-xl">
-            weweeweweeeeeeeeeeeeeeeeeeeeeeeewewe asdas dasd
-            asdsfafasf....dddasddddddddddddddddd.....
-            weweeweweeeeeeeeeeeeeeeeeeeeeeeewewe asdas dasd
-            asdsfafasf....dddasddddddddddddddddd.....
-            weweeweweeeeeeeeeeeeeeeeeeeeeeeewewe asdas dasd
-            asdsfafasf....dddasddddddddddddddddd.....
+          <p className="text-xl my-5">
+    
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed accumsan quam, interdum rutrum est. Curabitur vitae facilisis neque, in iaculis turpis. Duis vitae erat vel leo cursus sollicitudin id vel nulla. Aliquam ornare nec sem quis tempus. Integer a fermentum libero. Pellentesque purus est, cursus id consectetur ut, sagittis eu leo. Phasellus condimentum feugiat vulputate. Ut molestie nibh efficitur odio sagittis efficitur.
+
+Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet suscipit mollis. Suspendisse ullamcorper odio nec lacus ornare, ut molestie neque malesuada. Cras interdum auctor rutrum. Praesent ac condimentum mauris. Aliquam imperdiet turpis vitae orci hendrerit, bibendum facilisis dolor feugiat. Vestibulum lacinia suscipit porttitor. Aenean viverra tempor eros, ac volutpat sem fermentum a. Ut non consequat tortor, vitae posuere erat. Donec vulputate ipsum et efficitur rutrum. Nunc ac velit mi. Sed vitae erat convallis, accumsan massa id, facilisis lorem.
           </p>
         </div>
         <div className=" w-1/2 flex justify-end items-end">
@@ -49,18 +48,23 @@ function Gallery() {
         </div>
       </div>
 
-      <ul className="flex flex-row">
-        {dataImages.map((item, index) => (
+      <ul className="">
+      {[...Array(rows)].map((_, rowIndex) => (
+        <div className="flex flex-row">
+      {dataImages
+            .slice(rowIndex * 7, rowIndex * 7 + 7)
+            .map((item, index) => (
+              
           <li
-            key={index}
+            key={ index + rowIndex * 7}
             className={` ${
-              hoveredIndex === index ? "w-[35%]" : "w-[10%] filter grayscale" 
-            } h-[400px] image-gallery rounded-xl overflow-hidden relative  mx-[5px] transition-all duration-500 ease-in-out shadow-lg `}
+              hoveredIndex ===  index + rowIndex * 7 ? "w-[35%]" : "w-[14%] filter grayscale" 
+            } h-[400px] image-gallery rounded-xl overflow-hidden relative  m-[5px] transition-all duration-500 ease-in-out shadow-lg `}
           >
             <div
               className={` ${
-                hoveredIndex === index ? "w-full px-5 opacity-1" : "w-[0%] opacity-0 "
-              } image_title m-1 absolute bottom-0 right-0 z-10 h-[15%] bg-black  flex-col flex overflow-hidden transition-all duration-500 ease-in-out`}
+                hoveredIndex ===  index + rowIndex * 7 ? " px-5 opacity-1" : "opacity-0 " 
+              } image_title my-1 absolute bottom-0 right-0 z-10 h-[15%] bg-black  flex-col w-full flex overflow-hidden transition-all duration-500 ease-in-out`}
             >
               <p className="font-bold text-2xl">{item.profession}</p>
               <p className="text-white font-bold text-xl">{item.name}</p>
@@ -69,9 +73,9 @@ function Gallery() {
             <Link
               href="#"
               onMouseEnter={() => {
-                if (index !== hoveredIndex) setHoveredIndex(index);
+                if ( index + rowIndex * 7 !== hoveredIndex) setHoveredIndex( index + rowIndex * 7);
               }}
-              className={`w-[400px]  h-[400px] absolute transition-all duration-300 ease-in-out `}
+              className={`w-[360px]  h-[420px] absolute transition-all duration-300 ease-in-out `}
             >
               <img
                 src={getImageSrc(item.image)}
@@ -80,7 +84,7 @@ function Gallery() {
               />
             </Link>
           </li>
-        ))}
+        ))}</div> ))}
       </ul>
     </div>
   );
