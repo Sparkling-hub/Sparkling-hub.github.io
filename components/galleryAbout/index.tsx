@@ -55,14 +55,15 @@ function Gallery() {
             key={index}
             className={` ${
               hoveredIndex === index ? "w-[35%]" : "w-[10%] filter grayscale" 
-            } h-[400px] image-gallery rounded-xl overflow-hidden relative  mx-[5px] transition-all duration-500 ease-in-out shadow-lg`}
+            } h-[400px] image-gallery rounded-xl overflow-hidden relative  mx-[5px] transition-all duration-500 ease-in-out shadow-lg `}
           >
             <div
               className={` ${
                 hoveredIndex === index ? "w-full px-5 opacity-1" : "w-[0%] opacity-0 "
-              } image_title absolute bottom-0 right-0 z-10 h-[20%] bg-black items-center flex overflow-hidden transition-all duration-500 ease-in-out`}
+              } image_title m-1 absolute bottom-0 right-0 z-10 h-[15%] bg-black  flex-col flex overflow-hidden transition-all duration-500 ease-in-out`}
             >
-              {item.profession}
+              <p className="font-bold text-2xl">{item.profession}</p>
+              <p className="text-white font-bold text-xl">{item.name}</p>
             </div>
 
             <Link
