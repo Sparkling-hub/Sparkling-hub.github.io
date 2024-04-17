@@ -3,30 +3,30 @@ import { mailOptions, transporter } from "../../config/nodemailer";
 import fs from "fs";
 
 import axios from "axios";
-import { secretKey} from "../../config/reCaptha";
+import { secretKey } from "../../config/reCaptha";
 import admin from "firebase-admin";
-// import {initializeFirebase} from "../../config/firebase";
+import { firebaseGetApp } from "../../config/firebase";
 import { initializeApp, getApp, getApps } from "firebase-admin/app"; // Инициализация Firebase приложения
 import { uploadBytesResumable } from "firebase/storage";
 import { ref, getStorage } from 'firebase-admin/storage';
-const serviceAccount = require('../../key.json');
-const firebaseConfig = {
-  credential: admin.credential.cert(serviceAccount),
-  apiKey: "AIzaSyBJKXMOYI6KodbnJhJHAH3wsjFznYhQ-pw",
-  authDomain: "sparkling-website.firebaseapp.com",
-  projectId: "sparkling-website",
-  storageBucket: "sparkling-website.appspot.com",
-  messagingSenderId: "450613401211",
-  appId: "1:450613401211:web:fa8b1b0c3511e9b1da34de",
-  measurementId: "G-RB288H6HFL"
-};
+// const serviceAccount = require('../../key.json');
+// const firebaseConfig = {
+//   credential: admin.credential.cert(serviceAccount),
+//   apiKey: "AIzaSyBJKXMOYI6KodbnJhJHAH3wsjFznYhQ-pw",
+//   authDomain: "sparkling-website.firebaseapp.com",
+//   projectId: "sparkling-website",
+//   storageBucket: "sparkling-website.appspot.com",
+//   messagingSenderId: "450613401211",
+//   appId: "1:450613401211:web:fa8b1b0c3511e9b1da34de",
+//   measurementId: "G-RB288H6HFL"
+// };
 
 // Check if Firebase app is already initialized
 
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
-
+// if (!getApps().length) {
+//   initializeApp(firebaseConfig);
+// }
+firebaseGetApp()
 // Get the default Firebase app instance
 const firebaseApp = getApp();
 
@@ -54,7 +54,7 @@ const generateEmailContent = (data) => {
   }, "");
 
   const htmlData = Object.entries(data).reduce((str, [key, val]) => {
-    if (val && CONTACT_MESSAGE_FIELDS[key] && val  !== undefined) {
+    if (val && CONTACT_MESSAGE_FIELDS[key] && val !== undefined) {
 
       return `${str}<h3 class="form-heading" align="left">${CONTACT_MESSAGE_FIELDS[key]}</h3><p class="form-answer" align="left">${val}</p>`;
     }
@@ -67,36 +67,17 @@ const generateEmailContent = (data) => {
   };
 };
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "uploads/");
-    
-    },
-    
-    filename: function (req, file, cb) {
-      cb(null, 'cv');
-    },
-    limits: {
-      fileSize: 5 * 1024 * 1024,
-    },
-  }),
+  storage: multer.memoryStorage(), // Save files in RAM
   fileFilter: function (req, file, cb) {
-  
     if (file.mimetype !== "application/pdf") {
       return cb(new Error("Incorrect file format"));
     }
-
-   
     if (file.size > 5 * 1024 * 1024) {
       return cb(new Error("The file size exceeds the maximum limit (5MB)."));
     }
-
-
-    else cb(null, true);
+    cb(null, true);
   },
-  
-  limits:{
-    fileSize: 5000000 }
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
 export const config = {
@@ -104,9 +85,26 @@ export const config = {
     bodyParser: false,
   },
 };
+const checkRecaptchaAndFields = async (recaptchaToken) => {
+  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
 
+
+  const response = await axios.post(verificationUrl);
+  try {
+    if (!response.data.success) {
+      throw new Error("Invalid reCAPTCHA token");
+    }
+
+    if (!requestBody.name || !requestBody.email) {
+      throw new Error("Required fields are missing in the request body");
+    }
+  }
+  catch (error) {
+    throw new Error("Error");
+  }
+}
 export default async function handler(req, res) {
- 
+
   try {
     await new Promise((resolve, reject) => {
       upload.single("file")(req, res, (err) => {
@@ -115,26 +113,17 @@ export default async function handler(req, res) {
         }
         resolve(null);
       });
+      const formData = req.body;
+
+      console.log(formData)
     });
 
-    const recaptchaToken = req.body.recaptcha; 
-    if (!recaptchaToken) {
-      throw new Error("Missing reCAPTCHA token");
-    }
+    checkRecaptchaAndFields(req.body.recaptcha);
 
-   
-    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
 
-    const response = await axios.post(verificationUrl); 
-    if (!response.data.success) {
-      throw new Error("Invalid reCAPTCHA token");
-    }
 
-    if (!req.body.name || !req.body.email) {
-      throw new Error("Missing required fields in request body");
-      
-    }
-    if ( req.file) {
+    await console.log(req.file)
+    if (req.file) {
       const clamscanConfig = {
         remove_infected: true,
         quarantine_infected: "./quarantine",
@@ -144,10 +133,10 @@ export default async function handler(req, res) {
 
       ClamScan.then(async (clamscan) => {
         try {
-            await clamscan.isInfected(
+          await clamscan.isInfected(
             req.file
           );
-     
+
         } catch (err) {
           return { success: false };
         }
@@ -158,62 +147,37 @@ export default async function handler(req, res) {
     let attachments = [];
 
     const file = req.file;
-   
-    if (file) {
-   
-      const filePath = "upload/" + file.originalname;
-      var  fileRef = bucket.file(filePath);
-    
-      // Upload the file
-      const uploadTask = fileRef.createWriteStream({
-        metadata: {
-          contentType: file.mimetype, 
-        },
-      });
-          // Write the file buffer to the stream
-          uploadTask.end(file.buffer);
-      await new Promise((resolve, reject) => {
-        uploadTask.on('finish', resolve);
-        uploadTask.on('error', reject);
 
+    if (req.file) {
+      attachments.push({
+        filename: req.file.originalname,
+        path: req.file.path,
       });
-   
-   
-      var [fileUrl] = await fileRef.getSignedUrl({
-        action: 'read',
-        expires: '03-09-2491' // Указываем допустимый срок действия URL
+
+
+      await transporter.sendMail({
+        ...mailOptions,
+        ...generateEmailContent(req.body), // Функция для генерации содержимого письма
+        subject: req.body.email,
+        attachments: attachments,
       });
+
+
+      res.status(200).send("Email sent successfully");
+      return { success: true };}
+    } catch (error) {
+      res.status(500).send(error.message);
+      return { success: false };
+
     }
+    //   finally{
 
-  
-  
-    await transporter.sendMail({
-      ...mailOptions,
-      ...generateEmailContent(req.body), // Функция для генерации содержимого письма
-      subject: req.body.email,
-      attachments: [
-        {
-          filename: file.originalname,
-          href: fileUrl, // Добавляем URL файла как вложение
-        },
-      ],
-    });
-
-
-    res.status(200).send("Email sent successfully");
-    return { success: true };
-  } catch (error) {
-    res.status(500).send(error.message);
-    return { success: false };
-  
-  } finally{ 
-
-     await fileRef.delete()
-    .then(() => {
-      console.log('File deleted successfully');
-    })
-    .catch((error) => {
-      console.error('Error deleting file:', error);
-    });
-}
-}
+    //      await fileRef.delete()
+    //     .then(() => {
+    //       console.log('File deleted successfully');
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error deleting file:', error);
+    //     });
+    // }
+  }
