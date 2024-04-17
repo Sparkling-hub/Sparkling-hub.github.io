@@ -1,38 +1,17 @@
 import multer from "multer";
 import { mailOptions, transporter } from "../../config/nodemailer";
-import fs from "fs";
-
 import axios from "axios";
 import { secretKey } from "../../config/reCaptha";
-import admin from "firebase-admin";
 import { firebaseGetApp } from "../../config/firebase";
-import { initializeApp, getApp, getApps } from "firebase-admin/app"; // Инициализация Firebase приложения
-import { uploadBytesResumable } from "firebase/storage";
-import { ref, getStorage } from 'firebase-admin/storage';
-// const serviceAccount = require('../../key.json');
-// const firebaseConfig = {
-//   credential: admin.credential.cert(serviceAccount),
-//   apiKey: "AIzaSyBJKXMOYI6KodbnJhJHAH3wsjFznYhQ-pw",
-//   authDomain: "sparkling-website.firebaseapp.com",
-//   projectId: "sparkling-website",
-//   storageBucket: "sparkling-website.appspot.com",
-//   messagingSenderId: "450613401211",
-//   appId: "1:450613401211:web:fa8b1b0c3511e9b1da34de",
-//   measurementId: "G-RB288H6HFL"
-// };
+import { getApp } from "firebase-admin/app"; 
+import { getStorage } from 'firebase-admin/storage';
 
-// Check if Firebase app is already initialized
-
-// if (!getApps().length) {
-//   initializeApp(firebaseConfig);
-// }
 firebaseGetApp()
-// Get the default Firebase app instance
+
 const firebaseApp = getApp();
 
-// Get the Firebase Storage instance using the app instance
 const storage = getStorage(firebaseApp);
-const bucket = storage.bucket();
+
 const CONTACT_MESSAGE_FIELDS = {
   vacancy: "Vacancy",
   name: "Name",
@@ -67,7 +46,7 @@ const generateEmailContent = (data) => {
   };
 };
 const upload = multer({
-  storage: multer.memoryStorage(), // Save files in RAM
+  storage: multer.memoryStorage(), 
   fileFilter: function (req, file, cb) {
     if (file.mimetype !== "application/pdf") {
       return cb(new Error("Incorrect file format"));
@@ -157,7 +136,7 @@ export default async function handler(req, res) {
 
       await transporter.sendMail({
         ...mailOptions,
-        ...generateEmailContent(req.body), // Функция для генерации содержимого письма
+        ...generateEmailContent(req.body), 
         subject: req.body.email,
         attachments: attachments,
       });
@@ -170,14 +149,5 @@ export default async function handler(req, res) {
       return { success: false };
 
     }
-    //   finally{
 
-    //      await fileRef.delete()
-    //     .then(() => {
-    //       console.log('File deleted successfully');
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error deleting file:', error);
-    //     });
-    // }
   }
