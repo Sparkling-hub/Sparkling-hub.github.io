@@ -2,15 +2,7 @@ import multer from "multer";
 import { mailOptions, transporter } from "../../config/nodemailer";
 import axios from "axios";
 import { secretKey } from "../../config/reCaptha";
-import { firebaseGetApp } from "../../config/firebase";
-import { getApp } from "firebase-admin/app"; 
-import { getStorage } from 'firebase-admin/storage';
 
-firebaseGetApp()
-
-const firebaseApp = getApp();
-
-const storage = getStorage(firebaseApp);
 
 const CONTACT_MESSAGE_FIELDS = {
   vacancy: "Vacancy",
@@ -47,6 +39,9 @@ const generateEmailContent = (data) => {
 };
 const upload = multer({
   storage: multer.memoryStorage(), 
+  limits: {
+    fileSize: 8 * 1024 * 1024, // 8MB limit
+  },
   fileFilter: function (req, file, cb) {
     if (file.mimetype !== "application/pdf") {
       return cb(new Error("Incorrect file format"));
@@ -56,7 +51,7 @@ const upload = multer({
     }
     cb(null, true);
   },
-  limits: { fileSize: 5 * 1024 * 1024 },
+
 });
 
 export const config = {
@@ -125,7 +120,7 @@ export default async function handler(req, res) {
     }
     let attachments = [];
 
-    const file = req.file;
+  
 
     if (req.file) {
       attachments.push({
