@@ -4,7 +4,7 @@ import photo3 from './3.png';
 import photo4 from './4.png';
 import photo5 from './5.png';
 import photo6 from './6.png';
-import photo7 from './7.png';
+
 import photo8 from './8.png';
 
 const imagesData = [
