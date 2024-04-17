@@ -11,9 +11,9 @@ function Gallery() {
   const rows = Math.ceil(dataImages.length / 7);
   return (
     <div className="">
-      <div className="flex justify-between p-[5px]">
+      <div className="flex flex-col justify-between p-[5px]">
         {" "}
-        <div className=" w-1/2">
+        <div className=" w-full">
           {" "}
           <h2 className="text-4xl text-primary-darkTeal">Meet our teem</h2>{" "}
           <p className="text-xl my-5">
@@ -23,7 +23,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed accumsan quam, i
 Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet suscipit mollis. Suspendisse ullamcorper odio nec lacus ornare, ut molestie neque malesuada. Cras interdum auctor rutrum. Praesent ac condimentum mauris. Aliquam imperdiet turpis vitae orci hendrerit, bibendum facilisis dolor feugiat. Vestibulum lacinia suscipit porttitor. Aenean viverra tempor eros, ac volutpat sem fermentum a. Ut non consequat tortor, vitae posuere erat. Donec vulputate ipsum et efficitur rutrum. Nunc ac velit mi. Sed vitae erat convallis, accumsan massa id, facilisis lorem.
           </p>
         </div>
-        <div className=" w-1/2 flex justify-end items-end">
+        <div className=" w-full flex justify-end items-end">
           {" "}
           <button
             className={`rounded-full ${
