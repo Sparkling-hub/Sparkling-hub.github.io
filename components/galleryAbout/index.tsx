@@ -75,12 +75,12 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
               onMouseEnter={() => {
                 if ( index + rowIndex * 7 !== hoveredIndex) setHoveredIndex( index + rowIndex * 7);
               }}
-              className={`w-[360px]  h-[420px] absolute transition-all duration-300 ease-in-out `}
+              className={`w-[400px]  h-[420px] absolute transition-all duration-300 ease-in-out `}
             >
               <img
                 src={getImageSrc(item.image)}
                 alt={item.name}
-                className="h-full bg-red-100 w-full"
+                className={`h-full bg-red-100 w-full relative  transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 7 ? "right-0" : "right-[25%]" }`}
               />
             </Link>
           </li>
