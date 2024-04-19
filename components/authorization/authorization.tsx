@@ -24,7 +24,7 @@ const RegistrationForm = () => {
         dispatch(setCheckFormByKey({ key: name as any, value: '' }));
         if (name === "email") {
             dispatch(setCheck(null));
-   ``
+   
         }
     };
 

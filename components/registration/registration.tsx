@@ -82,12 +82,12 @@ const RegistrationForm = () => {
                     value={authorizationData.password}
                     placeholder="Password"
                     onChange={handleInputChange}
-                    checked={authorizationData.password.length < 5}
+                    checked={authorizationData.password.length < 5 && authorizationData.password.length != 0}
                 />
             </label>
             <label className='relative'>
                 Confim password:
-                {checkForm.password === authorizationData.password && checkForm.password.length != 0 ? <p className='absolute top-4 text-red-500'>Password mismatch</p>: ''}
+                {/* {checkForm.password === authorizationData.password && checkForm.password.length != 0 ? <p className='absolute top-4 text-red-500'>Password mismatch</p>: ''} */}
                 <Input
                     type="password"
                     name="password"
