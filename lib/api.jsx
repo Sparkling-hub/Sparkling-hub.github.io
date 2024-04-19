@@ -47,34 +47,23 @@ export const getKey = async (formData, fileData) => {
 };
 
 
-export const registration  = async (formData) => {
-
-    try {
-   
-      const form = new FormData();
-      form.maxFileSize =10 * 1024 * 1024
-      for (const key in formData) {
-        form.append(key, formData[key]);
-      }
- 
-  
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        body: form, 
+export const registration = async (formData) => {
+  try {
+      const response = await fetch("/api/registration", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json", 
+          },
+          body: JSON.stringify(formData), 
       });
-  
-  
+
       if (!response.ok) {
-        throw new Error("Failed to send message");
+          throw new Error("Failed to send message");
       }
-  
-  
-  
-      return { success: true};
-    } catch (error) {
-    
+
+      return { success: true };
+  } catch (error) {
       throw new Error("Failed to fetch");
-    }
-  };
-  
+  }
+};
 

@@ -14,6 +14,7 @@ import { RootState } from '@/store/store'; // Исправлен путь имп
 import Submit from '@/components/ui/submit-reg/submit-reg'
 import {registration} from '@/lib/api'
 
+
 const RegistrationForm = () => {
     const dispatch = useDispatch();
     const { check, checkForm, authorizationData, password } = useSelector(authorizationForm);
@@ -28,7 +29,7 @@ const RegistrationForm = () => {
         if (name === "email") {
             dispatch(setCheck(null));
         }
-        console.log(authorizationData[name])
+     
     };
 
     const handleSubmit = (e: any) => {
@@ -68,7 +69,7 @@ const RegistrationForm = () => {
                 <Input
                     type="text"
                     name="email"
-                    value={authorizationData.name}
+                    value={authorizationData.email}
                     placeholder="Full Name"
                     onChange={handleInputChange}
                     checked={checkForm.name.length > 0}
