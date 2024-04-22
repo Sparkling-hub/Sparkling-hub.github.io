@@ -67,3 +67,23 @@ export const registration = async (formData) => {
   }
 };
 
+export const login = async (formData) => {
+  try {
+      const response = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json", 
+          },
+          body: JSON.stringify(formData), 
+      });
+
+      if (!response.ok) {
+          throw new Error("Failed to send message");
+      }
+
+      return { success: true };
+  } catch (error) {
+      throw new Error("Failed to fetch");
+  }
+};
+

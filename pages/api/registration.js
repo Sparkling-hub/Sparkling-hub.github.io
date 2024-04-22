@@ -1,26 +1,28 @@
 import { firebaseGetApp } from '../../config/firebase';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getApps } from 'firebase/app'; // Add this import
+import { getAuth } from "firebase-admin/auth";
+import { getApp } from 'firebase-admin/app'; 
+
 firebaseGetApp()
-console.log(getApps())
+const app = getApp();
+
+    const auth = getAuth(app); 
 export default async function registerWithEmailAndPassword(req, res) {
-    const auth = getAuth();
+
+
+
     const { email, password } = req.body;
-    console.log(req.body.email);
+
     try {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Successfully signed up
-                const user = userCredential.user;
-                console.log("User registered:", user.uid);
-                res.status(200).send({ success: true, uid: user.uid });
-            })
-            .catch((error) => {
-                console.error("Error registering user:", error.message);
-                res.status(500).send({ success: false, error: error.message });
-            });
+        const userRecord = await auth.createUser({
+            email: email,
+            password: password,
+        });
+
+        console.log("User registered:", userRecord.uid);
+        res.status(200).send({ success: true, uid: userRecord.uid });
     } catch (error) {
         console.error("Error registering user:", error.message);
         res.status(500).send({ success: false, error: error.message });
     }
 };
+

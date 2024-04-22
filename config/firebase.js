@@ -28,10 +28,11 @@ const firebaseConfig = {
 
 
 
-export function firebaseGetApp(){
+export  function firebaseGetApp(){
   if (!getApps().length) {
-    console.log(1)
+ 
      initializeApp(firebaseConfig);
+ 
   }
 
 };

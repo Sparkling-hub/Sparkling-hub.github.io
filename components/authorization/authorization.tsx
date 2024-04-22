@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import Input from "../ui/input-component/input";
+import {login} from '@/lib/api'
 import {
     authorizationForm,
     setFormData,
@@ -52,14 +53,14 @@ const RegistrationForm = () => {
                 <Input
                     type="text"
                     name="password"
-                    value={authorizationData.name}
+                    value={authorizationData.password}
                     placeholder="Password"
                     onChange={handleInputChange}
                     checked={checkForm.name.length > 0}
                 />
             </label>
 
-            <Submit type="submit" disabled = {true} onClick={1} requiredKeys={['name', 'email', 'password']} name='Authorization'></Submit>
+            <Submit type="submit" disabled = {true} onClick={login} requiredKeys={['name', 'email', 'password']} name='Authorization'></Submit>
         </form>
     );
 };
