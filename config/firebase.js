@@ -1,6 +1,5 @@
 import { initializeApp, getApps } from "firebase-admin/app"; 
 import admin from "firebase-admin";
-
 const serviceAccount  = {
   "type": process.env.SERVICE_TYPE,
   "project_id": process.env.SERVICE_PROJECT_ID,

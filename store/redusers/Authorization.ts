@@ -7,12 +7,22 @@ interface FormValues {
   password: string;
   [key: string]: string;
 }
-
+interface registrationValues  {
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  confirmPassword: string,
+  [key: string]: string;
+}
 interface FormState {
   authorizationData: FormValues;
   check: boolean | null;
   checkForm: FormValues;
-  password: string;
+  checkReg: registrationValues;
+
+  registrationData: registrationValues;
+  
 }
 
 const initialState: FormState = {
@@ -21,19 +31,40 @@ const initialState: FormState = {
     email: '',
     password: '',
   },
+  registrationData: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  },
   check: null,
+  checkReg: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+
+  },
   checkForm: {
     name: '',
     email: '',
     password: '',
   },
-  password: ''
 };
 
 const authorizationSlice = createSlice({
   name: 'authorization',
   initialState,
   reducers: {
+    setRegistrationData: (state, action: PayloadAction<registrationValues>) => {
+      state.registrationData = action.payload;
+    },
+
+    resetRegistrationData: (state) => {
+      state.registrationData = initialState.registrationData; 
+    },
     setFormData: (state, action: PayloadAction<FormValues>) => {
       state.authorizationData = action.payload;
     },
@@ -50,13 +81,18 @@ const authorizationSlice = createSlice({
       const { key, value } = action.payload;
       state.checkForm[key] = value;
     },
-    setPassword: (state, action: PayloadAction<string>) => { 
-      state.password = action.payload;
+    resetCheckReg: (state) => {
+      state.checkForm = initialState.checkForm; 
     },
+    setCheckRegByKey: (state, action: PayloadAction<{ key: keyof FormValues; value: string }>) => {
+      const { key, value } = action.payload;
+      state.checkForm[key] = value;
+    },
+
   },
 });
 
-export const { setFormData, setCheck, setCheckFormByKey, resetFormData, resetCheckForm,setPassword } = authorizationSlice.actions;
+export const { setFormData, setCheck, setCheckFormByKey, resetFormData, resetCheckForm,resetRegistrationData, setCheckRegByKey,resetCheckReg, setRegistrationData} = authorizationSlice.actions;
 
 export const authorizationForm = (state: RootState) => state.authorization;
 

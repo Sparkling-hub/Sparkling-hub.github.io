@@ -1,13 +1,14 @@
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  setRegistrationData,
   authorizationForm,
   setFormData,
   setCheck,
-  setCheckFormByKey,
+  setCheckRegByKey,
   resetCheckForm,
   resetFormData
 } from '@/store/redusers/Authorization'; // Corrected import path
@@ -23,29 +24,30 @@ interface InputSubmitProps {
 }
 
 const InputSubmit: React.FC<InputSubmitProps> = ({ name, type, disabled, onClick, requiredKeys}) => {
-  const { check, checkForm, authorizationData } = useSelector(authorizationForm);
+  const { check, checkReg, registrationData } = useSelector(authorizationForm);
   const dispatch = useDispatch();
+  const [error, setError] = useState<string | null>(null); // Состояние для отслеживания ошибки
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    dispatch(setCheck(selectIsValidEmail(authorizationData.email)));
-    if (disabled && selectIsValidEmail(authorizationData.email)) {
+    dispatch(setCheck(selectIsValidEmail(registrationData.email)));
+    if (disabled && selectIsValidEmail(registrationData.email)) {
       try {
-        await onClick(authorizationData);
+        await onClick(registrationData);
          dispatch(resetFormData());
          dispatch(resetCheckForm())
-        }catch (error: any) {}
+        }catch (error: any) {setError('The email address is already')}
   } 
   else {
      
 
-    requiredKeys.filter(key => (authorizationData as any)[key] === '')
-      .map(key => { dispatch(setCheckFormByKey({ key: key, value: 'Fill in the following fields:' })) });
+    requiredKeys.filter(key => (registrationData as any)[key] === '')
+      .map(key => { dispatch(setCheckRegByKey({ key: key, value: 'Fill in the following fields:' })) });
   }
 }
-  const buttonClass = disabled && selectIsValidEmail(authorizationData.email) ? 'bg-teal-500' : 'bg-color-primary-dark';
+  const buttonClass = disabled && selectIsValidEmail(registrationData.email) ? 'bg-teal-500' : 'bg-color-primary-dark';
 
   return (
-    <div className='m-auto flex mt-4'>   
+    <div className='m-auto flex mt-4 relative'>   
 
 
       <input
@@ -54,12 +56,11 @@ const InputSubmit: React.FC<InputSubmitProps> = ({ name, type, disabled, onClick
         type={type}
         className={`no-underline text-white py-3 px-8 rounded-3xl p-2 w-40 m-auto ${buttonClass}`}
         onClick={(e) => {
-       
-          handleSubmit(e);
+          handleSubmit(e)
         }}
         
       />
-     
+     <p className='absolute  bottom-[-2.5rem] w-full text-red-500'>{error}</p>
     </div>
   );
 };
