@@ -1,25 +1,22 @@
 import { initializeApp, getApps } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { setUser, clearUser } from '@/store/actions/authActions';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBJKXMOYI6KodbnJhJHAH3wsjFznYhQ-pw",
-  authDomain: "sparkling-website.firebaseapp.com",
-  projectId: "sparkling-website",
-  storageBucket: "sparkling-website.appspot.com",
-  messagingSenderId: "450613401211",
-  appId: "1:450613401211:web:fa8b1b0c3511e9b1da34de",
-  measurementId: "G-RB288H6HFL"
+  apiKey: "AIzaSyDSwnvQFMPdPZOAzpdTOFy4erXN9l5oFGg",
+  authDomain: "sparkling-9efa5.firebaseapp.com",
+  projectId: "sparkling-9efa5",
+  storageBucket: "sparkling-9efa5.appspot.com",
+  messagingSenderId: "93295510015",
+  appId: "1:93295510015:web:9e1b7d748373c8526a67ca",
+  measurementId: "G-N31PBPWVSS"
 };
-const app = initializeApp(firebaseConfig);
-console.log( process.env.DATABASE_API_KEY)
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp); 
+const firestore = getFirestore(firebaseApp); 
+const storage = getStorage(firebaseApp)
 
-const auth = getAuth(app); 
-const firestore = getFirestore(app); 
+export { firebaseApp, auth, firestore, storage};  
 
-export { app, auth, firestore };  
-
-export function firebaseInit() {
-  if (!getApps().length) {
-  initializeApp(firebaseConfig);}
-}

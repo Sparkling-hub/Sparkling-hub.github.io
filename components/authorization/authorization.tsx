@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import Input from "../ui/input-component/input";
 import {login} from '@/lib/api'
 import {
@@ -12,14 +12,17 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store'; 
 import Submit from '@/components/ui/submit-authorization/submit-authorization'
-import {firebaseInit} from '@/config/firebase-client'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { auth, app} from '@/config/firebase-client';
-const RegistrationForm = () => {
-    // firebaseInit()
-    const [error, setError] = useState<string | null>(null); // Состояние для отслеживания ошибки
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth} from '@/config/firebase-client';
+import { setUser, clearUser } from '@/store/actions/authActions';
 
+const RegistrationForm = () => {
     const dispatch = useDispatch();
+
+    const [isSubmitting, setIsSubmitting] = useState(false); // State to track form submission status
+
+
+    const [error, setError] = useState<string | null>(null);
     const { check, checkForm, authorizationData } = useSelector(authorizationForm);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -39,29 +42,29 @@ const RegistrationForm = () => {
     const handleLogin = async (e:any) => {
         e.preventDefault();
 
-        try {
-            signInWithEmailAndPassword(auth, authorizationData.email, authorizationData.password)
-            .then((userCredential) => {
-              const user = userCredential.user;
-              setError(null); 
-            })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              setError("Invalid login or password"); 
-              console.error('Error logging in user:', error.message);
-            });
-        } catch (error:any) {
-          console.error('Error logging in user:', error.message);
-        }
+        if (isSubmitting) return; // Prevent multiple submissions while waiting for the timeout
+        setIsSubmitting(true); // Set submitting state to true
+
+        setTimeout(async () => {
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, authorizationData.email, authorizationData.password);
+                const user = userCredential.user;
+                setError(null);
+
+            } catch (error:any) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                setError("Invalid login or password");
+                console.error('Error logging in user:', error.message);
+            } finally {
+                setIsSubmitting(false); // Reset submitting state after login attempt
+            }
+        }, 500)
       };
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-   
-    };
+
 
     return (
-        <form onSubmit={handleSubmit} className='relative'>
+        <form  className='relative'>
       
                {error && <div className='text-red-500 absolute bottom-0 left-[50%]'>{error}</div>} 
 

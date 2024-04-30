@@ -1,5 +1,9 @@
-import { initializeApp, getApps } from "firebase-admin/app"; 
+
 import admin from "firebase-admin";
+import { initializeApp, getApp, getApps } from "firebase-admin/app";
+import { ref, getStorage } from 'firebase-admin/storage';
+
+import { getFirestore } from 'firebase-admin/firestore';
 const serviceAccount  = {
   "type": process.env.SERVICE_TYPE,
   "project_id": process.env.SERVICE_PROJECT_ID,
@@ -27,11 +31,17 @@ const firebaseConfig = {
 
 
 
-export  function firebaseGetApp(){
-  if (!getApps().length) {
- 
-     initializeApp(firebaseConfig);
- 
-  }
 
+export  function firebaseGetApp(){
+
+  if (!getApps().length) {
+    var app = initializeApp(firebaseConfig);
+ 
+
+  }
+  const db =  getFirestore(app);
+  const storage = getStorage(app);
+  return { db, storage, app };
 };
+
+export const { db, storage, app} = firebaseGetApp();
