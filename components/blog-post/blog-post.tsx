@@ -1,6 +1,6 @@
 import Link from "next/link";
 import IPost from '@/interface/IPost'
-const BlogPost: React.FC<IPost> = ({ title, tags, description, data }) => {
+const BlogPost: React.FC<IPost> = ({ id , title, tags, description, data, fileUrl }) => {
   const calculateReadingTime = (text: string) => {
     if (!text) return 0; // Обработка случая, когда текст не определен
   
@@ -21,7 +21,7 @@ const BlogPost: React.FC<IPost> = ({ title, tags, description, data }) => {
           <img
             width="548"
             height="143"
-            src="https://inoxoft.com/wp-content/uploads/2021/10/cover@2x-80-13-1-scaled.jpg"
+            src={fileUrl}
             className="attachment-548x234 size-548x234 wp-post-image  w-full"
             alt="20 Most Innovative Real Estate Tech Companies and Startups"
             decoding="async"

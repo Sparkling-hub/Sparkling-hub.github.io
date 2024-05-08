@@ -1,7 +1,7 @@
 
 
 interface IPost {
- 
+	id: string;
 	data: string;
 	description: string;
 	fileUrl: string;
