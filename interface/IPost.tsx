@@ -1,11 +1,12 @@
 
 
 interface IPost {
-	id: string;
-	data: string;
-	description: string;
+	id: string| '';
+	date: string| '';
+	description: string| '';
 	fileUrl: string;
-	tags: string[];
-	title?: string
+	tags: string;
+	title?: string;
+	fileName:string;
 }
 export default IPost

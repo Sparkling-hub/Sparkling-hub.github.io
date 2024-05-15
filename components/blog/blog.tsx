@@ -1,49 +1,41 @@
-import Link from "next/link";
-import { ChangeEvent, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, firebaseApp, firestore } from "@/config/firebase-client";
+import { auth, firestore } from "@/config/firebase-client";
 import BlogPost from "../blog-post";
 import {
   resetPostData,
   selectPostFormData,
-  setPostData
+  setUpdate
 } from '@/store/redusers/postReduser';
-import Input from "../ui/input-component";
 import { useDispatch, useSelector } from "react-redux";
-import TextArea from "../ui/text-area-component";
-import { collection, addDoc } from "firebase/firestore"; 
-import firebase from "firebase/app"
-import { enableNetwork } from "firebase/firestore"; 
 import  {createPost, getPost} from '@/lib/api'
-import { doc, setDoc } from "firebase/firestore"; 
 import IPost from "@/interface/IPost";
+import Modal from '../post_interface/post_interface'
 const Blog: React.FC = () => {
   const dispatch = useDispatch();
   const db = firestore;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { postData, check, checkForm } = useSelector(selectPostFormData);
+  const { postData, check, update } = useSelector(selectPostFormData);
+  
   const [user, setUser] = useState<any>(null); // State to store the current user
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+
   const [posts, setPosts] = useState<IPost[]>([]);
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-  
-    if (name === 'img') {
-      const inputElement = e.currentTarget as HTMLInputElement;
-      if (inputElement.files && inputElement.files.length > 0) {
-        setSelectedImage(inputElement.files[0]);
-      } else {
-        setSelectedImage(null); 
-      }
-    } else {
-      dispatch(setPostData({
-        ...postData,
-        [name]: value,
-      }));
+  const handleOutsideClick = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('.admin_post')) {
+      closeModal();
     }
   };
-  const handleSubmit = async () => {
+
+  useEffect(() => {     
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+  const handleSubmit = async (selectedImage:File|null) => {
     // try {
     //   await enableNetwork(db);
     //   await setDoc(doc(db, "cities", "LA"), {
@@ -61,9 +53,10 @@ const Blog: React.FC = () => {
   
     // }
     createPost(postData, selectedImage)
-    
+  
     dispatch(resetPostData())
-    fetchPosts()
+    dispatch(setUpdate(!update))
+
   };
 
   const handleAddBlog = () => {
@@ -79,32 +72,38 @@ const Blog: React.FC = () => {
 
   useEffect(() => {
     handleAddBlog();
+  
   }, []);
 
   const openModal = () => {
+ 
     setShowModal(true);
+    dispatch(resetPostData())
   };
 
   const closeModal = () => {
     setShowModal(false);
   }; 
   const fetchPosts = async () => {
+    console.log("catch")
     try {
       const response = await getPost(); 
       setPosts(response); 
-      console.log(response)
+
     } catch (error) {
       console.log(error)
     }
   };
 
   useEffect(() => {
+
     fetchPosts();
-  }, []); 
+  }, [update]); 
+  
 
   
   return (
-    <div className="" key={posts.length}>
+    <div className="">
       {user ? (
         <button
           className="no-underline relative w-auto text-white py-3 px-8 m-auto bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700"
@@ -115,64 +114,13 @@ const Blog: React.FC = () => {
       ) : (
         ""
       )}
-      <div className="flex flex-wrap">
-      {posts.map((item: IPost, index: number) => (
-  <BlogPost key={index} {...item} />
-))}
+      <div className="flex flex-wrap"  key={posts? posts.length+1:'0'}>
+      {posts?posts.map((item: IPost, index: number) => (
+  <BlogPost key={item.id}{...item} />
+)):''}
       </div>
       {showModal && (
-        <div className="fixed w-[80%] top-[20%] left-[10%] z-50 bg-gray-200 rounded-[10px] p-10 shadow-xl">
-          <div className="flex justify-between pb-5">           
-   <h2>Add Blog</h2>    
-             <button className="no-underline relative w-auto text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700" onClick={closeModal}> X </button>
-             </div>
-
-      <div className="flex p-5">
-        <div className="relative">
-       <p className="absolute text-sm right-2 py-11">Upload image</p>
-        <Input
-          type="file"
-          name="img"
-          value={postData.img}
-      
-          onChange={handleInputChange}
-
-        />{selectedImage && (
-          <img src={URL.createObjectURL(selectedImage)} alt="Selected Image" className="mt-2 max-w-full h-auto" />
-        )}
-        </div>
-       
-<div className="w-full ml-10">
-           <Input
-          type="text"
-          name="title"
-          value={postData.title}
-          placeholder="Title"
-          onChange={handleInputChange}
-
-        />
-        
-        <Input
-          type="text"
-          name="tags"
-          value={postData.tags}
-          placeholder="Tags"
-          onChange={handleInputChange}
-
-        />
-        
-
-<TextArea
-          name="text"
-          placeholder="Tell us about your project and goals"
-          value={postData.text}
-          onChange={handleInputChange}
-       
-        />
-        </div>
-      </div>
-          <button type="submit"    onClick={handleSubmit} disabled={isSubmitting}  className="no-underline relative w-auto text-white py-3 px-12 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700 m-auto ">Save</button>
-        </div>
+      <Modal onClick={handleSubmit} closeModal={closeModal}/>
       )}
     </div>
   );

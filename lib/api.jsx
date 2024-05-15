@@ -50,7 +50,7 @@ export const createPost = async (formData, file) => {
   const form = new FormData();
   form.maxFileSize =10 * 1024 * 1024
         form.append('title', formData.title);
-        form.append('text', formData.text);
+        form.append('description',   formData.description);
         form.append('tags', formData.tags);
         form.append('img', formData.img);
         form.append('file', file); // Добавляем файл в FormData
@@ -105,9 +105,8 @@ export const getPost = async () => {
     }
 
     const responseData = await response.json(); // Await the response.json() method
-    console.log('Received response data:', responseData); // Check the data received
+
     const { postsData } = responseData; // Destructure postsData from the response data
-    console.log('Received postsData:', postsData); // Check the postsData array
     return postsData; // Return the postsData array
   } catch (error) {
     console.error('Error fetching data:', error);

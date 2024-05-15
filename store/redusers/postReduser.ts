@@ -3,17 +3,20 @@ import { RootState } from '../store';
 
 
 interface FormValues {
-  title: string;
-  text: string;
-  tags: string;
-
-  img: string;
+	id: string| '';
+	date: string| '';
+	description: string| '';
+	fileUrl: string;
+	tags: string;
+	title: string;
+	fileName:string;
 
   [key: string]: string  ;
 
 }
 
 interface FormState {
+  update:boolean;
     postData: FormValues;
   check: boolean | null;
   checkForm: FormValues;
@@ -21,18 +24,27 @@ interface FormState {
 
 
 const initialState: FormState = {
+  update: false,
   postData: {
     title: '',
-    text: '', 
+    description: '',
     tags: '',
     img: '',
+    id: '',
+    date: '',
+    fileUrl: '',
+    fileName: ''
   },
   check: null,
   checkForm: {
     title: '',
-    text: '',
+    description: '',
     tags: '',
     img: '',
+    id: '',
+    date: '',
+    fileUrl: '',
+    fileName: ''
   },
 };
 
@@ -68,10 +80,14 @@ const postSlice = createSlice({
       const { key, value } = action.payload;
       state.checkForm[key] = value;
     },
+    setUpdate: (state,  action: PayloadAction<boolean>) => {
+      const  value = action.payload;
+      state.update = value;
+    },
   },
 });
 
-export const { setPostData, setCheck,setCheckFormByKey,resetPostData,resetCheckForm } = postSlice.actions;
+export const { setPostData, setCheck,setCheckFormByKey,resetPostData,resetCheckForm, setUpdate } = postSlice.actions;
 export const selectPostFormData = (state: RootState) => state.post; // Corrected selector
 
 

@@ -4,6 +4,9 @@ import {db} from '../../config/firebase'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from "firebase/firestore"; 
 import {firestore, storage} from '../../config/firebase-client';
+import { Timestamp } from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
+// Создание метки времени для текущего момента
 
 const upload = multer({
   storage: multer.memoryStorage(), // Сохраняем файлы в оперативной памяти
@@ -34,13 +37,13 @@ export default async function handler(req, res) {
       resolve(null);
     });
   });
-
+  const uniqueId = uuidv4();
   const file = req.file;
   // if (!file) {
   //   return res.status(400).json({ success: false, message: 'Файл не был загружен!' });
   // }
-  const {title, text, tags} = req.body
-  const filePath = 'uploads/' + file.originalname;
+  const {title, description, tags} = req.body
+  const filePath = `uploads/${uniqueId}_${file.originalname}`;
   const fileRef = ref(storage, filePath);
 
   const uploadTask = uploadBytesResumable(fileRef, file.buffer, {
@@ -59,16 +62,28 @@ export default async function handler(req, res) {
       },
     });
   });
+  const timestamp = Timestamp.now();
+
+  // Извлечение компонентов даты из метки времени
+  const dateObj = timestamp.toDate();
+  
+  // Форматирование даты с использованием Intl.DateTimeFormat
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    month: "long", // Полное название месяца
+    day: "numeric", // Число дня
+    year: "numeric", // Год
+  });
+  const formattedDate = formatter.format(dateObj);
   console.log('db')
   const fileUrl = await getDownloadURL(fileRef);
   console.log(fileUrl)
   const docRef = await addDoc(collection(firestore, "posts"),{
-   fileName: file.originalname,
+   fileName: `${uniqueId}_${file.originalname}`,
     fileUrl: fileUrl,
     title: title,
     tags: tags,
-    description: text, 
-    data: '1',
+    description: description, 
+    date: formattedDate,
   });
   // await db.collection('posts').add({
   //   test: "test",
