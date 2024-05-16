@@ -39,10 +39,11 @@ const BlogPost: React.FC<IPost> = (data) => {
         fileName: fileName,
       };
     
-      dispatch(setUpdate(!update));
+
      
       console.log(postData.fileUrl);
       await setDoc(docRef, updatedPostData);
+      dispatch(setUpdate());
     } catch (error) {
       console.error('Error updating document:', error);
     }
@@ -77,15 +78,16 @@ const BlogPost: React.FC<IPost> = (data) => {
   const deleteDocument = async () => {
 
     try {
-      await deleteDoc(doc(firestore, 'posts', data.id));
-
+      await  deleteDoc(doc(firestore, 'posts', data.id));
+      console.log('1');
       const imageRef = ref(storage, data.fileUrl);
     await deleteObject(imageRef);
-    console.log('Image successfully deleted from Storage!');
-      dispatch(setUpdate(!update))
+    console.log('2');
+
     
 
       console.log('Document successfully deleted!');
+      dispatch(setUpdate())
     } catch (error) {
       console.error('Error deleting document: ', error);
     }

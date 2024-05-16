@@ -80,9 +80,9 @@ const postSlice = createSlice({
       const { key, value } = action.payload;
       state.checkForm[key] = value;
     },
-    setUpdate: (state,  action: PayloadAction<boolean>) => {
-      const  value = action.payload;
-      state.update = value;
+    setUpdate: (state) => {
+
+      state.update = !state.update ;
     },
   },
 });

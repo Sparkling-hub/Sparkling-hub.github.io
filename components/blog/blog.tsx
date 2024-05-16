@@ -36,27 +36,11 @@ const Blog: React.FC = () => {
     };
   }, []);
   const handleSubmit = async (selectedImage:File|null) => {
-    // try {
-    //   await enableNetwork(db);
-    //   await setDoc(doc(db, "cities", "LA"), {
-    //     name: "Los Angeles",
-    //     state: "CA",
-    //     country: "USA"
-    //   });
-      
-    //   // console.log("Document written with ID: ", docRef.id);
-    //   alert("Post created successfully!");
-    // } catch (error) {
-    //   console.error("Error creating post:", error);
-    //   alert("Error creating post. Please try again later.");
-    // } finally {
-  
-    // }
-    createPost(postData, selectedImage)
-  
-    dispatch(resetPostData())
-    dispatch(setUpdate(!update))
+   await createPost(postData, selectedImage)
 
+    dispatch(resetPostData())
+   
+    dispatch(setUpdate())
   };
 
   const handleAddBlog = () => {
@@ -72,7 +56,7 @@ const Blog: React.FC = () => {
 
   useEffect(() => {
     handleAddBlog();
-  
+
   }, []);
 
   const openModal = () => {
@@ -96,7 +80,8 @@ const Blog: React.FC = () => {
   };
 
   useEffect(() => {
-
+    console.log(update)
+  
     fetchPosts();
   }, [update]); 
   

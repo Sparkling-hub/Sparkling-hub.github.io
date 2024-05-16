@@ -90,5 +90,5 @@ export default async function handler(req, res) {
  
   // });
   // Отправляем URL файла в качестве ответа
-  // res.status(200).json({ success: true, fileUrl });
+  res.status(200).json({ success: true, fileUrl });
 }
