@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {firestore, storage} from '../../config/firebase-client'; // Подключите файл firebaseClient с настройками клиентского Firebase
 import { useEffect, useState } from "react";
 import Modal from '../post_interface/post_interface'
+import { uploadPhoto } from "@/lib/api";
 import { selectPostFormData, setPostData, setUpdate } from "@/store/redusers/postReduser";
 const BlogPost: React.FC<IPost> = (data) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,46 +25,24 @@ const BlogPost: React.FC<IPost> = (data) => {
     return Math.ceil(minutes); // Округляем время чтения до ближайшего целого числа
   };
 
+
+  
   const updateDocument = async (selectedImage: any) => {
     try {
-      // Generate a unique ID for the new image file
-      const uniqueId = uuidv4();
-  
-      // Construct the file path in Firebase Storage
-      const filePath = `uploads/${uniqueId}_${selectedImage.name}`;
-  
-      // Create a reference to the new file in Firebase Storage
-      
-   
-  const fileRef = ref(storage, filePath);
-  console.log(selectedImage)
-      // Upload the image file to Firebase Storage
-      const uploadTask = uploadBytesResumable(fileRef, selectedImage.buffer, {
-        contentType: selectedImage.type,
-      });
-  
-      // Wait for the upload to complete and get the download URL of the new file
-      const fileSnapshot = await uploadTask;
-      const fileUrl = await getDownloadURL(fileRef);
-  
-      // Update the postData with the new file URL and name
-      setPostData({
+      const docRef = doc(firestore, 'posts', data.id);
+      const imageRef = ref(storage, data.fileUrl);
+      await deleteObject(imageRef);
+      const {fileUrl, fileName} = await uploadPhoto(selectedImage) 
+      const updatedPostData = {
         ...postData,
         fileUrl: fileUrl,
-        fileName: `${uniqueId}_${selectedImage.name}`,
-      });
-  
-      // Update the document in Firestore with the updated postData
-      const docRef = doc(firestore, 'posts', data.id);
-      await setDoc(docRef, postData);
-  
-      if (data.fileUrl) {
-        const imageRef = ref(storage, data.fileUrl);
-        await deleteObject(imageRef);
-      }
-  
-      console.log('Document updated successfully');
+        fileName: fileName,
+      };
+    
       dispatch(setUpdate(!update));
+     
+      console.log(postData.fileUrl);
+      await setDoc(docRef, updatedPostData);
     } catch (error) {
       console.error('Error updating document:', error);
     }
@@ -104,6 +83,7 @@ const BlogPost: React.FC<IPost> = (data) => {
     await deleteObject(imageRef);
     console.log('Image successfully deleted from Storage!');
       dispatch(setUpdate(!update))
+    
 
       console.log('Document successfully deleted!');
     } catch (error) {

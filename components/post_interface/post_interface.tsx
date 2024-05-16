@@ -53,8 +53,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
     };
 
 
-  
- 
+
 
   
  
