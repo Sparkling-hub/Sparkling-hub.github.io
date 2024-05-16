@@ -1,7 +1,7 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { setUser, clearUser } from '@/store/actions/authActions';
+
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {

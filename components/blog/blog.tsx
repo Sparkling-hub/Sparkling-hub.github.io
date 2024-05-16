@@ -8,6 +8,10 @@ import {
   selectPostFormData,
   setUpdate
 } from '@/store/redusers/postReduser';
+import {
+  setUserAuth,
+  selectUserAuth
+} from '@/store/redusers/userReducer';
 import { useDispatch, useSelector } from "react-redux";
 import  {createPost, getPost} from '@/lib/api'
 import IPost from "@/interface/IPost";
@@ -17,8 +21,8 @@ const Blog: React.FC = () => {
   const db = firestore;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { postData, check, update } = useSelector(selectPostFormData);
-  
-  const [user, setUser] = useState<any>(null); // State to store the current user
+  const { user } = useSelector(selectUserAuth);
+
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -47,9 +51,9 @@ const Blog: React.FC = () => {
     onAuthStateChanged(auth, (user) => {
 
       if (user != null) {
-        setUser(true);
+        dispatch(setUserAuth(true));
       } else {
-        setUser(false);
+        dispatch(setUserAuth(false));
       }
     });
   };
@@ -81,7 +85,7 @@ const Blog: React.FC = () => {
 
   useEffect(() => {
     console.log(update)
-  
+    closeModal()
     fetchPosts();
   }, [update]); 
   

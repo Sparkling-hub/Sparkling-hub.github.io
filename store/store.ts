@@ -10,6 +10,7 @@ import dropdownNavbarReducer from './redusers/dropdownNavbarReduser'
 import navigationReducer from './redusers/navigationReducer'
 import authorizationReducer from './redusers/Authorization'
 import postReduser from './redusers/postReduser';
+import userReduser from './redusers/userReducer';
 const rootReducer = {
   navigation: navigationReducer,
   maps: mapsReducer,
@@ -21,6 +22,7 @@ const rootReducer = {
   dropdownNavbar: dropdownNavbarReducer,
   authorization: authorizationReducer,
   post: postReduser,
+  user:userReduser
 };
 const store = configureStore({
   reducer: rootReducer,

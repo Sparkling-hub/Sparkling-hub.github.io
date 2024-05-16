@@ -10,8 +10,10 @@ import { useEffect, useState } from "react";
 import Modal from '../post_interface/post_interface'
 import { uploadPhoto } from "@/lib/api";
 import { selectPostFormData, setPostData, setUpdate } from "@/store/redusers/postReduser";
+import { selectUserAuth } from "@/store/redusers/userReducer";
 const BlogPost: React.FC<IPost> = (data) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useSelector(selectUserAuth);
+  const [timerDisabled, setTimerDisabled] = useState(true);
   const dispatch = useDispatch();
   const { postData, update } = useSelector(selectPostFormData);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
@@ -27,7 +29,7 @@ const BlogPost: React.FC<IPost> = (data) => {
 
 
   
-  const updateDocument = async (selectedImage: any) => {
+  const updateDocument = async (selectedImage: any) => {  setTimerDisabled(false);
     try {
       const docRef = doc(firestore, 'posts', data.id);
       const imageRef = ref(storage, data.fileUrl);
@@ -47,6 +49,7 @@ const BlogPost: React.FC<IPost> = (data) => {
     } catch (error) {
       console.error('Error updating document:', error);
     }
+    setTimerDisabled(true)
   };
 
   const openModal = () => {
@@ -76,7 +79,7 @@ const BlogPost: React.FC<IPost> = (data) => {
   };
  
   const deleteDocument = async () => {
-
+    setTimerDisabled(false);
     try {
       await  deleteDoc(doc(firestore, 'posts', data.id));
       console.log('1');
@@ -91,7 +94,7 @@ const BlogPost: React.FC<IPost> = (data) => {
     } catch (error) {
       console.error('Error deleting document: ', error);
     }
-
+    setTimerDisabled(true)
   };
   
   useEffect(() => {
@@ -106,13 +109,13 @@ const BlogPost: React.FC<IPost> = (data) => {
     <div className="max-w-[50%] p-5 w-full z-100">
    
       <div className="bg-gray-100 rounded-[10px] shadow-lg relative">
-      <div className="absolute z-[20] w-full flex justify-between p-2 admin_panel opacity-40 transition-opacity duration-300 text-white">
-      <button className="bg-color-primary-dark  h-10 w-10 rounded-full  transform scale-90 transition-all duration-300 hover:scale-110  text-lg hover:text-xl" onClick={openModal}>
+      {user ?<div className="absolute z-[20] w-full flex justify-between p-2 admin_panel opacity-40 transition-opacity duration-300 text-white">
+      <button className="bg-color-primary-dark  h-10 w-10 rounded-full  transform scale-90 transition-all duration-300 hover:scale-110  text-lg hover:text-xl" onClick={openModal}  disabled={!timerDisabled}>
     ✎
   </button>
-  <button className="bg-color-primary-dark  h-10 w-10 rounded-full  transform scale-90 transition-all duration-300 hover:scale-110  text-lg hover:text-xl" onClick={deleteDocument}>
+  <button className="bg-color-primary-dark  h-10 w-10 rounded-full  transform scale-90 transition-all duration-300 hover:scale-110  text-lg hover:text-xl" onClick={deleteDocument} disabled={!timerDisabled}>
     ✖
-  </button> </div>
+  </button> </div>:''}
         <Link
           className="relative h-64 overflow-hidden block bg-black rounded-t-[10px]"
           href=""
