@@ -33,7 +33,7 @@ const Blog: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [originPost, setOriginPost]= useState<IPost[]>([]);
-  const [posts, setPosts] = useState<IPost[]>([]);
+  const [posts, setPosts] = useState<IPost[]>(originPost);
   const handleOutsideClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     if (!target.closest('.admin_post')) {
@@ -81,7 +81,7 @@ const Blog: React.FC = () => {
     return postDate >= start && postDate <= end;
   }
   
-const filterValue =async ()=>{
+const filterValue = async ()=>{
 
   let filteredPosts = originPost.filter((post: IPost) => {
     const matchesText = post.title.toLowerCase().includes(filter.title.toLowerCase());
@@ -129,14 +129,14 @@ const filterValue =async ()=>{
 
     try {
       const response = await getPost(); 
-    
+      setOriginPost(response);
       formatTags(response)
-
+  
       const result = {
         tags: getIds(response, 'tags'),
   
       };
-  
+ 
       const activeIds = {
         tags: [],
       
@@ -145,9 +145,9 @@ const filterValue =async ()=>{
   
       dispatch(setUniqueIds({ value: result }));
       dispatch(setActiveIds({ value: activeIds }));
-      setPosts(response)
-      setOriginPost(response); 
-      filterValue()
+
+
+
       
     } catch (error) {
       console.log(error)
@@ -157,19 +157,18 @@ const filterValue =async ()=>{
 
   useEffect(() => {
 
-
+console.log('blog')
     closeModal()
   
     fetchPosts();
-    
   }, [update]); 
   useEffect(() => {
     filterValue()
-
+    console.log('filter')
   
-  }, [activeIds,filter]); 
+  }, [activeIds,filter, update, originPost]); 
 
-  console.log(posts)
+
   return (
     <div className="">
       <div className="flex">
@@ -185,7 +184,7 @@ const filterValue =async ()=>{
         ""
       )}</div>
       <div key={posts? posts.length+1:'0'}>
-        <div key={uuidv4()}  className="flex flex-wrap" >
+        <div  className="flex flex-wrap" >
       {posts?posts.map((item: IPost, index: number) => (
   <BlogPost key={item.id}{...item} />
 )):''}</div>

@@ -64,6 +64,7 @@ const BlogPost: React.FC<IPost> = (data) => {
       })
     );
     setShowModal(true);
+    console.log(showModal)
   };
 
   const closeModal = () => {
@@ -97,7 +98,7 @@ const BlogPost: React.FC<IPost> = (data) => {
   };
   
   useEffect(() => {
-   
+   console.log(showModal)
     document.addEventListener('mousedown', handleOutsideClick);
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
@@ -108,7 +109,7 @@ const BlogPost: React.FC<IPost> = (data) => {
     <div className="max-w-[50%] p-5 w-full z-100">
    
       <div className="bg-gray-100 rounded-[10px] shadow-lg relative">
-      {user ?<div className="absolute z-[20] w-full flex justify-between p-2 admin_panel opacity-40 transition-opacity duration-300 text-white">
+      {user ?<div className="absolute z-[20] w-full flex justify-between p-2 admin_panel opacity-40 transition-opacity duration-300 text-white admin_panel">
       <button className="bg-color-primary-dark  h-10 w-10 rounded-full  transform scale-90 transition-all duration-300 hover:scale-110  text-lg hover:text-xl" onClick={openModal}  disabled={!timerDisabled}>
     ✎
   </button>
