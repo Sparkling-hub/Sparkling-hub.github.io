@@ -42,8 +42,7 @@ const BlogPost: React.FC<IPost> = (data) => {
       };
     
 
-     
-      console.log(postData.fileUrl);
+ 
       await setDoc(docRef, updatedPostData);
       dispatch(setUpdate());
     } catch (error) {
@@ -82,10 +81,10 @@ const BlogPost: React.FC<IPost> = (data) => {
     setTimerDisabled(false);
     try {
       await  deleteDoc(doc(firestore, 'posts', data.id));
-      console.log('1');
+
       const imageRef = ref(storage, data.fileUrl);
     await deleteObject(imageRef);
-    console.log('2');
+
 
     
 

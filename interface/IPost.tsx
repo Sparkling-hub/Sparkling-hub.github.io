@@ -6,7 +6,7 @@ interface IPost {
 	description: string| '';
 	fileUrl: string;
 	tags: string;
-	title?: string;
+	title: string;
 	fileName:string;
 }
 export default IPost
