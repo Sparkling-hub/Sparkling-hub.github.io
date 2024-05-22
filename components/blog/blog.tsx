@@ -129,8 +129,8 @@ const filterValue = async ()=>{
 
     try {
       const response = await getPost(); 
-      setOriginPost(response);
-      formatTags(response)
+      
+  
   
       const result = {
         tags: getIds(response, 'tags'),
@@ -146,7 +146,8 @@ const filterValue = async ()=>{
       dispatch(setUniqueIds({ value: result }));
       dispatch(setActiveIds({ value: activeIds }));
 
-
+      setOriginPost(response);
+      formatTags(response)
 
       
     } catch (error) {

@@ -23,7 +23,7 @@ const DateRangePicker = ({ onDateChange }:any) => {
   };
   console.log()
   return (
-    <div className="date-range-picker">
+    <div className="date-range-picker z-[5] relative">
       <DatePicker
         selected={startDate}
         onChange={handleStartDateChange}
