@@ -87,14 +87,15 @@ const filterValue = async ()=>{
     const matchesText = post.title.toLowerCase().includes(filter.title.toLowerCase());
     const isTagIncluded = activeIds.tags.length === 0 || activeIds.tags.some((activeId: string) => post.tags.includes(activeId));
     const dateInRange = isDateInRange(post, filter.startDate, filter.endDate);
-    return isTagIncluded && dateInRange;
+   const filteredPosts3 = post.title?.toLowerCase().includes(filter.title.toLowerCase());
+    return isTagIncluded && dateInRange && filteredPosts3;
   });
   setPosts(filteredPosts);
 
 
     
    
-      // if(filter.title) {const filteredPosts3 = filteredPosts.filter(post => post.title?.toLowerCase().includes(filter.title.toLowerCase()));}
+     
    
       // 
 
