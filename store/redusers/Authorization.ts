@@ -7,7 +7,7 @@ interface FormValues {
   password: string;
   [key: string]: string;
 }
-interface registrationValues  {
+interface RegistrationValues  {
   firstName: string,
   lastName: string,
   email: string,
@@ -19,9 +19,9 @@ interface FormState {
   authorizationData: FormValues;
   check: boolean | null;
   checkForm: FormValues;
-  checkReg: registrationValues;
+  checkReg: RegistrationValues;
 
-  registrationData: registrationValues;
+  registrationData: RegistrationValues;
   
 }
 
@@ -58,7 +58,7 @@ const authorizationSlice = createSlice({
   name: 'authorization',
   initialState,
   reducers: {
-    setRegistrationData: (state, action: PayloadAction<registrationValues>) => {
+    setRegistrationData: (state, action: PayloadAction<RegistrationValues>) => {
       state.registrationData = action.payload;
     },
 

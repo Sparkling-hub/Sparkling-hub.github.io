@@ -1,10 +1,11 @@
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import multer from 'multer';
-import {firestore, storage} from '../../config/firebase-client';
+import {storage} from '../../config/firebase-client';
+
 
 const upload = multer({
-  storage: multer.memoryStorage(), // Сохраняем файлы в оперативной памяти
+  storage: multer.memoryStorage(), 
   fileFilter: function (req, file, cb) {
 
     if (file.size > 5 * 1024 * 1024) {
@@ -12,19 +13,18 @@ const upload = multer({
     }
     cb(null, true);
   },
-  limits: { fileSize: 5 * 1024 * 1024 }, // Ограничение размера файла до 5MB
+  limits: { fileSize: 5 * 1024 * 1024 }, 
 });
+
 
 export const config = {
   api: {
-    bodyParser: false, // Отключаем стандартный парсер тела запроса
+    bodyParser: false, 
   },
 };
 
 
-
 export default async function handler(req, res) {
-  
   try {
     await new Promise((resolve, reject) => {
       upload.single('file')(req, res, (err) => {
@@ -40,11 +40,11 @@ export default async function handler(req, res) {
     const file = req.file;
     const filePath = `uploads/${uniqueId}_${file.originalname}`;
     const fileRef = ref(storage, filePath);
-
     const uploadTask = uploadBytesResumable(fileRef, file.buffer, {
       contentType: file.mimetype,
     });
 
+    
     uploadTask.on('state_changed', {
       next: (snapshot) => {},
       error: (error) => {

@@ -1,5 +1,4 @@
 import { configureStore} from '@reduxjs/toolkit';
-import { applyMiddleware } from '@reduxjs/toolkit';
 import mapsReducer from '@/store/redusers/mapsSliceReduser';
 import startupStepByStepReducer from '@/store/redusers/startupStepByStepSliceReduser';
 import formReducer from '@/store/redusers/FormSliceReduser';
@@ -11,6 +10,8 @@ import navigationReducer from './redusers/navigationReducer'
 import authorizationReducer from './redusers/Authorization'
 import postReduser from './redusers/postReduser';
 import userReduser from './redusers/userReducer';
+
+
 const rootReducer = {
   navigation: navigationReducer,
   maps: mapsReducer,
@@ -28,7 +29,7 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
 export default store;
