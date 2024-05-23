@@ -116,7 +116,6 @@ const BlogPost: React.FC<IPost> = (data) => {
   
 
   useEffect(() => {
-    console.log(showModal);
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);

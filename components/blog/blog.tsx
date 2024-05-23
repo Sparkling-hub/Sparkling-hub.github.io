@@ -146,15 +146,12 @@ const Blog: React.FC = () => {
 
 
   useEffect(() => {
-    console.log("blog");
-
     fetchPosts();
   }, [update]);
 
 
   useEffect(() => {
     filterValue();
-    console.log("filter");
   }, [activeIds, filter, update, originPost]);
 
 
