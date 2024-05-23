@@ -1,12 +1,11 @@
-import { firebaseGetApp } from '../../config/firebase';
+import { firebaseGetApp } from '../../config/firebase-client';
 import { getAuth, signInWithEmailAndPassword } from 'firebase-admin/auth';
-import { getApp } from 'firebase-admin/app'; // Add this import
+import { getApp } from 'firebase-admin/app'; 
 
 firebaseGetApp();
 
-// Initialize Firebase app and store it in firebaseApp
 const app = getApp();
-const auth = getAuth(app);
+
 
 export default async function loginUserWithEmailAndPassword(req, res) {
   const { email, password } = req.body;
