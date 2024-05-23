@@ -61,7 +61,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
     return (
  
      
-          <div className="fixed w-[80%] top-[20%] left-[10%] z-50 bg-gray-200 rounded-[10px] p-10 shadow-xl admin_post">
+          <div className="fixed w-[80%] top-[20%] left-[10%] z-[5000] bg-gray-200 rounded-[10px] p-10 shadow-xl admin_post">
             <div className="flex justify-between pb-5">           
      <h2>Add Blog</h2>    
                <button className="no-underline relative w-auto text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700" onClick={closeModal}> X </button>

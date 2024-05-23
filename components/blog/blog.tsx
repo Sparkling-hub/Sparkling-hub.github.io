@@ -186,7 +186,7 @@ console.log('blog')
         ""
       )}</div>
       <div key={posts? posts.length+1:'0'}>
-        <div  className="flex flex-wrap" >
+        <div  className="flex flex-wrap z-[-10] static" >
       {posts?posts.map((item: IPost, index: number) => (
   <BlogPost key={item.id}{...item} />
 )):''}</div>

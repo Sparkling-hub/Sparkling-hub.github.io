@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
   }, []);
   return (
 
-    <header className={`bg-white bg-opacity-95 sticky top-0 z-30 w-full ${hasShadow ? 'shadow-lg transition-shadow duration-300' : 'shadow-none transition-shadow duration-300'}`}>
+    <header className={`bg-white bg-opacity-95 sticky top-0 z-[500] w-full ${hasShadow ? 'shadow-lg transition-shadow duration-300' : 'shadow-none transition-shadow duration-300'}`}>
    <nav className="mx-auto flex max-w-screen-2xl items-center justify-between py-6 lg:px-8 w full" aria-label="Global">
         <div className="flex justify-between text-xl items-center ">
 

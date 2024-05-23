@@ -106,7 +106,7 @@ const BlogPost: React.FC<IPost> = (data) => {
   }, []);
   const readingTime = calculateReadingTime(data.description);
   return (
-    <div className="max-w-[50%] p-5 w-full z-0">
+    <div className="max-w-[50%] p-5 w-full">
    
       <div className="bg-gray-100 rounded-[10] shadow-lg relative">
       {user ?<div className="absolute z-[5] w-full flex justify-between p-2 admin_panel opacity-40 transition-opacity duration-300 text-white admin_panel">
