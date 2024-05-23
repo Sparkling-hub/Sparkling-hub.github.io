@@ -106,7 +106,7 @@ const RegistrationForm = () => {
       registrationData.lastName
     )
   }
-  onClick={registration}
+  onClick={1}
   requiredKeys={['name', 'email', 'password', 'confirmPassword']}
   name='Register'
 ></Submit>
