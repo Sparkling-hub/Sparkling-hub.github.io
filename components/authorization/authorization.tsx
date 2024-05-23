@@ -14,7 +14,7 @@ import { RootState } from '@/store/store';
 import Submit from '@/components/ui/submit-authorization/submit-authorization'
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth} from '@/config/firebase-client';
-import { setUser, clearUser } from '@/store/actions/authActions';
+
 
 const RegistrationForm = () => {
     const dispatch = useDispatch();
