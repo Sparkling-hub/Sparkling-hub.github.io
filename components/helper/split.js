@@ -1,12 +1,11 @@
 export function formatTags(data) {
-    return data.map(item => {
-      if (item.tags) {
-        item.tags = item.tags.split(',').map(tag => tag.trim());
-      }
-      return item;
-    });
-  }
-
+  return data.map(item => {
+    if (typeof item.tags === 'string') {
+      item.tags = item.tags.split(',').map(tag => tag.trim());
+    }
+    return item;
+  });
+}
   
 import IJob from '@/interface/IJob';
 
@@ -15,9 +14,12 @@ export const getIds = (data, name) => {
   const allTags = data.reduce((acc, item) => {
     const value = item[name];
     if (Array.isArray(value)) {
-      acc.push(...value);
+      acc.push(...value.filter(tag => tag.trim() !== ''));
     } else if (typeof value === 'string') {
-      acc.push(value);
+      const trimmedValue = value.trim();
+      if (trimmedValue !== '') {
+        acc.push(trimmedValue);
+      }
     }
     return acc;
   }, []);
