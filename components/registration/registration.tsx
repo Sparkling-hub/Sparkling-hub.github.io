@@ -28,7 +28,7 @@ const RegistrationForm = () => {
 
     return (
         <form>
-            <label className='flex justify-between'>
+            <div className='flex justify-between'>
                 <div className='w-1/2 pr-2'>
                     First Name:
                     <Input
@@ -50,7 +50,7 @@ const RegistrationForm = () => {
                         onChange={handleInputChange}
                         checked={checkReg.lastName.length > 0}
                     /></div>
-            </label>
+            </div>
             <label>
                 Email:
                 <Input
