@@ -7,12 +7,13 @@ interface InputProps {
   value: string | undefined;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onClick?: Function;
+  allowedFileTypes?:string
 checked?: boolean;
 }
 
 
 
-const Input: React.FC<InputProps> = ({ name, type, placeholder, value, onChange,checked,onClick }) => {
+const Input: React.FC<InputProps> = ({ name, type, placeholder, value, onChange,checked,onClick,allowedFileTypes }) => {
 
 
 
@@ -26,7 +27,7 @@ const Input: React.FC<InputProps> = ({ name, type, placeholder, value, onChange,
       value={value}
       onChange={onChange}
       onClick={onClick as MouseEventHandler<HTMLInputElement>}
-      accept=".pdf" 
+      accept={allowedFileTypes} 
       className={`border  rounded-3xl p-4 w-full my-5 ${ checked ? 'border-red-500':'border-primary-dark' }`}
     />
     {value?.length === 0 ?

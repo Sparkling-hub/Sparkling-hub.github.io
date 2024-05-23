@@ -27,6 +27,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+  const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
   await new Promise((resolve, reject) => {
     upload.single('file')(req, res, (err) => {
       if (err) {
@@ -39,10 +40,16 @@ export default async function handler(req, res) {
   });
   const uniqueId = uuidv4();
   const file = req.file;
-  // if (!file) {
-  //   return res.status(400).json({ success: false, message: 'Файл не был загружен!' });
-  // }
+  if (!allowedTypes.includes(file.mimetype)) {
+    return res.status(400).json({ success: false, message: 'ERROR FORMAT' });
+  }
+  if (!file) {
+    return res.status(400).json({ success: false, message: 'ERROR ATRIBUTE' });
+  }
   const {title, description, tags} = req.body
+  if (!title || !description || !tags) {
+    return res.status(400).json({ success: false, message: 'ERROR ATRIBUTE' });
+  }
   const filePath = `uploads/${uniqueId}_${file.originalname}`;
   const fileRef = ref(storage, filePath);
 

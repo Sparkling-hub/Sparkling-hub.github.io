@@ -196,7 +196,7 @@ const Faq = () => {
 								<div className="relative">
 									<Input
 										type="file"
-										name="file"
+										name="pdf"
 										onClick={(e: { target: { value: string; }; }) => {
 											e.target.value = ''; dispatch(setFormData({
 												...formData,

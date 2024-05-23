@@ -46,11 +46,13 @@ const Blog: React.FC = () => {
     };
   }, []);
   const handleSubmit = async (selectedImage:File|null) => {
+    if(selectedImage){
    await createPost(postData, selectedImage)
 
     dispatch(resetPostData())
-   
-    dispatch(setUpdate())
+    closeModal()
+    dispatch(setUpdate())}
+    
   };
   const checkStartDate = (dateString: string | null): Date => {
     if (!dateString) {
@@ -155,7 +157,7 @@ const Blog: React.FC = () => {
   useEffect(() => {
 
 console.log('blog')
-    closeModal()
+
   
     fetchPosts();
   }, [update]); 

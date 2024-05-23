@@ -33,24 +33,40 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [posts, setPosts] = useState<IPost[]>([]);
-    
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { name, value } = e.target;
+      const { name } = e.target;
     
       if (name === 'img') {
         const inputElement = e.currentTarget as HTMLInputElement;
         if (inputElement.files && inputElement.files.length > 0) {
-          setSelectedImage(inputElement.files[0]);
+          const file = inputElement.files[0];
+          const allowedFileTypes = [".png", ".jpg", ".jpeg"];
+    
+          // Получаем расширение файла
+          const fileExtension = file.name.split('.').pop()?.toLowerCase() || '';
+          
+          // Проверяем, что расширение файла входит в список разрешенных типов
+          if (!allowedFileTypes.includes(`.${fileExtension}`)) {
+            alert("Invalid file type. Please select a PNG, JPG, or JPEG file.");
+            inputElement.value = ''; 
+            setSelectedImage(null); 
+            return;
+          }
+    
+          setSelectedImage(file);
         } else {
           setSelectedImage(null); 
         }
       } else {
+        // Остальная логика обработки данных
+        const { value } = e.target;
         dispatch(setPostData({
           ...postData,
           [name]: value,
         }));
       }
     };
+    
 
 
 
@@ -73,8 +89,9 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
           <Input
             type="file"
             name="img"
+            allowedFileTypes = ".png, .jpg, .jpeg"
             value={postData.img}
-        
+             checked={!(selectedImage || postData.fileUrl)}
             onChange={handleInputChange}
   
           />{selectedImage ? (
@@ -98,6 +115,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
             value={postData.tags}
             placeholder="Tags"
             onChange={handleInputChange}
+       
   
           />
           
