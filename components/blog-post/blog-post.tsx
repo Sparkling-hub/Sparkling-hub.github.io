@@ -27,8 +27,18 @@ const BlogPost: React.FC<IPost> = (data) => {
     return Math.ceil(minutes); // Округляем время чтения до ближайшего целого числа
   };
 
-
+  function formatTagsArray(tagsArray:any) {
+    if (!Array.isArray(tagsArray)) {
+      throw new Error('Input is not an array');
+    }
   
+    const filteredTags = tagsArray.filter(tag => tag.trim() !== '');
+    const tagsString = filteredTags.join(', ');
+  
+    return tagsString;
+  }
+  
+  console.log()
   const updateDocument = async (selectedImage: any) => {  setTimerDisabled(false);
     try {
       const docRef = doc(firestore, 'posts', data.id);
@@ -144,7 +154,7 @@ const BlogPost: React.FC<IPost> = (data) => {
         <div className="min-h-[256px] p-2 md:p-5 flex flex-col justify-between">
           <div className="card-top">
             <p className="card-tag">
-              <span className="tags-list text-2xl font-semibold text-primary-darkTeal">{data.tags}</span>{" "}
+              <span className="tags-list text-2xl font-semibold text-primary-darkTeal">{formatTagsArray(data.tags)}</span>{" "}
             </p>
 
             <Link
