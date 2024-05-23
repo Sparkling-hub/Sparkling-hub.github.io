@@ -18,7 +18,9 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
   const dispatch = useDispatch();
   const { postData } = useSelector(selectPostFormData);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-
+  const imageUrl = selectedImage
+    ? URL.createObjectURL(selectedImage)
+    : postData.fileUrl || '';
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name } = e.target;
@@ -64,9 +66,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
             checked={!(selectedImage || postData.fileUrl)}
             onChange={handleInputChange}
 
-          />{selectedImage ? (
-            <img src={URL.createObjectURL(selectedImage)} alt="Selected Image" className="mt-2 max-h-[400px] max-w-full h-auto" />
-          ) : postData.fileUrl ? <img src={postData.fileUrl} alt="Selected Image" className="mt-2 max-h-[400px] max-w-full h-auto" /> : ''}
+          />      {imageUrl && <img src={imageUrl} alt="Selected Image" className="mt-2 max-h-[400px] max-w-full h-auto" />}
         </div>
         <div className="w-full ml-10">
           <Input
