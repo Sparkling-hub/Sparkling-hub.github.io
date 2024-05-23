@@ -21,9 +21,7 @@ import IPost from "@/interface/IPost";
 import Modal from '../post_interface/post_interface'
 import Filter from '../filterPost'
 import {formatTags, getIds} from '@/components/helper/split'
-import DateRangePicker from "../filterPost/date-select/date-select";
-import { post } from "jquery";
-import { v4 as uuidv4 } from 'uuid';
+
 const Blog: React.FC = () => {
   const dispatch = useDispatch();
   const db = firestore;
@@ -128,24 +126,24 @@ const Blog: React.FC = () => {
     try {
       const response = await getPost(); 
       
-  
-  
+      formatTags(response)
+
       const result = {
-        tags: getIds(response, 'tags'),
+        tags: (getIds(response, 'tags')),
   
       };
- 
+      console.log(result)
       const activeIds = {
         tags: [],
       
       };
-     
-  console.log(filter)
       dispatch(setUniqueIds({ value: result }));
       dispatch(setActiveIds({ value: activeIds }));
-
+  console.log(filter)
+   
+      console.log(activeIds)
       setOriginPost(response);
-      formatTags(response)
+   
 
       
     } catch (error) {
