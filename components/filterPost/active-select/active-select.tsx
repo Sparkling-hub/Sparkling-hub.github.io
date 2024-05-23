@@ -6,11 +6,7 @@ import { get } from '@/components/helper/split';
 
 const MultiSelectActiveItem: React.FC<IMultiSelectActiveItem> = ({id, name}) => {
   const dispatch = useDispatch();
-  const {
-
-		activeIds,
-	  
-	  } = useSelector(selectPostFormData);
+  const { activeIds	} = useSelector(selectPostFormData);
   const deleteItem = (e: React.MouseEvent<HTMLSpanElement>) => {
     const value = e.currentTarget.id.toString();
     let result = get(activeIds, name)
@@ -28,7 +24,6 @@ const MultiSelectActiveItem: React.FC<IMultiSelectActiveItem> = ({id, name}) => 
           onClick={(event) => deleteItem(event)}>
           ×
         </span>
-
       </div>
       <span className="item-title select2-selection__choice__display">
         {id}

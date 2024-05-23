@@ -6,10 +6,8 @@ export function formatTags(data) {
     return item;
   });
 }
-  
-import IJob from '@/interface/IJob';
 
- 
+
 export const getIds = (data, name) => {
   const allTags = data.reduce((acc, item) => {
     const value = item[name];
@@ -23,18 +21,16 @@ export const getIds = (data, name) => {
     }
     return acc;
   }, []);
-
   const uniqueTags = Array.from(new Set(allTags));
   return uniqueTags;
 };
 
 
- 
 export const get = (data, name) => {
-  let result= [];
+  let result = [];
   Object.keys(data).forEach((key) => {
- 
-    if (key == name) result =  data[key];
+
+    if (key == name) result = data[key];
   });
   return result;
 

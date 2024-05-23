@@ -1,74 +1,70 @@
-import { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent, useState, useEffect } from "react";
 import Input from "../ui/input-component/input";
-import {login} from '@/lib/api'
+
 import {
     authorizationForm,
     setFormData,
     setCheck,
     setCheckFormByKey,
-    resetCheckForm,
-    resetFormData
-} from '@/store/redusers/Authorization'; 
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/store'; 
-import Submit from '@/components/ui/submit-authorization/submit-authorization'
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { auth} from '@/config/firebase-client';
+} from "@/store/redusers/Authorization";
+import { useDispatch, useSelector } from "react-redux";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/config/firebase-client";
 
 
 const RegistrationForm = () => {
     const dispatch = useDispatch();
-
     const [isSubmitting, setIsSubmitting] = useState(false); // State to track form submission status
-
-
     const [error, setError] = useState<string | null>(null);
     const { check, checkForm, authorizationData } = useSelector(authorizationForm);
 
+    
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        dispatch(setFormData({
-            ...authorizationData,
-            [name]: value,
-        }));
-        dispatch(setCheckFormByKey({ key: name as any, value: '' }));
+        dispatch(
+            setFormData({
+                ...authorizationData,
+                [name]: value,
+            })
+        );
+        dispatch(setCheckFormByKey({ key: name as any, value: "" }));
         if (name === "email") {
             dispatch(setCheck(null));
-     
-   
         }
-        setError(null)
+        setError(null);
     };
-    const handleLogin = async (e:any) => {
+
+
+    const handleLogin = async (e: any) => {
         e.preventDefault();
-
-        if (isSubmitting) return; // Prevent multiple submissions while waiting for the timeout
-        setIsSubmitting(true); // Set submitting state to true
-
+        if (isSubmitting) return;
+        setIsSubmitting(true);
         setTimeout(async () => {
             try {
-                const userCredential = await signInWithEmailAndPassword(auth, authorizationData.email, authorizationData.password);
-                const user = userCredential.user;
+                 await signInWithEmailAndPassword(
+                    auth,
+                    authorizationData.email,
+                    authorizationData.password
+                );
+          
                 setError(null);
-
-            } catch (error:any) {
-                const errorCode = error.code;
-                const errorMessage = error.message;
+            } catch (error: any) {
                 setError("Invalid login or password");
-                console.error('Error logging in user:', error.message);
+                console.error("Error logging in user:", error.message);
             } finally {
-                setIsSubmitting(false); // Reset submitting state after login attempt
+                setIsSubmitting(false);
             }
-        }, 500)
-      };
+        }, 500);
+    };
 
 
     return (
-        <form  className='relative'>
-      
-               {error && <div className='text-red-500 absolute bottom-0 left-[50%]'>{error}</div>} 
+        <form className="relative">
+            {error && (
+                <div className="text-red-500 absolute bottom-0 left-[50%]">{error}</div>
+            )}
 
-           <label>
+            <label>
                 Email:
                 <Input
                     type="text"
@@ -76,7 +72,9 @@ const RegistrationForm = () => {
                     value={authorizationData.email}
                     placeholder="Full Name"
                     onChange={handleInputChange}
-                    checked={check === false && checkForm.email.length > 0 || check === false}
+                    checked={
+                        (check === false && checkForm.email.length > 0) || check === false
+                    }
                 />
             </label>
             <label>
@@ -90,16 +88,9 @@ const RegistrationForm = () => {
                     checked={checkForm.name.length > 0}
                 />
             </label>
-{/* 
-            <Submit type="submit" disabled = {true} onClick={login} requiredKeys={['name', 'email', 'password']} name='Authorization'></Submit> */}
-             <button
-                    type="submit"
-                 
-                    value={'start'}
-            
-                    onClick={handleLogin}
-        
-                >login</button>
+            <button type="submit" value={"start"} onClick={handleLogin}>
+                login
+            </button>
         </form>
     );
 };
