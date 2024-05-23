@@ -1,9 +1,9 @@
 
 
 interface IPost {
-	id: string| '';
-	date: string| '';
-	description: string| '';
+	id: string;
+	date: string;
+	description: string;
 	fileUrl: string;
 	tags: string;
 	title: string;

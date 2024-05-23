@@ -2,9 +2,9 @@
 import multer from 'multer';
 
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp  } from "firebase/firestore";
 import { firestore, storage } from '../../config/firebase-client';
-import { Timestamp } from "firebase/firestore";
+
 import { v4 as uuidv4 } from 'uuid';
 
 const upload = multer({

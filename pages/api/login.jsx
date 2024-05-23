@@ -12,7 +12,7 @@ export default async function loginUserWithEmailAndPassword(req, res) {
 console.log(email)
 console.log(password)
   try {
-    userRecord= signInWithEmailAndPassword(getAuth(app), email, password);
+   const userRecord= signInWithEmailAndPassword(getAuth(app), email, password);
     console.log("User logged in:", userRecord.uid);
     res.status(200).send({ success: true, uid: user.uid });
   } catch (error) {
