@@ -33,17 +33,26 @@ const BlogPost: React.FC<IPost> = (data) => {
     try {
       const docRef = doc(firestore, 'posts', data.id);
       const imageRef = ref(storage, data.fileUrl);
+      if(selectedImage) {
       await deleteObject(imageRef);
-      const {fileUrl, fileName} = await uploadPhoto(selectedImage) 
-      const updatedPostData = {
+      const {fileUrl, fileName} = await uploadPhoto(selectedImage)  
+       const updatedPostData = {
         ...postData,
         fileUrl: fileUrl,
         fileName: fileName,
+      }; 
+      await setDoc(docRef, updatedPostData);
+    }
+      else {   const updatedPostData = {
+        ...postData,
+       
       };
-    
+      await setDoc(docRef, updatedPostData);
+    }
+   
 
  
-      await setDoc(docRef, updatedPostData);
+      
       dispatch(setUpdate());
     } catch (error) {
       console.error('Error updating document:', error);
