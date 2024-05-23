@@ -12,7 +12,6 @@ setRegistrationData
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store'; // Исправлен путь импорта RootStat
 import Submit from '@/components/ui/submit-registration/submit-registration'
-import {registration} from '@/lib/api'
 
 
 const RegistrationForm = () => {
