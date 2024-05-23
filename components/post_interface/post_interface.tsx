@@ -27,7 +27,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
       if (inputElement.files && inputElement.files.length > 0) {
         const file = inputElement.files[0];
         const allowedFileTypes = [".png", ".jpg", ".jpeg"];
-        const fileExtension = file.name.split('.').pop()?.toLowerCase() || '';
+        const fileExtension = file.name.split('.').pop()?.toLowerCase()?file.name.split('.').pop()?.toLowerCase() : '';
         if (!allowedFileTypes.includes(`.${fileExtension}`)) {
           alert("Invalid file type. Please select a PNG, JPG, or JPEG file.");
           inputElement.value = '';
