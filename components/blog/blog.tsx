@@ -54,53 +54,50 @@ const Blog: React.FC = () => {
    
     dispatch(setUpdate())
   };
-  const checkStartDate = (dateString: Date | null): Date => {
+  const checkStartDate = (dateString: string | null): Date => {
     if (!dateString) {
       return new Date('2020-01-01'); // Если дата не указана, возвращаем 1 января 2020 года
     }
-    // const date = new Date(dateString);
-    // return isNaN(date.getTime()) ? new Date() : date;
-    return dateString;
-
+    return new Date(dateString);
   };
-
-  const checkEndDate = (dateString: Date | null): Date => {
+  
+  const checkEndDate = (dateString: string | null): Date => {
     if (!dateString) {
       return new Date();
     }
-    return dateString;
-  }
+    return new Date(dateString);
+  };
+  
   function parseDate(dateStr: string): Date {
     return new Date(dateStr);
   }
-
-  function isDateInRange(post: IPost, startDate: Date | null, endDate: Date | null): boolean {
+  
+  function isDateInRange(post: IPost, startDate: string | null, endDate: string | null): boolean {
     const postDate = parseDate(post.date);
-    const start = startDate || checkStartDate(startDate);
-    const end = endDate || checkEndDate(endDate);
+    const start = checkStartDate(startDate);
+    const end = checkEndDate(endDate);
     return postDate >= start && postDate <= end;
   }
   
-const filterValue = async ()=>{
-
-  let filteredPosts = originPost.filter((post: IPost) => {
-    const matchesText = post.title.toLowerCase().includes(filter.title.toLowerCase());
-    const isTagIncluded = activeIds.tags.length === 0 || activeIds.tags.some((activeId: string) => post.tags.includes(activeId));
-    const dateInRange = isDateInRange(post, filter.startDate, filter.endDate);
-   const filteredPosts3 = post.title?.toLowerCase().includes(filter.title.toLowerCase());
-    return isTagIncluded && dateInRange && filteredPosts3;
-  });
-  setPosts(filteredPosts);
-
-
-    
-   
-     
-   
-      // 
-
-
-}
+  
+  const filterValue = async () => {
+    let filteredPosts = originPost.filter((post: IPost) => {
+      const matchesText = post.title?.toLowerCase().includes(filter.title.toLowerCase());
+      const isTagIncluded = activeIds.tags.length === 0 || activeIds.tags.some((activeId: string) => post.tags.includes(activeId));
+      const dateInRange = isDateInRange(post, filter.startDate, filter.endDate);
+      return isTagIncluded && dateInRange && matchesText;
+    });
+  
+    // Сортировка постов по дате
+    filteredPosts.sort((a: IPost, b: IPost) => {
+      const dateA = parseDate(a.date).getTime();
+      const dateB = parseDate(b.date).getTime();
+      return filter.sortOrder ? dateA - dateB : dateB - dateA;
+    });
+  
+    setPosts(filteredPosts);
+  };
+  
   const handleAddBlog = () => {
     onAuthStateChanged(auth, (user) => {
 
@@ -143,7 +140,7 @@ const filterValue = async ()=>{
       
       };
      
-  
+  console.log(filter)
       dispatch(setUniqueIds({ value: result }));
       dispatch(setActiveIds({ value: activeIds }));
 

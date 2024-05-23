@@ -50,7 +50,8 @@ const Filter: React.FC = () => {
 					<Multiselect id={'tags'} placeholder={'tags'}/>
 					</div>
 				</div>
-				<DateRangePicker />
+				<div className='flex flex-row'> 	<DateRangePicker /></div>
+			
 
 			</div>
 		</div>

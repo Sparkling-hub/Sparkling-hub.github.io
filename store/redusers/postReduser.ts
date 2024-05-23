@@ -14,21 +14,25 @@ interface FormValues {
 }
 
 interface FilterValues {
- 
+
   title: string;
   tags: string[];
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: string | null;
+  endDate: string | null;
 }
-
+interface ExtendedFilterValues extends FilterValues {
+  sortOrder: boolean;
+}
 interface FormState {
-  filter: FilterValues;
+  
+  filter: ExtendedFilterValues ;
   update: boolean;
   postData: FormValues;
   check: boolean | null;
   checkForm: FormValues;
   activeIds:string[]
-  uniqueIds:string[]
+  uniqueIds:string[],
+
 }
 
 const initialState: FormState = {
@@ -41,8 +45,10 @@ const initialState: FormState = {
     id: '',
     date: '',
     fileUrl: '',
-    fileName: ''
-  },
+    fileName: '',
+   
+  }, 
+ 
   check: null,
   checkForm: {
     title: '',
@@ -59,7 +65,7 @@ const initialState: FormState = {
     title: '',
     startDate: null,
     endDate: null,
-    
+    sortOrder: false,
   },
   activeIds:[],
   uniqueIds:[]
@@ -117,15 +123,21 @@ const postSlice = createSlice({
 			Object.keys(state.activeIds).forEach((key: any) => {
 				if (key == name) state.activeIds[key] = ids.filter((item: any) => item !== id);
 			});},
-      setDateRange: (state, action: PayloadAction<{ startDate: Date | null; endDate: Date | null }>) => {
+      setDateRange: (state, action: PayloadAction<{ startDate: string | null; endDate: string | null }>) => {
         state.filter.startDate = action.payload.startDate;
         state.filter.endDate = action.payload.endDate;
-      }
+      },
+      setOrder: (state) => {
+     
+        state.filter.sortOrder = !state.filter.sortOrder;
+  
+      },
 		}
+    
     
 });
 
-export const { setPostData, setCheck, setCheckFormByKey, resetPostData, resetCheckForm, setUpdate, setFilter, setUniqueIds,setActiveIds,setCheckboxData,deleteActiveItem,setDateRange } = postSlice.actions;
+export const { setPostData, setCheck, setCheckFormByKey, resetPostData, resetCheckForm, setUpdate, setFilter, setUniqueIds,setActiveIds,setCheckboxData,deleteActiveItem,setDateRange,setOrder } = postSlice.actions;
 export const selectPostFormData = (state: RootState) => state.post;
 
 export default postSlice.reducer;
