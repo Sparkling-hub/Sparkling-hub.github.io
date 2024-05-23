@@ -30,7 +30,7 @@ interface FormState {
   postData: FormValues;
   check: boolean | null;
   checkForm: FormValues;
-  activeIds:string[]
+  activeIds:{  [key: string]: any;};
   uniqueIds:string[],
 
 }
@@ -67,7 +67,7 @@ const initialState: FormState = {
     endDate: null,
     sortOrder: false,
   },
-  activeIds:[],
+  activeIds:{},
   uniqueIds:[]
 };
 
