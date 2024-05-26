@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import IJob from '@/interface/IJob';
+
 interface CareersState {
 	
 	filterPhrases: string;

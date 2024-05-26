@@ -27,9 +27,9 @@ import { formatTags, getIds } from "@/components/helper/split";
 const Blog: React.FC = () => {
   const dispatch = useDispatch();
   const { postData, update, filter } = useSelector(selectPostFormData);
-  const {activeIds,uniqueIds } = useSelector(selectFilter);
+  const {activeIds } = useSelector(selectFilter);
   const { user } = useSelector(selectUserAuth);
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [showModal, setShowModal] = useState(false); 
   const [originPost, setOriginPost] = useState<IPost[]>([]);
   const [posts, setPosts] = useState<IPost[]>(originPost);
 

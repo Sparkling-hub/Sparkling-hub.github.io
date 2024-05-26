@@ -26,7 +26,7 @@ const RegistrationForm = () => {
               setIsAuthenticated(true)
     
             } else {
-     
+                setIsAuthenticated(false)
             }
           });
     }, []);
