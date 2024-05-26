@@ -3,12 +3,20 @@ import JobsFiltre from './job/job';
 import IJob from '@/interface/IJob';
 import { filterJobs, selectCareers } from '@/store/redusers/CareersSliceReduser';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+	selectFilter,
+
+	} from  "@/store/redusers/filterReducer";
 
 const JobList: React.FC = () => {
 	const dispatch = useDispatch();
 
-	const { filteredJobsList, activeIds, filterPhraze } = useSelector(selectCareers)
-	useEffect(() => { dispatch(filterJobs()) }, [activeIds, filterPhraze]);
+	const { activeIds, filterPhrases} = useSelector(selectFilter)
+	const { filteredJobsList  } = useSelector(selectCareers)
+	useEffect(() => {
+
+        dispatch(filterJobs({ filterPhrases, activeIds }));
+    }, [activeIds, filterPhrases]);
 	const jobs = filteredJobsList
 
 	return (

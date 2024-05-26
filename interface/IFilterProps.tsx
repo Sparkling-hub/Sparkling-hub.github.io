@@ -7,7 +7,7 @@ import ICheckboxItem from "./IChekboxItem";
 interface IFilterProps {
   
     dataJobs: IJob[]
-    filterPhraze: string
+    filterPhrases: string
     activeLocations: string[]
     uniqueIds: ICheckboxItem[]
     activePositions: string[]  

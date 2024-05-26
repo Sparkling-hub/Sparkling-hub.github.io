@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 import {
-	selectCareers,
-	setFilterPhraze
-} from '@/store/redusers/CareersSliceReduser';
+	selectFilter,
+	setfilterPhrases
+} from '@/store/redusers/filterReducer';
 
 const Filter: React.FC = () => {
 	const dispatch = useDispatch();
 	const {
-		filterPhraze,
-	} = useSelector(selectCareers);
+		filterPhrases,
+	} = useSelector(selectFilter);
 
 	return (
 		<div className="filter-container bg-gray-100 my-6 sm:mx-5 w-4/5 sm:w-2/4 lg:w-1/4">
@@ -30,8 +30,8 @@ const Filter: React.FC = () => {
 							type="text"
 							autoComplete='off'
 							placeholder="Search by any keyword"
-							value={filterPhraze}
-							onChange={(e) => dispatch(setFilterPhraze(e.target.value))} />
+							value={filterPhrases}
+							onChange={(e) => dispatch(setfilterPhrases(e.target.value))} />
 						<button className="absolute leading-9  h-full w-1/12  right-2">
 							<img src={"/img/jobs/search-ico.png"} className="h-4 opacity-60" alt="" />
 						</button>

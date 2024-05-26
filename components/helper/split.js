@@ -9,20 +9,29 @@ export function formatTags(data) {
 
 
 export const getIds = (data, name) => {
-  const allTags = data.reduce((acc, item) => {
+  const result = [];
+  const uniqueValues = new Set();
+ 
+  data.forEach((item) => {
     const value = item[name];
     if (Array.isArray(value)) {
-      acc.push(...value.filter(tag => tag.trim() !== ''));
+      value.filter(tag => tag.trim() !== '').forEach((tag) => {
+        if (!uniqueValues.has(tag)) {
+          let count = data.filter((el) => Array.isArray(el[name]) ? el[name].includes(tag) : el[name] === tag).length;
+          result.push({ value: tag, count });
+          uniqueValues.add(tag);
+        }
+      });
     } else if (typeof value === 'string') {
       const trimmedValue = value.trim();
-      if (trimmedValue !== '') {
-        acc.push(trimmedValue);
+      if (trimmedValue !== '' && !uniqueValues.has(trimmedValue)) {
+        let count = data.filter((el) => Array.isArray(el[name]) ? el[name].includes(trimmedValue) : el[name] === trimmedValue).length;
+        result.push({ value: trimmedValue, count });
+        uniqueValues.add(trimmedValue);
       }
     }
-    return acc;
-  }, []);
-  const uniqueTags = Array.from(new Set(allTags));
-  return uniqueTags;
+  });  
+  return result;
 };
 
 

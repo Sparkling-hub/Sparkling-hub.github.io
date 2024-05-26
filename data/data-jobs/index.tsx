@@ -14,17 +14,17 @@ import IJob from '../../interface/IJob'
 
 
 const dataJobs:  IJob[] = [
-    //jobs_one,
-    //jobs_two,
-    //jobs_three,
-    // jobs_four,
-    //jobs_five,
-    // jobs_six,
-    //jobs_seven,
-    // jobs_eight,
-    // jobs_nine,
-    //jobs_ten,
-    // jobs_eleven,
+    jobs_one,
+    jobs_two,
+    jobs_three,
+    jobs_four,
+    jobs_five,
+    jobs_six,
+    jobs_seven,
+    jobs_eight,
+    jobs_nine,
+    jobs_ten,
+    jobs_eleven,
     jobs_twelve,
     
 ]

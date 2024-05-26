@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Multiselect from "../filterPost/multi-select/multi-select";
+import Multiselect from "@/components/my-multi-select";
 import {
 	selectPostFormData,
 	setFilter,

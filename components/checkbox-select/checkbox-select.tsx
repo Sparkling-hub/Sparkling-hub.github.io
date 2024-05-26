@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import ICheckboxSelect from '@/interface/ICheckboxSelect';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCareers, setCheckboxData, deleteActiveItem } from '@/store/redusers/CareersSliceReduser';
+import { selectFilter, setCheckboxData, deleteActiveItem } from '@/store/redusers/filterReducer';
 import { get } from '../careers/search_function/search_function';
 
 const CheckboxSelect: React.FC<ICheckboxSelect> = ({ id, checked,name }) => {
@@ -11,7 +11,7 @@ const CheckboxSelect: React.FC<ICheckboxSelect> = ({ id, checked,name }) => {
 
 		activeIds,
 	  
-	  } = useSelector(selectCareers);
+	  } = useSelector(selectFilter);
 	
 
   const handleParamsChange = (e: ChangeEvent<HTMLInputElement>) => {

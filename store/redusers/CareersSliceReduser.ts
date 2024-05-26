@@ -3,17 +3,15 @@ import { RootState } from '../store';
 import IJob from '@/interface/IJob';
 interface CareersState {
 	
-	filterPhraze: string;
-	uniqueIds: string[][];
-	activeIds: string[][];
+	filterPhrases: string;
+
 	[key: string]: any;
 	dataJobs: any[];
 	filteredJobsList: any[];
 }
 const initialState: CareersState = {
-	filterPhraze: '',
-	uniqueIds: [],
-	activeIds: [],
+	filterPhrases: '',
+
 	dataJobs: [],
 	filteredJobsList: [],
 };
@@ -21,66 +19,35 @@ const careersSlice = createSlice({
 	name: 'careers',
 	initialState,
 	reducers: {
-		setFilterPhraze: (state, action: PayloadAction<string>) => {
-			state.filterPhraze = action.payload;
-
-		},
+		
 		setJobsAction: (state, action: PayloadAction<{ value: any }>) => {
 			const { value } = action.payload;
 			state.dataJobs = value;
 		},
-		filterJobs: (state) => {
+		filterJobs: (state, action: PayloadAction<{ filterPhrases: string; activeIds: { [key: string]: any[] } }>) => {
+            const { filterPhrases, activeIds } = action.payload;
+            let data: IJob[] = [...state.dataJobs];
 
-			let data: IJob[] = [...state.dataJobs];
+            Object.keys(activeIds).forEach((key) => {
+                data = data.filter((job) => {
+                    const matchesText = job.namePosition ? job.namePosition.toLowerCase().includes(filterPhrases.toLowerCase()) : false;
 
-			Object.keys(state.activeIds).forEach((key: any) => {
+                    if (activeIds[key].length === 0) {
+                        return matchesText;
+                    } else {
+                        return activeIds[key].includes(job[key]) && matchesText;
+                    }
+                });
+            });
 
-				data = data.filter((job: any) => {
-					const matchesText = job.namePosition.toLowerCase().includes(state.filterPhraze.toLowerCase());
-
-					if (!state.activeIds[key].length) {
-						return matchesText;
-					} else {
-						return state.activeIds[key].includes(job[key]) && matchesText;
-					}
-				});
-			});
-
-			state.filteredJobsList = data;
-
-		},
-		setUniqueIds: (state, action: PayloadAction<{ value: any }>) => {
-			const { value } = action.payload;
-			state.uniqueIds = value;
-
-		},
-		setActiveIds: (state, action: PayloadAction<{ value: any }>) => {
-			const { value } = action.payload;
-			state.activeIds = value;
-
-		},
-		setCheckboxData: (state, action: PayloadAction<{ name: string; value: string[] }>) => {
-			const { name, value } = action.payload;
-			Object.keys(state.activeIds).forEach((key: any) => { if (key == name) state.activeIds[key] = value });
-
-		},
-		deleteActiveItem: (state, action: PayloadAction<{ id: string; ids: string[]; name: string }>) => {
-			const { id, ids, name } = action.payload;
-			Object.keys(state.activeIds).forEach((key: any) => {
-				if (key == name) state.activeIds[key] = ids.filter((item) => item !== id);
-			});
-		}
+            state.filteredJobsList = data;
+        },
+	
 	},
 });
 
-export const {
-	setCheckboxData,
-	setFilterPhraze,
-	setUniqueIds,
-	setActiveIds,
-	filterJobs,
+export const {filterJobs,
 	setJobsAction,
-	deleteActiveItem,
 } = careersSlice.actions;
 
 export const selectCareers = (state: RootState) => state.careers;

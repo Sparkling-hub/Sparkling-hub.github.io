@@ -4,9 +4,12 @@ import MultiSelectActiveItem from '../multi-select-active-item';
 import IMultiSelect from '@/interface/IMultiSelect';
 import InputLocate from '../ui/custom-input-jobs';
 import { useSelector } from 'react-redux';
-import { selectCareers } from '@/store/redusers/CareersSliceReduser';
+
 import { get } from '../careers/search_function/search_function';
 import { v4 as uuidv4 } from 'uuid';
+import {
+  selectFilter,
+  } from  "@/store/redusers/filterReducer";
 const MyMultipleSelect: React.FC<IMultiSelect> = ({ id, placeholder }) => {
   const [isActive, setIsActive] = useState(false);
   const arrowButtonRef = useRef<HTMLDivElement>(null);
@@ -14,7 +17,8 @@ const MyMultipleSelect: React.FC<IMultiSelect> = ({ id, placeholder }) => {
   const {
     uniqueIds,
     activeIds,
-  } = useSelector(selectCareers);
+  } = useSelector(  selectFilter
+  );
 
   useEffect(() => {
     const handleArrowClick = () => {
@@ -32,8 +36,7 @@ const MyMultipleSelect: React.FC<IMultiSelect> = ({ id, placeholder }) => {
         arrowButton.removeEventListener('click', handleArrowClick);
       }
     };
-  }, [isActive]);
-
+  }, [isActive]);  
   const data = get(uniqueIds, id);
   const activeData = get(activeIds, id);
 

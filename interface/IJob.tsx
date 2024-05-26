@@ -1,7 +1,7 @@
 
 
 interface IJob {
-
+	[key: string]: any;
 	namePosition: any;
 	location: string;
 	locationHTML: string;

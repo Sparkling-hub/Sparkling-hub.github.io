@@ -81,7 +81,7 @@ const BlogPost: React.FC<IPost> = (data) => {
       })
     );
     setShowModal(true);
-    console.log(showModal);
+
   };
 
 

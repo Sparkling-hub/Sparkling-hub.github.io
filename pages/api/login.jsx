@@ -9,8 +9,7 @@ const app = getApp();
 
 export default async function loginUserWithEmailAndPassword(req, res) {
   const { email, password } = req.body;
-console.log(email)
-console.log(password)
+
   try {
    const userRecord= signInWithEmailAndPassword(getAuth(app), email, password);
     console.log("User logged in:", userRecord.uid);

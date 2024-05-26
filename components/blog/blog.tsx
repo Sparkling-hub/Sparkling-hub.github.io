@@ -6,9 +6,14 @@ import {
   resetPostData,
   selectPostFormData,
   setUpdate,
+
+} from "@/store/redusers/postReduser";
+import {
+selectFilter,
   setUniqueIds,
   setActiveIds,
-} from "@/store/redusers/postReduser";
+} from  "@/store/redusers/filterReducer";
+
 import { setUserAuth, selectUserAuth } from "@/store/redusers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, getPost } from "@/lib/api";
@@ -18,9 +23,11 @@ import Filter from "../filterPost";
 import { formatTags, getIds } from "@/components/helper/split";
 
 
+
 const Blog: React.FC = () => {
   const dispatch = useDispatch();
-  const { postData, update, activeIds, filter } = useSelector(selectPostFormData);
+  const { postData, update, filter } = useSelector(selectPostFormData);
+  const {activeIds,uniqueIds } = useSelector(selectFilter);
   const { user } = useSelector(selectUserAuth);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [originPost, setOriginPost] = useState<IPost[]>([]);
@@ -136,9 +143,11 @@ const Blog: React.FC = () => {
       formatTags(response);
       const result = {tags: getIds(response, "tags"),};
       const activeIds = {tags: []};
+      
       dispatch(setUniqueIds({ value: result }));
       dispatch(setActiveIds({ value: activeIds }));
       setOriginPost(response);
+  
     } catch (error) {
       console.log(error);
     }
