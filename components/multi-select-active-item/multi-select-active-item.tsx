@@ -1,6 +1,6 @@
 import React from 'react';
 import IMultiSelectActiveItem from '@/interface/IMultiSelectActiveItem';
-import { deleteActiveItem, selectCareers } from '@/store/redusers/CareersSliceReduser';
+import { deleteActiveItem, selectFilter } from '@/store/redusers/filterReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { get } from '../careers/search_function/search_function';
 
@@ -10,7 +10,7 @@ const MultiSelectActiveItem: React.FC<IMultiSelectActiveItem> = ({id, name}) => 
 
 		activeIds,
 	  
-	  } = useSelector(selectCareers);
+	  } = useSelector(selectFilter);
   const deleteItem = (e: React.MouseEvent<HTMLSpanElement>) => {
     const value = e.currentTarget.id.toString();
     let result = get(activeIds, name)
