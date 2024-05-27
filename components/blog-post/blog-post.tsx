@@ -179,7 +179,7 @@ const BlogPost: React.FC<IPost> = (data) => {
             >
               {data.title}
             </Link>
-            <div className="py-2">{data.description}</div>
+            <div className="my-2 h-[140px]  overflow-hidden">{data.description}</div>
           </div>
           <div className="flex justify-between">
             <span className="card-read">{`${calculateReadingTime(data.description)} min read`}</span>
