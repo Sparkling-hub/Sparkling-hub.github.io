@@ -2,7 +2,7 @@ import IPost from "@/interface/IPost";
 import { ChangeEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import Input from "@/components/ui/input-component";
-import { selectPostFormData, setPostData, setUpdate } from "@/store/redusers/postReduser";
+import { selectPostFormData, setPostData } from "@/store/redusers/postReduser";
 import { useDispatch, useSelector } from "react-redux";
 import { firestore, storage } from "@/config/firebase-client";
 import { deleteObject, ref } from "firebase/storage";
@@ -18,7 +18,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
   const [isEditing, setIsEditing] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [timerDisabled, setTimerDisabled] = useState(true);
-  const { postData, update } = useSelector(selectPostFormData);
+  const { postData } = useSelector(selectPostFormData);
   const dispatch = useDispatch();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -28,7 +28,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
       if (inputElement.files && inputElement.files.length > 0) {
         const file = inputElement.files[0];
         const allowedFileTypes = [".png", ".jpg", ".jpeg"];
-        const fileExtension = file.name.split('.').pop()?.toLowerCase() || '';
+        const fileExtension = file.name.split('.').pop()?.toLowerCase() ?? '';
         if (!allowedFileTypes.includes(`.${fileExtension}`)) {
           alert("Invalid file type. Please select a PNG, JPG, or JPEG file.");
           inputElement.value = '';
@@ -92,7 +92,6 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
       await setDoc(docRef, updatedPostData);
       onUpdatePost(updatedPostData);
 
-      dispatch(setUpdate());
     } catch (error) {
       console.error("Error updating document:", error);
     }
@@ -112,11 +111,11 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
         <img src="/img/jobs/arrowBack.png" alt="back" className="h-4" /> Explore all posts
       </Link>
       {isEditing ? (
-        <button onClick={handleSaveClick} className="no-underline relative text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700">
+        <button onClick={handleSaveClick} disabled={!timerDisabled} className="no-underline relative text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700">
           Save
         </button>
       ) : (
-        <button onClick={handleEditClick} className="no-underline relative w-auto text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700">
+        <button onClick={handleEditClick} disabled={!timerDisabled}  className="no-underline relative w-auto text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700">
           Edit
         </button>
       )}
