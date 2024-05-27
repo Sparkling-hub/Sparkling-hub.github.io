@@ -73,6 +73,9 @@ const Footer: React.FC = () => {
 												<li className='lg:hidden'>
 													<Link className="no-underline py-4" href="/contact">Get in touch</Link>
 												</li>
+												<li>
+													<Link className="no-underline py-4" href="/blog">blog</Link>
+												</li>
 											</ul>
 										</div>
 									
