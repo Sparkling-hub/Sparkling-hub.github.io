@@ -60,7 +60,9 @@ const BlogPost: React.FC<IPost> = (data) => {
         };
         await setDoc(docRef, updatedPostData);
       }
+      closeModal();
       dispatch(setUpdate());
+
     } catch (error) {
       console.error("Error updating document:", error);
     }
@@ -150,7 +152,10 @@ const BlogPost: React.FC<IPost> = (data) => {
         )}
         <Link
           className="relative h-64 overflow-hidden block bg-black rounded-t-[10px]"
-          href=""
+          href={{
+            pathname: '/blog/post',
+            query: { id: data.id, post: JSON.stringify(data) }
+          }}
           data-wpel-link="internal"
         >
           <img
@@ -172,8 +177,11 @@ const BlogPost: React.FC<IPost> = (data) => {
               </span>{" "}
             </p>
 
-            <Link
-              href="https://inoxoft.com/blog/20-most-innovative-real-estate-tech-companies-and-startups/"
+               <Link
+        href={{
+          pathname: '/blog/post',
+          query: { id: data.id }
+        }}
               className="text-2xl font-bold"
               data-wpel-link="internal"
             >
