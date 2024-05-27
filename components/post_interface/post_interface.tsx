@@ -21,6 +21,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
   const imageUrl = selectedImage
     ? URL.createObjectURL(selectedImage)
     : postData.fileUrl || '';
+    const isFormValid = postData.title && postData.tags && postData.description;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name } = e.target;
@@ -75,6 +76,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
             value={postData.title}
             placeholder="Title"
             onChange={handleInputChange}
+            checked={!postData.title}
           />
           <Input
             type="text"
@@ -82,16 +84,18 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
             value={postData.tags}
             placeholder="Tags"
             onChange={handleInputChange}
+            checked={!postData.tags}
           />
           <TextArea
             name="description"
             placeholder="Tell us about your project and goals"
             value={postData.description}
             onChange={handleInputChange}
+            checked={!postData.description}
           />
         </div>
       </div>
-      <button type="submit"
+      <button type="submit"     disabled={!isFormValid}
         onClick={() => {
           onClick(selectedImage);
         }} className="no-underline relative w-auto text-white py-3 px-12 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700 m-auto ">Save</button>

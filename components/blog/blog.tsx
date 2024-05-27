@@ -50,7 +50,7 @@ const Blog: React.FC = () => {
 
 
   const handleSubmit = async (selectedImage: File | null) => {
-    if (selectedImage) {
+    if (selectedImage && postData.title && postData.tags && postData.description ) {
       await createPost(postData, selectedImage);
       dispatch(resetPostData());
       closeModal();
