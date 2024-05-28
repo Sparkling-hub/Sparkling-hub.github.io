@@ -4,14 +4,14 @@ import Link from "next/link";
 import Input from "@/components/ui/input-component";
 import { selectPostFormData, setPostData } from "@/store/redusers/postReduser";
 import { useDispatch, useSelector } from "react-redux";
-import { firestore, storage } from "@/config/firebase-client";
+import { firestore, storage, auth} from "@/config/firebase-client";
 import { deleteObject, ref } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { uploadPhoto } from "@/lib/api";
 import TextArea from "@/components/ui/text-area-component/text-area";
 import { selectUserAuth, setUserAuth } from "@/store/redusers/userReducer";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/config/firebase-client";
+
 interface PostComponentProps {
   post: IPost;
   onUpdatePost: (updatedPost: IPost) => void; 
