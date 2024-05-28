@@ -3,7 +3,7 @@ import { ref, deleteObject } from "firebase/storage";
 import IPost from "@/interface/IPost";
 import { doc, setDoc, deleteDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import { firestore, storage } from "../../config/firebase-client"; // Подключите файл firebaseClient с настройками клиентского Firebase
+import { firestore, storage } from "../../config/firebase-client"; 
 import { useEffect, useState } from "react";
 import Modal from "../post_interface/post_interface";
 import { uploadPhoto } from "@/lib/api";
