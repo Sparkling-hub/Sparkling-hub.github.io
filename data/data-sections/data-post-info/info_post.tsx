@@ -9,7 +9,9 @@ import { deleteObject, ref } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { uploadPhoto } from "@/lib/api";
 import TextArea from "@/components/ui/text-area-component/text-area";
-
+import { selectUserAuth, setUserAuth } from "@/store/redusers/userReducer";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/config/firebase-client";
 interface PostComponentProps {
   post: IPost;
   onUpdatePost: (updatedPost: IPost) => void; 
@@ -22,7 +24,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
   const { postData } = useSelector(selectPostFormData);
   const dispatch = useDispatch();
   const isFormValid = postData.title && postData.tags && postData.description;
-
+  const { user } = useSelector(selectUserAuth);
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name } = e.target;
     if (name === 'img') {
@@ -62,8 +64,16 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
         date: post.date,
       })
     );
+    
   }, [post]);
-
+  useEffect(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user != null) {
+      dispatch(setUserAuth(true));
+    } else {
+      dispatch(setUserAuth(false));
+    }
+  });  }, [post]);
   const imageUrl = selectedImage
     ? URL.createObjectURL(selectedImage)
     : postData.fileUrl || '';
@@ -126,7 +136,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
       <Link href={{ pathname: "/blog" }} className="flex items-center text-xl mb-4">
         <img src="/img/jobs/arrowBack.png" alt="back" className="h-4" /> Explore all posts
       </Link>
-      {isEditing ? <div className="flex">
+      {user? isEditing ? <div className="flex">
         <button onClick={handleSaveClick} disabled={(!timerDisabled || !isFormValid)} className="no-underline mx-2 relative text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700">
           Save
         </button>
@@ -143,7 +153,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
         <button onClick={handleEditClick} disabled={!timerDisabled}  className="no-underline relative w-auto text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700">
           Edit
         </button>
-      )}
+      ):''}
       </div>
       {isEditing ? (
         <Input
