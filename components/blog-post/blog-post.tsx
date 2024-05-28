@@ -169,9 +169,9 @@ const BlogPost: React.FC<IPost> = (data) => {
             sizes="(max-width: 548px) 100vw, 548px"
           />
         </Link>
-        <div className="min-h-[256px] p-2 md:p-5 flex flex-col justify-between">
+        <div className="min-h-[256px]  p-2 md:p-5 flex flex-col justify-between">
           <div className="card-top">
-            <p className="card-tag">
+            <p className="card-tag block h-[35px]">
               <span className="tags-list text-2xl font-semibold text-primary-darkTeal">
                 {formatTagsArray(data.tags)}
               </span>{" "}
@@ -182,7 +182,7 @@ const BlogPost: React.FC<IPost> = (data) => {
           pathname: '/blog/post',
           query: { id: data.id }
         }}
-              className="text-2xl font-bold"
+              className="text-2xl font-bold block h-[35px]  overflow-hidden"
               data-wpel-link="internal"
             >
               {data.title}
