@@ -131,7 +131,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
 
     setTimerDisabled(true);
   };
-  const verification = user ? (
+  const verification =  (
     isEditing ? (
       <div className="flex">
         <button
@@ -158,9 +158,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
         Edit
       </button>
     )
-  ) : (
-    ""
-  );
+  ) ;
 
 
   return (
@@ -181,7 +179,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
           <img src="/img/jobs/arrowBack.png" alt="back" className="h-4" />{" "}
           Explore all posts
         </Link>
-        {verification}
+        {user ? verification:''}
       </div>
       {isEditing ? (
         <Input
