@@ -82,6 +82,16 @@ const PostComponent: React.FC<PostComponentProps> = ({
       }
     });
   }, [post]);
+
+  function formatTagsArray(tagsArray: any) {
+    if (!Array.isArray(tagsArray)) {
+      throw new Error("Input is not an array");
+    }
+    const filteredTags = tagsArray.filter((tag) => tag.trim() !== "");
+    const tagsString = filteredTags.join(", ");
+    return tagsString;
+  }
+
   const imageUrl = selectedImage
     ? URL.createObjectURL(selectedImage)
     : postData.fileUrl || "";
@@ -91,7 +101,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
       setPostData({
         id: post.id,
         title: post.title || "",
-        tags: post.tags,
+        tags: formatTagsArray(post.tags),
         description: post.description || "",
         fileName: post.fileName || "",
         fileUrl: post.fileUrl || "",
@@ -204,7 +214,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
           checked={!postData.tags}
         />
       ) : (
-        <h2 className="text-2xl mb-6 mx-1">{post.tags}</h2>
+        <h2 className="text-2xl mb-6 mx-1">{formatTagsArray(post.tags)}</h2>
       )}
       {!isEditing ? (
         <img src={post.fileUrl} alt="image post" className="h-[500px]" />
