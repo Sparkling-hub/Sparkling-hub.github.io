@@ -56,7 +56,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, message: 'ERROR ATRIBUTE' });
   }
 
-  const filePath = `uploads/${uniqueId}_${file.originalname}`;
+  const filePath = `posts/images/${uniqueId}_${file.originalname}`;
   const fileRef = ref(storage, filePath);
 
   const uploadTask = uploadBytesResumable(fileRef, file.buffer, {

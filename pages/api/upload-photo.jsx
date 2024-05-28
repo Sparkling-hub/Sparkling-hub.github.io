@@ -38,7 +38,7 @@ export default async function handler(req, res) {
     });
     const uniqueId = uuidv4();
     const file = req.file;
-    const filePath = `uploads/${uniqueId}_${file.originalname}`;
+    const filePath = `posts/images/${uniqueId}_${file.originalname}`;
     const fileRef = ref(storage, filePath);
     const uploadTask = uploadBytesResumable(fileRef, file.buffer, {
       contentType: file.mimetype,

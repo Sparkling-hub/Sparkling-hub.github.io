@@ -5,13 +5,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDSwnvQFMPdPZOAzpdTOFy4erXN9l5oFGg",
-  authDomain: "sparkling-9efa5.firebaseapp.com",
-  projectId: "sparkling-9efa5",
-  storageBucket: "sparkling-9efa5.appspot.com",
-  messagingSenderId: "93295510015",
-  appId: "1:93295510015:web:9e1b7d748373c8526a67ca",
-  measurementId: "G-N31PBPWVSS"
+  apiKey: "AIzaSyCRdwpyq98B5hsKN7zI4GQPQBTe_0Pl0zA",
+  authDomain: "sparklingwebsite-b0e3b.firebaseapp.com",
+  projectId: "sparklingwebsite-b0e3b",
+  storageBucket: "sparklingwebsite-b0e3b.appspot.com",
+  messagingSenderId: "820795293066",
+  appId: "1:820795293066:web:025d40873333404518dc73",
+  measurementId: "G-XTV0F37GER"
 };
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp); 
