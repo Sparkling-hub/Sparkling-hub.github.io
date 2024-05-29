@@ -85,11 +85,11 @@ const PostComponent: React.FC<PostComponentProps> = ({
 
   function formatTagsArray(tagsArray: any) {
     if (!Array.isArray(tagsArray)) {
-      throw new Error("Input is not an array");
+     return tagsArray
     }
-    const filteredTags = tagsArray.filter((tag) => tag.trim() !== "");
+    else {const filteredTags = tagsArray.filter((tag) => tag.trim() !== "");
     const tagsString = filteredTags.join(", ");
-    return tagsString;
+    return tagsString;}
   }
 
   const imageUrl = selectedImage

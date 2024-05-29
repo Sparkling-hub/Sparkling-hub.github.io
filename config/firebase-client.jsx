@@ -4,14 +4,15 @@ import { getFirestore } from 'firebase/firestore';
 
 import { getStorage } from 'firebase/storage';
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCRdwpyq98B5hsKN7zI4GQPQBTe_0Pl0zA",
-  authDomain: "sparklingwebsite-b0e3b.firebaseapp.com",
-  projectId: "sparklingwebsite-b0e3b",
-  storageBucket: "sparklingwebsite-b0e3b.appspot.com",
-  messagingSenderId: "820795293066",
-  appId: "1:820795293066:web:025d40873333404518dc73",
-  measurementId: "G-XTV0F37GER"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp); 

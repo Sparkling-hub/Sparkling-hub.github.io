@@ -44,7 +44,7 @@ const Filter: React.FC = () => {
 
 
 					</div>
-					<div className="relative my-multiple-select-container w-full flex-col flex rounded-lg relative bg-color-primary-medium border-bg-color-primary-medium">
+					<div className="relative my-multiple-select-container my-2 w-full flex-col flex rounded-lg relative bg-color-primary-medium border-bg-color-primary-medium">
 						<Multiselect id={'tags'} placeholder={'tags'} />
 					</div>
 				</div>

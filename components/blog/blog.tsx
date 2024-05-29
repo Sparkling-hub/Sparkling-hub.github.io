@@ -6,14 +6,12 @@ import {
   resetPostData,
   selectPostFormData,
   setUpdate,
-
 } from "@/store/redusers/postReduser";
 import {
-selectFilter,
+  selectFilter,
   setUniqueIds,
   setActiveIds,
-} from  "@/store/redusers/filterReducer";
-
+} from "@/store/redusers/filterReducer";
 import { setUserAuth, selectUserAuth } from "@/store/redusers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, getPost } from "@/lib/api";
@@ -22,17 +20,16 @@ import Modal from "../post_interface/post_interface";
 import Filter from "../filterPost";
 import { formatTags, getIds } from "@/components/helper/split";
 
-
-
 const Blog: React.FC = () => {
   const dispatch = useDispatch();
   const { postData, update, filter } = useSelector(selectPostFormData);
-  const {activeIds } = useSelector(selectFilter);
+  const { activeIds } = useSelector(selectFilter);
   const { user } = useSelector(selectUserAuth);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
   const [originPost, setOriginPost] = useState<IPost[]>([]);
   const [posts, setPosts] = useState<IPost[]>(originPost);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 4;
 
   const handleOutsideClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -48,16 +45,21 @@ const Blog: React.FC = () => {
     };
   }, []);
 
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const handleSubmit = async (selectedImage: File | null) => {
-    if (selectedImage && postData.title && postData.tags && postData.description ) {
+    if (selectedImage && postData.title && postData.tags && postData.description) {
       await createPost(postData, selectedImage);
       dispatch(resetPostData());
       closeModal();
       dispatch(setUpdate());
     }
   };
-
 
   const checkStartDate = (dateString: string | null): Date => {
     if (!dateString) {
@@ -107,6 +109,11 @@ const Blog: React.FC = () => {
     });
 
     setPosts(filteredPosts);
+
+    // Reset current page if it exceeds the total number of pages
+    if (currentPage > Math.ceil(filteredPosts.length / postsPerPage)) {
+      setCurrentPage(1);
+    }
   };
 
   const handleAddBlog = () => {
@@ -119,54 +126,45 @@ const Blog: React.FC = () => {
     });
   };
 
-
   useEffect(() => {
     handleAddBlog();
   }, []);
-
 
   const openModal = () => {
     setShowModal(true);
     dispatch(resetPostData());
   };
 
-
   const closeModal = () => {
     setShowModal(false);
   };
 
-
   const fetchPosts = async () => {
-
     try {
       const response = await getPost();
       formatTags(response);
-      const result = {tags: getIds(response, "tags"),};
-      const activeIds = {tags: []};
-      
+      const result = { tags: getIds(response, "tags") };
+      const activeIds = { tags: [] };
+
       dispatch(setUniqueIds({ value: result }));
       dispatch(setActiveIds({ value: activeIds }));
       setOriginPost(response);
-  
     } catch (error) {
       console.log(error);
     }
   };
 
-
   useEffect(() => {
     fetchPosts();
   }, [update]);
-
 
   useEffect(() => {
     filterValue();
   }, [activeIds, filter, update, originPost]);
 
-
   return (
     <div className="">
-      <div className="flex">
+      <div className="flex ">
         <Filter />
         {user ? (
           <button
@@ -180,15 +178,34 @@ const Blog: React.FC = () => {
         )}
       </div>
       <div key={posts ? posts.length + 1 : "0"}>
-        <div className="flex flex-wrap z-[-10] static">
-          {posts
-            ? posts.map((item: IPost, index: number) => (
-                <BlogPost key={item.id} {...item} />
-              ))
-            : ""}
+        <div className="flex flex-wrap z-[-10] static h-[1150px]">
+          {currentPosts.map((item: IPost) => (
+            <BlogPost key={item.id} {...item} />
+          ))}
         </div>
       </div>
       {showModal && <Modal onClick={handleSubmit} closeModal={closeModal} />}
+      <div className="flex justify-center mt-6">
+        <nav>
+          <ul className="pagination flex">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <li key={index} className="page-item">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    paginate(index + 1);
+                  }}
+                  className={`${
+                    currentPage == index + 1 ? "bg-color-primary-dark" : "bg-primary-lightTeal scale-90"
+                  } no-underline relative text-white w-8 h-8 m-1 rounded-full z-10 block hover:bg-teal-700`}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 };
