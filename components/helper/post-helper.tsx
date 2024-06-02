@@ -45,7 +45,33 @@ export async function updateDocument(
 
 
 
+export function openModal(
+    data: any,
+    dispatch: any,
+    setPostData: (value: any) => void,
+    setShowModal: (value: boolean) => void
+  ): void {
+    dispatch(
+      setPostData({
+        id: data.id,
+        title: data.title || "",
+        tags: data.tags,
+        description: data.description || "",
+        fileName: data.fileName || "",
+        fileUrl: data.fileUrl || "",
+        date: data.date,
+      })
+    );
+    setShowModal(true);
+  }
+  
 
+  export function handleOutsideClick(e: MouseEvent, closeModal: () => void): void {
+    const target = e.target as HTMLElement;
+    if (!target.closest(".admin_post")) {
+      closeModal();
+    }
+  }
 export const calculateReadingTime = (text: string) => {
     if (!text) return 0;
     const wordsPerMinute = 200;

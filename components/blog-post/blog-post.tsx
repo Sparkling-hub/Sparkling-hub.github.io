@@ -9,7 +9,7 @@ import {
 
 } from "@/store/redusers/postReduser";
 import { selectUserAuth } from "@/store/redusers/userReducer";
-import { deleteDocument, handleCopyLink, formatTagsArray, calculateReadingTime, updateDocument } from "../helper/post-helper";
+import { deleteDocument, handleCopyLink, formatTagsArray, calculateReadingTime, updateDocument, openModal } from "../helper/post-helper";
 
 const BlogPost: React.FC<IPost> = (data) => {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -19,27 +19,6 @@ const BlogPost: React.FC<IPost> = (data) => {
   const { postData } = useSelector(selectPostFormData);
   const [showModal, setShowModal] = useState(false);
 
-
-
-
-
-
-
-  const openModal = () => {
-    dispatch(
-      setPostData({
-        id: data.id,
-        title: data.title || "",
-        tags: data.tags,
-        description: data.description || "",
-        fileName: data.fileName || "",
-        fileUrl: data.fileUrl || "",
-        date: data.date,
-      })
-    );
-    setShowModal(true);
-
-  };
 
 
   const closeModal = () => {
@@ -77,7 +56,7 @@ const BlogPost: React.FC<IPost> = (data) => {
           <>
             <button
               className="bg-color-primary-dark mx-1 h-10 w-10 rounded-full  transform scale-90 transition-all duration-300 hover:scale-110  text-lg hover:text-xl"
-              onClick={openModal}
+              onClick={() => openModal(data, dispatch, setPostData, setShowModal)}
               disabled={!timerDisabled}
             >
               ✎
