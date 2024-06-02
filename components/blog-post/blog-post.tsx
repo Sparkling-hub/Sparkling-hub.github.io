@@ -1,16 +1,12 @@
 import Link from "next/link";
-import { ref, deleteObject } from "firebase/storage";
 import IPost from "@/interface/IPost";
-import { doc, setDoc, deleteDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import { firestore, storage } from "../../config/firebase-client";
 import { useEffect, useState } from "react";
 import Modal from "../post_interface/post_interface";
-import { uploadPhoto } from "@/lib/api";
 import {
   selectPostFormData,
   setPostData,
-  setUpdate,
+
 } from "@/store/redusers/postReduser";
 import { selectUserAuth } from "@/store/redusers/userReducer";
 import { deleteDocument, handleCopyLink, formatTagsArray, calculateReadingTime, updateDocument } from "../helper/post-helper";
