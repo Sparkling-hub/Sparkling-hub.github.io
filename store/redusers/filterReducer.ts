@@ -45,7 +45,10 @@ const filterSlice = createSlice({
 			Object.keys(state.activeIds).forEach((key: any) => {
 				if (key == name) state.activeIds[key] = ids.filter((item) => item !== id);
 			});
-		}
+		},
+		clearActiveItems(state, action: PayloadAction<{ name: string }>) {
+			state.activeIds[action.payload.name] = [];
+		  },
 	},
 });
 
@@ -55,6 +58,7 @@ export const {
 	setUniqueIds,
 	setActiveIds,
 	deleteActiveItem,
+	clearActiveItems
 } = filterSlice.actions;
 
 export const selectFilter = (state: RootState) => state.filter;

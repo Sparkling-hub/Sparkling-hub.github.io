@@ -150,17 +150,20 @@ const Blog: React.FC = () => {
     filterValue();
   }, [activeIds, filter, update, originPost]);
 
-  const recentPost = posts.length > 0 ? posts[0] : null;
-  const remainingPosts = posts.slice(1);
+  // Sort posts by date in descending order to get the most recent post first
+  const sortedPosts = [...originPost].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const recentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
+
+  // Filter out the recent post from the posts to be displayed in the table
+  const remainingPosts = posts.filter((post) => post.id !== recentPost?.id);
 
   const currentRemainingPosts = remainingPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <div className="">
-        <h1 className="text-5xl font-bold text-center mb-4 text-primary-darkTeal" >Future text about posts</h1>
+      <h1 className="text-5xl font-bold text-center mb-4 text-primary-darkTeal">Future text about posts</h1>
       {recentPost && (
-        <div className=" m-2 my-12">
-        
+        <div className="m-2 my-12">
           <HeadPost key={recentPost.id} {...recentPost} />
         </div>
       )}
@@ -168,7 +171,7 @@ const Blog: React.FC = () => {
         <Filter />
         {user ? (
           <button
-            className="no-underline relative w-auto text-white py-3 px-8 m-auto bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700"
+            className="no-underline whitespace-nowrap relative w-auto text-white py-3 px-8 m-auto bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700 "
             onClick={openModal}
           >
             Add blog
@@ -178,7 +181,7 @@ const Blog: React.FC = () => {
         )}
       </div>
 
-      <div key={remainingPosts ? remainingPosts.length + 1 : "0"}>
+      <div key={posts ? posts.length + 1 : "0"}>
         <div className="flex flex-wrap z-[-10] static h-[1150px]">
           {currentRemainingPosts.map((item: IPost) => (
             <BlogPost key={item.id} {...item} />

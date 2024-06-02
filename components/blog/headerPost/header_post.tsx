@@ -23,14 +23,6 @@ const BlogPost: React.FC<IPost> = (data) => {
   const [showModal, setShowModal] = useState(false);
 
 
-  const calculateReadingTime = (text: string) => {
-    if (!text) return 0;
-    const wordsPerMinute = 200;
-    const words = text.split(/\s+/).length;
-    const minutes = words / wordsPerMinute;
-    return Math.ceil(minutes);
-  };
-
 
   function formatTagsArray(tagsArray: any) {
     if (!Array.isArray(tagsArray)) {
@@ -128,7 +120,7 @@ const BlogPost: React.FC<IPost> = (data) => {
 
   const handleCopyLink = () => {
     const currentURL = window.location.href;
-    const postLink = currentURL + '/post?id=03thoC9PIHdXnxdEcqKw';
+    const postLink = currentURL + `/post?id=${data.id}`;
     
     navigator.clipboard.writeText(postLink)
       .then(() => {
@@ -173,7 +165,7 @@ const BlogPost: React.FC<IPost> = (data) => {
       <div className="bg-color-primary-dark rounded-[10px] shadow-lg  overflow-hidden flex p-10">
 
         <Link
-          className="relative h-auto w-screen  w-[30%] overflow-hidden block bg-black rounded-[5px] "
+          className="relative h-auto w-[30%] overflow-hidden block  "
           href={{
             pathname: '/blog/post',
             query: { id: data.id }
@@ -183,7 +175,7 @@ const BlogPost: React.FC<IPost> = (data) => {
           <img
 
             src={data.fileUrl}
-            className="inset-0 absolute w-full h-full object-cover object-center text-white"
+            className="inset-0 absolute bg-black  w-auto h-full object-cover object-center rounded-[5px] m-auto text-white"
             alt={data.title}
             loading="lazy"
           />

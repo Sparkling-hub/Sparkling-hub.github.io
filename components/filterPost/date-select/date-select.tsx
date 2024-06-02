@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-
+import { deleteDate } from '@/store/redusers/postReduser';
 const DateRangePicker = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -23,14 +23,20 @@ const DateRangePicker = () => {
     dispatch(setDateRange({ startDate: startDate ? startDate.toISOString() : null, endDate: date ? date.toISOString() : null }));
   };
 
+const reset = () =>{
+  setEndDate(null);
+  setStartDate(null)
+  dispatch(deleteDate())}
 
   const toggleSortOrder = () => {
+  
     dispatch(setOrder());
   };
 
   
   return (
-    <div className="date-range-picker w-full z-[5] mx-4 py-2   flex relative">
+    <div className=" w-full z-[5] mx-4 py-2   flex relative">
+      <div className='w-full flex'>
       <DatePicker
         selected={startDate}
         onChange={handleStartDateChange}
@@ -38,8 +44,9 @@ const DateRangePicker = () => {
         startDate={startDate}
         endDate={endDate}
         placeholderText="Start Date"
-        className="datepicker-input  w-2/3"
+        className="px-1  w-[90%] rounded-[7px]"
       />
+ <span className="mr-3 text-2xl h-[24px]  relative right-0 bottom-2">→</span> {/* Arrow between date pickers */}
       <DatePicker
         selected={endDate}
         onChange={handleEndDateChange}
@@ -48,12 +55,17 @@ const DateRangePicker = () => {
         endDate={endDate}
         minDate={startDate}
         placeholderText="End Date"
-        className="datepicker-input w-2/3"
+        className="px-1  w-[90%] rounded-[7px]"
       />
-      <button className='bg-white rounded-[5px] w-8 scale-125 font-bold' onClick={toggleSortOrder}>
+      </div>
+      <button className='bg-white rounded-[5px] w-6 h-5 scale-125 font-bold' onClick={toggleSortOrder}>
         <strong className={`${filter.sortOrder ? 'text-black  text-[10px]' : 'text-primary-darkTeal font-black'}`}>🠕</strong>
         <strong className={`${filter.sortOrder ? 'text-primary-darkTeal font-black ' : 'text-black text-[10px]'}`}>🠗</strong>
-      </button>    </div>
+      </button>    
+      <button className='bg-white rounded-[5px] w-6 h-5 scale-125 font-bold ml-3' onClick={reset}>
+        Х
+      </button>   
+      </div>
   );
 };
 

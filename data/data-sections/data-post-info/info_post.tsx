@@ -170,7 +170,13 @@ const PostComponent: React.FC<PostComponentProps> = ({
     )
   ) ;
 
-
+  const calculateReadingTime = (text: string) => {
+    if (!text) return 0;
+    const wordsPerMinute = 200;
+    const words = text.split(/\s+/).length;
+    const minutes = words / wordsPerMinute;
+    return Math.ceil(minutes);
+  };
   return (
     <div className="my-14 max-w-screen-2xl pb-14 mx-auto w-full px-8">
       <meta name="description" content={post.description} />
@@ -181,6 +187,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
       <meta property="og:title" content={`Sparkling.Co. ${post.title}`} />
       <meta property="og:description" content={post.description} />
       <meta property="og:url" content={`/careers/postData?id=${post.id}`} />
+      
       <div className="flex flex-row justify-between">
         <Link
           href={{ pathname: "/blog" }}
@@ -189,35 +196,13 @@ const PostComponent: React.FC<PostComponentProps> = ({
           <img src="/img/jobs/arrowBack.png" alt="back" className="h-4" />{" "}
           Explore all posts
         </Link>
+
+        
         {user ? verification:''}
       </div>
-      {isEditing ? (
-        <Input
-          type="text"
-          name="title"
-          value={postData.title}
-          onChange={handleInputChange}
-          checked={!postData.title}
-        />
-      ) : (
-        <h1 className="text-5xl mb-6 mx-1">{post.title}</h1>
-      )}
-
-      <p className="text-xl pb-8">{post.date}</p>
-      
-      {isEditing ? (
-        <Input
-          type="text"
-          name="tags"
-          value={postData.tags}
-          onChange={handleInputChange}
-          checked={!postData.tags}
-        />
-      ) : (
-        <h2 className="text-2xl mb-6 mx-1">{formatTagsArray(post.tags)}</h2>
-      )}
+<div className="flex">
       {!isEditing ? (
-        <img src={post.fileUrl} alt="image post" className="h-[500px]" />
+        <img src={post.fileUrl} alt="image post" className="h-[300px]" />
       ) : (
         <div>
           <Input
@@ -231,13 +216,57 @@ const PostComponent: React.FC<PostComponentProps> = ({
             <img
               src={imageUrl}
               alt="Selected Image"
-              className="mt-2 max-h-[400px] max-w-full h-auto"
+              className="mt-2 max-h-[300px] max-w-full h-auto"
             />
           )}
         </div>
       )}
+    <div className="flex flex-col"> {isEditing ? (
+        <Input
+          type="text"
+          name="title"
+          value={postData.title}
+          onChange={handleInputChange}
+          checked={!postData.title}
+        />
+      ) : (
+        <h1 className="text-5xl mb-6 mx-1 ">{post.title}</h1>
+      )}
+    <div className="flex text-sm font-bold">
+            <span className="">{`${calculateReadingTime(post.description)} min read`}</span>
+            <svg
+              width="4"
+              height="4"
+              viewBox="0 0 4 4"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="mx-2 my-auto"
+            >
+              <circle cx="2" cy="2" r="2" fill="#ACBAC2"></circle>
+            </svg>
+            <span className="">{post.date}</span>
+          </div>
 
+     </div> 
+
+    </div>
+    <div className="my-5">
+      <h2>
+      
       {isEditing ? (
+        <Input
+          type="text"
+          name="tags"
+          value={postData.tags}
+          onChange={handleInputChange}
+          checked={!postData.tags}
+        />
+      ) : (
+        <h2 className="text-2xl underline mb-6 mx-1">{formatTagsArray(post.tags)}</h2>
+      )}
+
+      </h2>
+    {isEditing ? (
         <TextArea
           name="description"
           value={postData.description}
@@ -247,7 +276,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
         />
       ) : (
         <p className="text-xl pb-8">{post.description}</p>
-      )}
+      )}</div>
     </div>
   );
 };

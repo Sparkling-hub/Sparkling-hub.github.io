@@ -132,12 +132,17 @@ const postSlice = createSlice({
         state.filter.sortOrder = !state.filter.sortOrder;
   
       },
+      deleteDate: (state) => {
+
+        state.filter.endDate= '';
+        state.filter.startDate= '';
+      },
 		}
     
     
 });
 
-export const { setPostData, setCheck, setCheckFormByKey, resetPostData, resetCheckForm, setUpdate, setFilter, setUniqueIds,setActiveIds,setCheckboxData,deleteActiveItem,setDateRange,setOrder } = postSlice.actions;
+export const { setPostData, setCheck, setCheckFormByKey, resetPostData, resetCheckForm, setUpdate, setFilter, setUniqueIds,setActiveIds,setCheckboxData,deleteActiveItem,setDateRange,setOrder,deleteDate } = postSlice.actions;
 export const selectPostFormData = (state: RootState) => state.post;
 
 export default postSlice.reducer;

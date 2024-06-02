@@ -3,7 +3,7 @@
 
 interface ICheckboxItem {
 
-    value: string;
+    value: string ;
     count: number;
     
 }
