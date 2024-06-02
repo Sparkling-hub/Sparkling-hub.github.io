@@ -13,6 +13,7 @@ import {
   setUpdate,
 } from "@/store/redusers/postReduser";
 import { selectUserAuth } from "@/store/redusers/userReducer";
+import { deleteDocument, handleCopyLink, formatTagsArray, calculateReadingTime, updateDocument } from "../helper/post-helper";
 
 const BlogPost: React.FC<IPost> = (data) => {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -23,52 +24,9 @@ const BlogPost: React.FC<IPost> = (data) => {
   const [showModal, setShowModal] = useState(false);
 
 
-  const calculateReadingTime = (text: string) => {
-    if (!text) return 0;
-    const wordsPerMinute = 200;
-    const words = text.split(/\s+/).length;
-    const minutes = words / wordsPerMinute;
-    return Math.ceil(minutes);
-  };
 
 
-  function formatTagsArray(tagsArray: any) {
-    if (!Array.isArray(tagsArray)) {
-      throw new Error("Input is not an array");
-    }
-    const filteredTags = tagsArray.filter((tag) => tag.trim() !== "");
-    const tagsString = filteredTags.join(", ");
-    return tagsString;
-  }
 
-  const updateDocument = async (selectedImage: any) => {
-    setTimerDisabled(false);
-    try {
-      const docRef = doc(firestore, "posts", data.id);
-      const imageRef = ref(storage, data.fileUrl);
-      if (selectedImage) {
-        await deleteObject(imageRef);
-        const { fileUrl, fileName } = await uploadPhoto(selectedImage);
-        const updatedPostData = {
-          ...postData,
-          fileUrl: fileUrl,
-          fileName: fileName,
-        };
-        await setDoc(docRef, updatedPostData);
-      } else {
-        const updatedPostData = {
-          ...postData,
-        };
-        await setDoc(docRef, updatedPostData);
-      }
-      closeModal();
-      dispatch(setUpdate());
-
-    } catch (error) {
-      console.error("Error updating document:", error);
-    }
-    setTimerDisabled(true);
-  };
 
 
   const openModal = () => {
@@ -101,21 +59,7 @@ const BlogPost: React.FC<IPost> = (data) => {
   };
 
 
-  const deleteDocument = async () => {
-    setTimerDisabled(false);
-    try {
-      await deleteDoc(doc(firestore, "posts", data.id));
 
-      const imageRef = ref(storage, data.fileUrl);
-      await deleteObject(imageRef);
-
-      console.log("Document successfully deleted!");
-      dispatch(setUpdate());
-    } catch (error) {
-      console.error("Error deleting document: ", error);
-    }
-    setTimerDisabled(true);
-  };
 
 
   useEffect(() => {
@@ -126,19 +70,7 @@ const BlogPost: React.FC<IPost> = (data) => {
   }, []);
 
 
-  const handleCopyLink = () => {
-    const currentURL = window.location.href;
-    const postLink = currentURL + '/post?id=03thoC9PIHdXnxdEcqKw';
-    
-    navigator.clipboard.writeText(postLink)
-      .then(() => {
-        setIsLinkCopied(true);
-        setTimeout(() => setIsLinkCopied(false), 3000);
-      })
-      .catch((err) => {
-        console.error('Failed to copy link:', err);
-      });
-  };
+
   
 
   return (
@@ -156,7 +88,7 @@ const BlogPost: React.FC<IPost> = (data) => {
             </button>
             <button
               className="bg-color-primary-dark mx-1  h-10 w-10 rounded-full  transform scale-90 transition-all duration-300 hover:scale-110  text-lg hover:text-xl"
-              onClick={deleteDocument}
+              onClick={() => deleteDocument(data, setTimerDisabled, dispatch)}
               disabled={!timerDisabled}
             >
               ✖
@@ -167,7 +99,7 @@ const BlogPost: React.FC<IPost> = (data) => {
         )} 
         <button
         className="bg-color-primary-dark mx-1 h-10 w-10 rounded-full transform scale-90 transition-all duration-300 hover:scale-110 text-lg hover:text-xl flex justify-center items-center"
-        onClick={handleCopyLink}
+        onClick={() => handleCopyLink(data, setIsLinkCopied)}
       >
    {isLinkCopied ? '✔' : <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="22" height="22"><path fill="currentColor" d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"></path></svg>}
       </button>
@@ -224,7 +156,7 @@ const BlogPost: React.FC<IPost> = (data) => {
           </div>
         </div>
       </div>
-      {showModal && <Modal onClick={updateDocument} closeModal={closeModal} />}
+      {showModal && <Modal onClick={(selectedImage) => updateDocument(data, postData, setTimerDisabled, closeModal, dispatch, selectedImage)} closeModal={closeModal} />}
     </div>
   );
 };

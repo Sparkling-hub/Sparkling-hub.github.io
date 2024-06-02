@@ -98,7 +98,7 @@ const Blog: React.FC = () => {
 
     setPosts(filteredPosts);
 
-    // Reset current page if it exceeds the total number of pages
+   
     if (currentPage > Math.ceil((filteredPosts.length - 1) / postsPerPage)) {
       setCurrentPage(1);
     }
@@ -149,12 +149,10 @@ const Blog: React.FC = () => {
   useEffect(() => {
     filterValue();
   }, [activeIds, filter, update, originPost]);
-
-  // Sort posts by date in descending order to get the most recent post first
   const sortedPosts = [...originPost].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const recentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
 
-  // Filter out the recent post from the posts to be displayed in the table
+
   const remainingPosts = posts.filter((post) => post.id !== recentPost?.id);
 
   const currentRemainingPosts = remainingPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -167,7 +165,7 @@ const Blog: React.FC = () => {
           <HeadPost key={recentPost.id} {...recentPost} />
         </div>
       )}
-      <div className="flex">
+      <div className="flex ">
         <Filter />
         {user ? (
           <button

@@ -35,8 +35,8 @@ const reset = () =>{
 
   
   return (
-    <div className=" w-full z-[5] mx-4 py-2   flex relative">
-      <div className='w-full flex'>
+    <div className=" w-full z-[5] mx-4 py-2   flex relative items-center">
+      <div className='w-full flex items-center'>
       <DatePicker
         selected={startDate}
         onChange={handleStartDateChange}
