@@ -1,18 +1,14 @@
 import React, { ChangeEvent } from 'react';
 import ICheckboxSelect from '@/interface/ICheckboxSelect';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectFilter, setCheckboxData, deleteActiveItem, clearActiveItems} from '@/store/redusers/filterReducer';
-import { get } from '../careers/search_function/search_function';
+import { useDispatch } from 'react-redux';
+import { setCheckboxData, clearActiveItems} from '@/store/redusers/filterReducer';
+
 
 const CheckboxSelect: React.FC<ICheckboxSelect> = ({ id, checked,name }) => {
 const value =id.value !='' ? id.value: "all"
 console.log(value)
   const dispatch = useDispatch();
-  const {
 
-		activeIds,
-	  
-	  } = useSelector(selectFilter);
 	
 
   const handleParamsChange = (e: ChangeEvent<HTMLInputElement>) => {

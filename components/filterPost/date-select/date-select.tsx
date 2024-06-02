@@ -1,10 +1,10 @@
-import { setDateRange, setOrder, selectPostFormData } from '@/store/redusers/postReduser';
+import { setDateRange, setOrder, selectPostFormData, deleteDate } from '@/store/redusers/postReduser';
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteDate } from '@/store/redusers/postReduser';
+
 const DateRangePicker = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
