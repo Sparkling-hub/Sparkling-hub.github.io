@@ -12,7 +12,7 @@ const content = <div className='flex'>
 
 const element = {
   content: content,
-  id: "about"
+  id: "login"
 
 }
 export default element
