@@ -1,7 +1,7 @@
 import dataImages from "@/data/data-aboutUs/galery";
 import Link from "next/link";
 import { useState } from "react";
-
+import { v4 as uuidv4 } from 'uuid';
 function Gallery() {
   const getImageSrc = (image: any) => {
     return image.src;
@@ -50,7 +50,7 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
 
       <ul className="">
       {[...Array(rows)].map((_, rowIndex) => (
-        <div className="flex flex-row" key={rowIndex}>
+        <div className="flex flex-row" key={uuidv4()}>
       {dataImages
             .slice(rowIndex * 7, rowIndex * 7 + 7)
             .map((item, index) => (
