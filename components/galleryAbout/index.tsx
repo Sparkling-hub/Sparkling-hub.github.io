@@ -61,13 +61,19 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
               hoveredIndex ===  index + rowIndex * 7 ? "w-[35%]" : "w-[14%] filter grayscale" 
             } h-[400px] image-gallery rounded-xl overflow-hidden relative  m-[5px] transition-all duration-500 ease-in-out shadow-lg `}
           >
+                
             <div
               className={` ${
                 hoveredIndex ===  index + rowIndex * 7 ? " px-5 opacity-1" : "opacity-0 " 
-              } image_title my-1 absolute bottom-0 right-0 z-10 h-[15%] bg-black  flex-col w-full flex overflow-hidden transition-all duration-500 ease-in-out`}
+              } image_title my-1 absolute bottom-0 right-0 z-10 h-[15%] bg-black  w-full flex overflow-hidden transition-all duration-500 ease-in-out justify-between `}
             >
+              <div className=" flex-col flex ">
               <p className="font-bold text-2xl">{item.profession}</p>
               <p className="text-white font-bold text-xl">{item.name}</p>
+              </div>
+              <Link className="left-0 flex items-center bg-primary-lightTeal my-auto w-10 h-10 rounded-full" href={item.linkedin}>
+        <p className="m-auto text-4xl font-extrabold text-black">in</p>
+            </Link>
             </div>
 
             <Link
@@ -83,6 +89,7 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
                 className={`h-full bg-red-100 w-full relative  transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 7 ? "right-0" : "right-[25%]" }`}
               />
             </Link>
+          
           </li>
         ))}</div> ))}
       </ul>
