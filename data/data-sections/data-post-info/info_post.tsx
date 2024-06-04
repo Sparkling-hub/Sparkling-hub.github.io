@@ -202,7 +202,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
       </div>
 <div className="flex">
       {!isEditing ? (
-        <img src={post.fileUrl} alt="image post" className="h-[300px]" />
+        <img src={post.fileUrl} alt="image post" className="h-[300px] pr-7" />
       ) : (
         <div>
           <Input
