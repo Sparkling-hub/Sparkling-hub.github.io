@@ -54,14 +54,18 @@ const Card: React.FC = () => {
   }, []);
 
   return (
-    <div ref={cardRef}
+    <div  ref={cardRef}  className='absolute     transition-all duration-300 ease-in-out ' style={{
+      top: `calc(${Math.round(activeOfficePointCoords[0] - 199)}px)`,
+      left: `calc(${Math.round(activeOfficePointCoords[1] - 85)}px)`
+  }}>
+    <div 
       className={` before:border-transparent
       drop-shadow-[0_3px_4px_rgba(0,0,0,0.23)]
       before:border-b-[#B0D311] before:border-r-[100px] 
       z-[5]
       before:transform before:rotate-180
       before:absolute
-      transition-all duration-300 ease-in-out 
+  
       before:rounded-b-3xl
       before:border-l-[100px]
       before:w-full
@@ -74,10 +78,7 @@ const Card: React.FC = () => {
     adaptive
       ${(isVisible) ? 'opacity-95 z-[1] before:bottom-[-50px] before:border-b-[60px] h-[180px] transition-all  duration-300 ease-in-out' : ' h-[20px] before:bottom-[0px] opacity-0 z-[-1] before:border-b-[0px]'} 
       `}
-      style={{
-        top: `calc(${Math.round(activeOfficePointCoords[0] - 199)}px)`,
-        left: `calc(${Math.round(activeOfficePointCoords[1] - 85)}px)`
-    }}><div className={`overflow-hidden flex items-center justify-center relative lg:absolute w-full bg-[#B0D311] duration-300 rounded-3xl ease-out  transition-height  ${isVisible ? 'opacity-100 h-[100%] top-[0%] ' : '100 h-[100%] top-[0%]'}`} >
+   ><div className={`overflow-hidden flex items-center justify-center relative lg:absolute w-full bg-[#B0D311] duration-300 rounded-3xl ease-out  transition-height  ${isVisible ? 'opacity-100 h-[100%] top-[0%] ' : '100 h-[100%] top-[0%]'}`} >
         <div className={`w-full left-0 px-6`}>
 
 
@@ -93,7 +94,7 @@ const Card: React.FC = () => {
         </div>
       </div>
 
-    </div>
+    </div></div>
   );
 };
 
