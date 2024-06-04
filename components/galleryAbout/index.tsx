@@ -67,12 +67,12 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
                 hoveredIndex ===  index + rowIndex * 7 ? " px-4 opacity-1" : "opacity-0 " 
               } image_title my-1 absolute bottom-0 right-0 z-10 h-[15%] bg-black  w-full flex overflow-hidden transition-all duration-500 ease-in-out justify-between `}
             >
-              <div className=" flex-col flex text-nowrap">
+              <div className=" flex-col flex text-nowrap text-white ">
               <p className="font-bold text-2xl">{item.profession}</p>
-              <p className="text-white font-bold text-xl">{item.name}</p>
+              <p className="font-bold text-xl">{item.name}</p>
               </div>
               <Link  target="_blank" className="left-0 flex items-center bg-primary-lightTeal my-auto w-9 h-9 rounded-full" href={item.linkedin}>
-        <p className="m-auto text-3xl font-extrabold text-black">in</p>
+        <p className="m-auto text-2xl font-extrabold  text-white">in</p>
             </Link>
             </div>
 
