@@ -85,10 +85,12 @@ const Blog: React.FC = () => {
   const filterValue = async () => {
     let filteredPosts = originPost.filter((post: IPost) => {
       const matchesText = post.title?.toLowerCase().includes(filter.title.toLowerCase());
-      const isTagIncluded = activeIds.tags.length === 0 || activeIds.tags.some((activeId: string) => post.tags.includes(activeId));
+      const postTags = Array.isArray(post.tags) ? post.tags.map(tag => tag.toLowerCase()) : [];
+      const isTagIncluded = activeIds.tags.length === 0 || activeIds.tags.some((activeId: string) => postTags.includes(activeId.toLowerCase()));
       const dateInRange = isDateInRange(post, filter.startDate, filter.endDate);
       return isTagIncluded && dateInRange && matchesText;
     });
+  
 
     filteredPosts.sort((a: IPost, b: IPost) => {
       const dateA = parseDate(a.date).getTime();
