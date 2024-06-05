@@ -200,7 +200,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
         
         {user ? verification:''}
       </div>
-<div className="flex">
+<div className="flex  py-5 my-5">
       {!isEditing ? (
         <img src={post.fileUrl} alt="image post" className="h-[300px] pr-7" />
       ) : (
@@ -250,7 +250,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
      </div> 
 
     </div>
-    <div className="my-5">
+    <div className="my-5 border-y-[1px] py-10">
       <h2>
       
       {isEditing ? (
@@ -275,7 +275,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
           placeholder={"Input description"}
         />
       ) : (
-        <p className="text-xl pb-8">{post.description}</p>
+        <p className="text-xl ">{post.description}</p>
       )}</div>
     </div>
   );
