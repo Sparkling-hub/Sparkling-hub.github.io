@@ -251,7 +251,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
 
     </div>
     <div className="my-5 border-y-[1px] py-10">
-      <h2>
+      <div>
       
       {isEditing ? (
         <Input
@@ -262,10 +262,10 @@ const PostComponent: React.FC<PostComponentProps> = ({
           checked={!postData.tags}
         />
       ) : (
-        <h2 className="text-2xl underline mb-6 mx-1">{formatTagsArray(post.tags)}</h2>
+        <h2 className="text-2xl underline mb-10 mx-1">{formatTagsArray(post.tags)}</h2>
       )}
 
-      </h2>
+      </div>
     {isEditing ? (
         <TextArea
           name="description"
