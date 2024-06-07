@@ -8,12 +8,12 @@ const upload = multer({
   storage: multer.memoryStorage(), 
   fileFilter: function (req, file, cb) {
 
-    if (file.size > 5 * 1024 * 1024) {
+    if (file.size > 5000000) {
       return cb(new Error('The file size exceeds the maximum limit (5MB).'));
     }
     cb(null, true);
   },
-  limits: { fileSize: 5 * 1024 * 1024 }, 
+  limits: {  fileSize : 8000000}, 
 });
 
 
