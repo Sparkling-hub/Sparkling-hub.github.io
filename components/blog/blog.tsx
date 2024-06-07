@@ -3,10 +3,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/config/firebase-client";
 import BlogPost from "../blog-post";
 import {
-  resetPostData, selectPostFormData, setUpdate,
+  resetPostData,
+  selectPostFormData,
+  setUpdate,
 } from "@/store/redusers/postReduser";
 import {
-  selectFilter, setUniqueIds, setActiveIds,
+  selectFilter,
+  setUniqueIds,
+  setActiveIds,
 } from "@/store/redusers/filterReducer";
 import { setUserAuth, selectUserAuth } from "@/store/redusers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +19,7 @@ import IPost from "@/interface/IPost";
 import Modal from "../post_interface/post_interface";
 import Filter from "../filterPost";
 import { formatTags, getIds } from "@/components/helper/split";
-import HeadPost from './headerPost/header_post';
+import HeadPost from "./headerPost/header_post";
 
 const Blog: React.FC = () => {
   const dispatch = useDispatch();
@@ -49,7 +53,12 @@ const Blog: React.FC = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const handleSubmit = async (selectedImage: File | null) => {
-    if (selectedImage && postData.title && postData.tags && postData.description) {
+    if (
+      selectedImage &&
+      postData.title &&
+      postData.tags &&
+      postData.description
+    ) {
       await createPost(postData, selectedImage);
       dispatch(resetPostData());
       closeModal();
@@ -75,7 +84,11 @@ const Blog: React.FC = () => {
     return new Date(dateStr);
   }
 
-  function isDateInRange(post: IPost, startDate: string | null, endDate: string | null): boolean {
+  function isDateInRange(
+    post: IPost,
+    startDate: string | null,
+    endDate: string | null
+  ): boolean {
     const postDate = parseDate(post.date);
     const start = checkStartDate(startDate);
     const end = checkEndDate(endDate);
@@ -84,13 +97,20 @@ const Blog: React.FC = () => {
 
   const filterValue = async () => {
     let filteredPosts = originPost.filter((post: IPost) => {
-      const matchesText = post.title?.toLowerCase().includes(filter.title.toLowerCase());
-      const postTags = Array.isArray(post.tags) ? post.tags.map(tag => tag.toLowerCase()) : [];
-      const isTagIncluded = activeIds.tags.length === 0 || activeIds.tags.some((activeId: string) => postTags.includes(activeId.toLowerCase()));
+      const matchesText = post.title
+        ?.toLowerCase()
+        .includes(filter.title.toLowerCase());
+      const postTags = Array.isArray(post.tags)
+        ? post.tags.map((tag) => tag.toLowerCase())
+        : [];
+      const isTagIncluded =
+        activeIds.tags.length === 0 ||
+        activeIds.tags.some((activeId: string) =>
+          postTags.includes(activeId.toLowerCase())
+        );
       const dateInRange = isDateInRange(post, filter.startDate, filter.endDate);
       return isTagIncluded && dateInRange && matchesText;
     });
-  
 
     filteredPosts.sort((a: IPost, b: IPost) => {
       const dateA = parseDate(a.date).getTime();
@@ -100,7 +120,6 @@ const Blog: React.FC = () => {
 
     setPosts(filteredPosts);
 
-   
     if (currentPage > Math.ceil((filteredPosts.length - 1) / postsPerPage)) {
       setCurrentPage(1);
     }
@@ -151,17 +170,23 @@ const Blog: React.FC = () => {
   useEffect(() => {
     filterValue();
   }, [activeIds, filter, update, originPost]);
-  const sortedPosts = [...originPost].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const sortedPosts = [...originPost].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
   const recentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
-
 
   const remainingPosts = posts.filter((post) => post.id !== recentPost?.id);
 
-  const currentRemainingPosts = remainingPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentRemainingPosts = remainingPosts.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
 
   return (
     <div className="">
-      <h1 className="text-5xl font-bold text-center mb-4 text-primary-darkTeal">Future text about posts</h1>
+      <h1 className="text-5xl font-bold text-center mb-4 text-primary-darkTeal">
+        Future text about posts
+      </h1>
       {recentPost && (
         <div className="m-2 my-12">
           <HeadPost key={recentPost.id} {...recentPost} />
@@ -200,7 +225,9 @@ const Blog: React.FC = () => {
                     paginate(index + 1);
                   }}
                   className={`${
-                    currentPage == index + 1 ? "bg-color-primary-dark" : "bg-primary-lightTeal scale-90"
+                    currentPage == index + 1
+                      ? "bg-color-primary-dark"
+                      : "bg-primary-lightTeal scale-90"
                   } no-underline relative text-white w-8 h-8 m-1 rounded-full z-10 block hover:bg-teal-700`}
                 >
                   {index + 1}
