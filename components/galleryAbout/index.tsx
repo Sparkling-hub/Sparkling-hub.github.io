@@ -48,14 +48,14 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
         </div>
       </div>
 
-      <ul className="">
+      <div className="">
       {[...Array(rows)].map((_, rowIndex) => (
-        <div className="flex flex-row">
+        <div className="flex flex-row" key={'rows'}>
       {dataImages
             .slice(rowIndex * 7, rowIndex * 7 + 7)
             .map((item, index) => (
               
-          <li
+          <div
             key={ index + rowIndex * 7}
             className={` ${
               hoveredIndex ===  index + rowIndex * 7 ? "w-[35%]" : "w-[14%] filter grayscale" 
@@ -71,8 +71,9 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
               <p className="font-bold text-2xl">{item.profession}</p>
               <p className="font-bold text-xl">{item.name}</p>
               </div>
-              <Link  target="_blank" className="left-0 flex items-center bg-primary-lightTeal my-auto w-9 h-9 rounded-full" href={item.linkedin}>
-        <p className="m-auto text-2xl font-extrabold  text-white">in</p>
+              <Link  target="_blank"  className="left-0 flex items-center w-15 h-15 transform transition-transform duration-500 hover:scale-[1.06]" 
+ href={item.linkedin}>
+     <img src="/img/about/linkedIn_icon.png" className="w-full h-full" alt="" />
             </Link>
             </div>
 
@@ -91,9 +92,9 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
               />
             </button>
           
-          </li>
+          </div>
         ))}</div> ))}
-      </ul>
+      </div>
     </div>
   );
 }
