@@ -10,10 +10,10 @@ function Gallery() {
   const lenght = dataImages.length - 1;
   const rows = Math.ceil(dataImages.length / 7);
   return (
-    <div className="">
+    <div>
       <div className="flex flex-col justify-between p-[5px]">
         {" "}
-        <div className=" w-full">
+        <div className="w-full">
           {" "}
           <h2 className="text-4xl text-primary-darkTeal">Meet our teem</h2>{" "}
           <p className="text-xl my-5">
