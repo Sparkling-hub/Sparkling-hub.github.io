@@ -1,7 +1,7 @@
 import dataImages from "@/data/data-aboutUs/galery";
 import Link from "next/link";
 import { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+
 function Gallery() {
   const getImageSrc = (image: any) => {
     return image.src;
