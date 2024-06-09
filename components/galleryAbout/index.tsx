@@ -50,7 +50,7 @@ Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet su
 
       <div className="">
       {[...Array(rows)].map((_, rowIndex) => (
-        <div className="flex flex-row" key={'rows'}>
+        <div className="flex flex-row" key={'rows'+ rowIndex}>
       {dataImages
             .slice(rowIndex * 7, rowIndex * 7 + 7)
             .map((item, index) => (
