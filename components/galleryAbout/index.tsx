@@ -17,11 +17,7 @@ function Gallery() {
           {" "}
           <h2 className="text-4xl text-primary-darkTeal">Meet our teem</h2>{" "}
           <p className="text-xl my-5">
-    
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed accumsan quam, interdum rutrum est. Curabitur vitae facilisis neque, in iaculis turpis. Duis vitae erat vel leo cursus sollicitudin id vel nulla. Aliquam ornare nec sem quis tempus. Integer a fermentum libero. Pellentesque purus est, cursus id consectetur ut, sagittis eu leo. Phasellus condimentum feugiat vulputate. Ut molestie nibh efficitur odio sagittis efficitur.
-
-Curabitur sodales ex velit, vel fringilla risus ultrices sed. Quisque laoreet suscipit mollis. Suspendisse ullamcorper odio nec lacus ornare, ut molestie neque malesuada. Cras interdum auctor rutrum. Praesent ac condimentum mauris. Aliquam imperdiet turpis vitae orci hendrerit, bibendum facilisis dolor feugiat. Vestibulum lacinia suscipit porttitor. Aenean viverra tempor eros, ac volutpat sem fermentum a. Ut non consequat tortor, vitae posuere erat. Donec vulputate ipsum et efficitur rutrum. Nunc ac velit mi. Sed vitae erat convallis, accumsan massa id, facilisis lorem.
-          </p>
+          At the heart of our success is a dedicated group of professionals who bring vision, expertise, and innovation to every project. Our diverse team of Software Engineers, Project Managers, and C-level executives work tirelessly in harmony to deliver outstanding results. With a passion for excellence and a commitment to pushing boundaries, they transform concepts into cutting-edge solutions that drive our company forward. Meet the team at Sparkling Co.          </p>
         </div>
         <div className=" w-full flex justify-end items-end">
           {" "}
