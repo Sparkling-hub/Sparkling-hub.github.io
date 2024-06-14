@@ -5,15 +5,16 @@ import {storage} from '../../config/firebase-client';
 
 
 const upload = multer({
-  storage: multer.memoryStorage(), 
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5000000 // Sensitive: 5MB is more than the recommended limit of 8MB
+  },
   fileFilter: function (req, file, cb) {
-
     if (file.size > 5000000) {
       return cb(new Error('The file size exceeds the maximum limit (5MB).'));
     }
     cb(null, true);
-  },
-  limits: {  fileSize : 8000000}, 
+  }
 });
 
 

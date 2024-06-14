@@ -10,11 +10,11 @@ import { v4 as uuidv4 } from 'uuid';
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 5000000 // Sensitive: 10MB is more than the recommended limit of 8MB
+    fileSize: 5000000 // Sensitive: 5MB is more than the recommended limit of 8MB
   },
   fileFilter: function (req, file, cb) {
     if (file.size > 5000000) {
-      return cb(new Error('The file size exceeds the maximum limit (10MB).'));
+      return cb(new Error('The file size exceeds the maximum limit (5MB).'));
     }
     cb(null, true);
   }
