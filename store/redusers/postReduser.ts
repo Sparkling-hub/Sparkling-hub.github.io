@@ -24,7 +24,7 @@ interface ExtendedFilterValues extends FilterValues {
   sortOrder: boolean;
 }
 interface FormState {
-  
+  allPosts: FormValues[];
   filter: ExtendedFilterValues ;
   update: boolean;
   postData: FormValues;
@@ -36,6 +36,7 @@ interface FormState {
 }
 
 const initialState: FormState = {
+  allPosts:[],
   update: false,
   postData: {
     title: '',
@@ -137,12 +138,15 @@ const postSlice = createSlice({
         state.filter.endDate= '';
         state.filter.startDate= '';
       },
+      addPostsToAllPosts :(state: FormState, action: PayloadAction<FormValues[]>) => {
+        state.allPosts = action.payload; // Set allPosts to the provided array of posts
+      }
 		}
     
     
 });
 
-export const { setPostData, setCheck, setCheckFormByKey, resetPostData, resetCheckForm, setUpdate, setFilter, setUniqueIds,setActiveIds,setCheckboxData,deleteActiveItem,setDateRange,setOrder,deleteDate } = postSlice.actions;
+export const { setPostData, setCheck, setCheckFormByKey, resetPostData, resetCheckForm, setUpdate, setFilter, setUniqueIds,setActiveIds,setCheckboxData,deleteActiveItem,setDateRange,setOrder,deleteDate, addPostsToAllPosts} = postSlice.actions;
 export const selectPostFormData = (state: RootState) => state.post;
 
 export default postSlice.reducer;

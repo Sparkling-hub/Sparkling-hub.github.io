@@ -1,27 +1,88 @@
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   selectPostFormData,
   setPostData
 } from '@/store/redusers/postReduser';
 import Input from "../ui/input-component";
 import { useDispatch, useSelector } from "react-redux";
-import TextArea from "../ui/text-area-component";
-
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState, convertFromHTML, convertFromRaw, convertToRaw , ContentState} from 'draft-js'; 
+import dynamic from "next/dynamic";
+import draftToHtml from "draftjs-to-html";
 
 interface BlogProps {
   onClick: (file: File | null) => void;
   closeModal: () => void;
 }
-
+const DynamicEditor = dynamic(() => import('react-draft-wysiwyg').then((mod) => mod.Editor), {
+  ssr: false,
+});
 const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
   const dispatch = useDispatch();
+  const [editorState, setEditorState] = useState<EditorState | undefined>(undefined);
   const { postData } = useSelector(selectPostFormData);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const imageUrl = selectedImage
     ? URL.createObjectURL(selectedImage)
     : postData.fileUrl || '';
     const isFormValid = postData.title && postData.tags && postData.description;
+
+
+
+    
+    useEffect(() => {
+      if (!editorState) {
+        // Если в postData.description есть значение, конвертируем его в HTML и устанавливаем в editorState
+        if (postData.description) {
+          const blocksFromHTML = convertFromHTML(postData.description);
+          const state = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+          setEditorState(EditorState.createWithContent(state));
+        } else {
+          setEditorState(EditorState.createEmpty());
+        }
+      }
+    }, [editorState, postData.description]);
+    
+
+    const convertHtmlToText = (htmlString: any) => {
+      const contentState = convertFromRaw({
+        entityMap: {},
+        blocks: [
+          {
+            text: htmlString,
+            type: 'unstyled',
+            key: 'foo',
+            depth: 0,
+            inlineStyleRanges: [],
+            entityRanges: []
+          },
+        ],
+      });
+      return EditorState.createWithContent(contentState).getCurrentContent().getPlainText();
+    };
+
+    const convertTextToHtml = (textString: any) => {
+      const contentState = convertFromRaw({
+        entityMap: {},
+        blocks: [
+          {
+            text: textString,
+            type: 'unstyled',
+            key: 'foo',
+            depth: 0,
+            inlineStyleRanges: [],
+            entityRanges: []
+          },
+        ],
+      });
+      const editorState = EditorState.createWithContent(contentState);
+      return draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name } = e.target;
@@ -49,7 +110,16 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
       }));
     }
   };
-
+  const onEditorStateChange = (editorState:any) => {
+    console.log(editorState);
+    setEditorState(editorState);
+    // Получаем HTML код из текущего контента и сохраняем его
+    const contentState = editorState.getCurrentContent();
+    const rawContentState = convertToRaw(contentState);
+    const htmlContent = draftToHtml(rawContentState);
+    dispatch(setPostData({ ...postData, description: htmlContent }));
+  };
+  
   return (
     <div className="fixed w-[80%] top-[20%] left-[10%] z-[5000] bg-gray-200 rounded-[10px] p-10 shadow-xl admin_post">
       <div className="flex justify-between pb-5">
@@ -86,13 +156,22 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
             onChange={handleInputChange}
             checked={!postData.tags}
           />
-          <TextArea
+          {/* <TextArea
             name="description"
             placeholder="Tell us about your project and goals"
             value={postData.description}
             onChange={handleInputChange}
             checked={!postData.description}
-          />
+          /> */}
+{typeof window !== 'undefined' && (
+            <DynamicEditor
+              editorState={editorState}
+              toolbarClassName="bg-white static "
+              wrapperClassName="bg-white bg-white   overflow-hidden "
+              editorClassName="bg-white px-4  max-h-[250px] "
+              onEditorStateChange={onEditorStateChange}
+            />
+          )}
         </div>
       </div>
       <button type="submit"     disabled={!isFormValid}

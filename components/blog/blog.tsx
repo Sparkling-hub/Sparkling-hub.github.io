@@ -3,6 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/config/firebase-client";
 import BlogPost from "../blog-post";
 import {
+  addPostsToAllPosts,
   resetPostData,
   selectPostFormData,
   setUpdate,
@@ -23,12 +24,12 @@ import HeadPost from "./headerPost/header_post";
 
 const Blog: React.FC = () => {
   const dispatch = useDispatch();
-  const { postData, update, filter } = useSelector(selectPostFormData);
+  const { postData, update, filter, allPosts } = useSelector(selectPostFormData);
   const { activeIds } = useSelector(selectFilter);
   const { user } = useSelector(selectUserAuth);
   const [showModal, setShowModal] = useState(false);
-  const [originPost, setOriginPost] = useState<IPost[]>([]);
-  const [posts, setPosts] = useState<IPost[]>(originPost);
+
+  const [posts, setPosts] = useState<IPost[]>(allPosts);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 4;
 
@@ -96,7 +97,7 @@ const Blog: React.FC = () => {
   }
 
   const filterValue = async () => {
-    let filteredPosts = originPost.filter((post: IPost) => {
+    let filteredPosts = allPosts.filter((post: IPost) => {
       const matchesText = post.title
         ?.toLowerCase()
         .includes(filter.title.toLowerCase());
@@ -157,7 +158,7 @@ const Blog: React.FC = () => {
 
       dispatch(setUniqueIds({ value: result }));
       dispatch(setActiveIds({ value: activeIds }));
-      setOriginPost(response);
+      dispatch(addPostsToAllPosts(response));
     } catch (error) {
       console.log(error);
     }
@@ -169,8 +170,8 @@ const Blog: React.FC = () => {
 
   useEffect(() => {
     filterValue();
-  }, [activeIds, filter, update, originPost]);
-  const sortedPosts = [...originPost].sort(
+  }, [activeIds, filter, update, allPosts]);
+  const sortedPosts = [...allPosts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
   const recentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;

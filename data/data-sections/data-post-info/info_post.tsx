@@ -11,12 +11,19 @@ import { uploadPhoto } from "@/lib/api";
 import TextArea from "@/components/ui/text-area-component/text-area";
 import { selectUserAuth, setUserAuth } from "@/store/redusers/userReducer";
 import { onAuthStateChanged } from "firebase/auth";
+import parse from 'html-react-parser';
+import { ContentState, Editor, EditorState, convertFromHTML, convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+import dynamic from "next/dynamic";
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'; // Импорт стилей здесь
 
 interface PostComponentProps {
   post: IPost;
   onUpdatePost: (updatedPost: IPost) => void;
 }
-
+const DynamicEditor = dynamic(() => import('react-draft-wysiwyg').then((mod) => mod.Editor), {
+  ssr: false,
+});
 const PostComponent: React.FC<PostComponentProps> = ({
   post,
   onUpdatePost,
@@ -29,6 +36,7 @@ const PostComponent: React.FC<PostComponentProps> = ({
   const isFormValid = postData.title && postData.tags && postData.description;
   const { user } = useSelector(selectUserAuth);
 
+  const [editorState, setEditorState] = useState<EditorState | undefined>(undefined);
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -113,7 +121,22 @@ const PostComponent: React.FC<PostComponentProps> = ({
   const handleEditClick = () => {
     setIsEditing(true);
   };
-
+  useEffect(() => {
+    if (!editorState) {
+      // Если в postData.description есть значение, конвертируем его в HTML и устанавливаем в editorState
+      if (postData.description) {
+        const blocksFromHTML = convertFromHTML(postData.description);
+        const state = ContentState.createFromBlockArray(
+          blocksFromHTML.contentBlocks,
+          blocksFromHTML.entityMap
+        );
+        setEditorState(EditorState.createWithContent(state));
+      } else {
+        setEditorState(EditorState.createEmpty());
+      }
+    }
+  }, [editorState, postData.description]);
+  
   const handleSaveClick = async () => {
     setIsEditing(false);
     setTimerDisabled(false);
@@ -169,6 +192,15 @@ const PostComponent: React.FC<PostComponentProps> = ({
       </button>
     )
   ) ;
+  const onEditorStateChange = (editorState:any) => {
+    console.log(editorState);
+    setEditorState(editorState);
+    // Получаем HTML код из текущего контента и сохраняем его
+    const contentState = editorState.getCurrentContent();
+    const rawContentState = convertToRaw(contentState);
+    const htmlContent = draftToHtml(rawContentState);
+    dispatch(setPostData({ ...postData, description: htmlContent }));
+  };
 
   const calculateReadingTime = (text: string) => {
     if (!text) return 0;
@@ -267,15 +299,15 @@ const PostComponent: React.FC<PostComponentProps> = ({
 
       </div>
     {isEditing ? (
-        <TextArea
-          name="description"
-          value={postData.description}
-          onChange={handleInputChange}
-          checked={!postData.description}
-          placeholder={"Input description"}
-        />
+    <DynamicEditor
+    editorState={editorState}
+    toolbarClassName="bg-white static "
+    wrapperClassName="bg-white bg-white "
+    editorClassName="bg-white px-4"
+    onEditorStateChange={onEditorStateChange}
+  />
       ) : (
-        <p className="text-xl ">{post.description}</p>
+        <div className="text-xl "> {parse(postData.description)}</div>
       )}</div>
     </div>
   );

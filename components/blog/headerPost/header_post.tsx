@@ -16,6 +16,7 @@ import {
   openModal
 } from "@/components/helper/post-helper";
 
+import parse from 'html-react-parser';
 const BlogPost: React.FC<IPost> = (data) => {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const { user } = useSelector(selectUserAuth);
@@ -114,7 +115,7 @@ const BlogPost: React.FC<IPost> = (data) => {
               >
                 {data.title}
               </Link></div>
-            <div className="my-5 h-[100px]  overflow-hidden text-white">{data.description}</div>
+            <div className="my-5 h-[100px]  overflow-hidden text-white">{parse(data.description)}</div>
           </div>
           <div className="flex">
 
