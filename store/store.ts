@@ -1,4 +1,7 @@
-import { configureStore} from '@reduxjs/toolkit';
+import { combineReducers, configureStore} from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 import mapsReducer from '@/store/redusers/mapsSliceReduser';
 import startupStepByStepReducer from '@/store/redusers/startupStepByStepSliceReduser';
 import formReducer from '@/store/redusers/FormSliceReduser';
@@ -12,7 +15,7 @@ import postReduser from './redusers/postReduser';
 import userReduser from './redusers/userReducer';
 import FilterReduser from './redusers/filterReducer';
 
-const rootReducer = {
+const rootReducer = combineReducers({
   navigation: navigationReducer,
   maps: mapsReducer,
   startupStepByStep: startupStepByStepReducer,
@@ -25,12 +28,20 @@ const rootReducer = {
   post: postReduser,
   user:userReduser,
   filter:FilterReduser
-};
-const store = configureStore({
-  reducer: rootReducer,
 });
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['post'] // only post will be persisted
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+
+const store = configureStore({
+  reducer: persistedReducer,
+});
+const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export default store;
+export { store, persistor };

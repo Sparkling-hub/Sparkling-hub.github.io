@@ -29,10 +29,10 @@ const Blog: React.FC = () => {
   const { user } = useSelector(selectUserAuth);
   const [showModal, setShowModal] = useState(false);
 
-  const [posts, setPosts] = useState<IPost[]>(allPosts);
+
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 4;
-
+  const [posts, setPosts] = useState<IPost[]>(allPosts);
   const handleOutsideClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     if (!target.closest(".admin_post")) {
@@ -104,11 +104,12 @@ const Blog: React.FC = () => {
       const postTags = Array.isArray(post.tags)
         ? post.tags.map((tag) => tag.toLowerCase())
         : [];
-      const isTagIncluded =
-        activeIds.tags.length === 0 ||
-        activeIds.tags.some((activeId: string) =>
+        const isTagIncluded =
+        activeIds && activeIds.tags && activeIds.tags.length === 0 ||
+        (activeIds.tags && activeIds.tags.some((activeId: string) =>
           postTags.includes(activeId.toLowerCase())
-        );
+        ));
+      
       const dateInRange = isDateInRange(post, filter.startDate, filter.endDate);
       return isTagIncluded && dateInRange && matchesText;
     });

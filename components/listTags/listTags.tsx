@@ -6,7 +6,7 @@ import { setCheckboxData, clearActiveItems} from '@/store/redusers/filterReducer
 
 const CheckboxSelect: React.FC<ICheckboxSelect> = ({ id, checked,name }) => {
 const value =id.value !='' ? id.value: "all"
-console.log(value)
+
   const dispatch = useDispatch();
 
 	

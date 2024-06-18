@@ -5,7 +5,20 @@ export function formatTags(data) {
     }
     return item;
   });
-}export const getIds = (data, name) => {
+}
+export function formatTag(data) {
+  if (data && typeof data.tags === 'string') {
+    return {
+      ...data,
+      tags: data.tags.split(',').map(tag => tag.trim())
+    };
+  }
+  return data;
+}
+
+
+
+export const getIds = (data, name) => {
   const result = [];
   const uniqueValues = new Set();
 

@@ -26,7 +26,7 @@ const Filter: React.FC = () => {
 
 	const data = get(uniqueIds, 'tags');
 	const activeData = get(activeIds, 'tags');
-	console.log(data)
+	
 	return (
 		<div className=" my-6 sm:mx-5 w-full z-20	">
 

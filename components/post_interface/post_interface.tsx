@@ -34,7 +34,6 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
     
     useEffect(() => {
       if (!editorState) {
-        // Если в postData.description есть значение, конвертируем его в HTML и устанавливаем в editorState
         if (postData.description) {
           const blocksFromHTML = convertFromHTML(postData.description);
           const state = ContentState.createFromBlockArray(
