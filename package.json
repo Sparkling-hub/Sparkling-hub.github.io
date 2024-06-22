@@ -14,6 +14,7 @@
     "@google-cloud/datastore": "^8.7.0",
     "@mui/material": "^5.14.18",
     "@reduxjs/toolkit": "^2.0.1",
+    "@tinymce/tinymce-react": "^5.1.1",
     "@types/intl-tel-input": "^18.1.4",
     "aos": "^2.3.4",
     "axios": "^1.6.8",

@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store'; 
+import { EditorState } from 'draft-js';
 
 
 interface FormValues {
   id: string ;
   date: string ;
-  description: string ;
+  description: string | EditorState;
   fileUrl: string;
   tags: string;
   title: string;
   fileName: string;
-  [key: string]: string;
+  [key: string]: string |EditorState;
 }
 
 interface FilterValues {

@@ -68,7 +68,7 @@ export function openModal(
 
   export function handleOutsideClick(e: MouseEvent, closeModal: () => void): void {
     const target = e.target as HTMLElement;
-    if (!target.closest(".admin_post")) {
+    if (!target.closest(".admin_post") &&  !target.closest(".tox")) {
       closeModal();
     }
   }

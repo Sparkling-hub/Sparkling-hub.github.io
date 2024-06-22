@@ -35,17 +35,29 @@ const Blog: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>(allPosts);
   const handleOutsideClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (!target.closest(".admin_post")) {
-      closeModal();
-    }
-  };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  
+    
+  
+    // if (
+    //   !target.closest(".admin_post") && 
+    //   !target.closest(".tox.tox-silver-sink.tox-tinymce-aux") &&
+    //   !target.closest(".tox-menu") &&
+    //   !target.closest(".tox-tiered-menu") &&
+    //   !target.closest(".tox-collection__item-label")
+    // ) {
+    //   closeModal();
+    // }
+  };
+  
+  
+
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleOutsideClick);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleOutsideClick);
+  //   };
+  // }, []);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;

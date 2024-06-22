@@ -28,7 +28,7 @@ const BlogPost: React.FC<IPost> = (data) => {
 
   const handleOutsideClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (!target.closest(".admin_post")) {
+    if (!target.closest(".admin_post") &&  !target.closest(".tox")) {
       closeModal();
     }
   };

@@ -124,7 +124,7 @@ const BlogPost: React.FC<IPost> = (data) => {
           </div>
         </div>
       </div>
-      {showModal && <Modal onClick={(selectedImage) => updateDocument(data, postData, setTimerDisabled, closeModal, dispatch, selectedImage)} closeModal={closeModal} />}
+      {showModal && <Modal onClick={(selectedImage: File | null) => updateDocument(data, postData, setTimerDisabled, closeModal, dispatch, selectedImage)} closeModal={closeModal} />}
     </div>
   );
 };

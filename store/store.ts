@@ -32,16 +32,26 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['post'] // only post will be persisted
+  whitelist: ['post']
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE']
+      }
+    }),
 });
 const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export { store, persistor };
+
+function getDefaultMiddleware(arg0: { serializableCheck: { ignoredActions: string[]; }; }) {
+  throw new Error('Function not implemented.');
+}

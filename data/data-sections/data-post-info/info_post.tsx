@@ -8,14 +8,11 @@ import {
   setUniqueIds,
   addPostsToAllPosts,
   setUpdate
-  
 } from "@/store/redusers/postReduser";
 import {
-selectFilter,
-setActiveIds
-  
+  selectFilter,
+  setActiveIds
 } from "@/store/redusers/filterReducer";
-
 import { useDispatch, useSelector } from "react-redux";
 import { firestore, storage, auth } from "@/config/firebase-client";
 import { deleteObject, ref } from "firebase/storage";
@@ -25,43 +22,30 @@ import TextArea from "@/components/ui/text-area-component/text-area";
 import { selectUserAuth, setUserAuth } from "@/store/redusers/userReducer";
 import { onAuthStateChanged } from "firebase/auth";
 import parse from "html-react-parser";
-import {
-  ContentState,
-  Editor,
-  EditorState,
-  convertFromHTML,
-  convertToRaw,
-} from "draft-js";
-import draftToHtml from "draftjs-to-html";
 import dynamic from "next/dynamic";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"; // Импорт стилей здесь
 import BlogPost from "@/components/blog-post";
 import { formatTag, formatTags, getIds } from "@/components/helper/split";
 import { data } from "jquery";
+import { Editor } from '@tinymce/tinymce-react';
 
 interface PostComponentProps {
   post: IPost;
   onUpdatePost: (updatedPost: IPost) => void;
 }
 
-const DynamicEditor = dynamic(
-  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-  {
-    ssr: false,
-  }
-);
 const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [timerDisabled, setTimerDisabled] = useState(true);
-  const {activeIds } = useSelector(selectFilter);
+  const { activeIds } = useSelector(selectFilter);
   const { postData, allPosts, update } = useSelector(selectPostFormData);
   const dispatch = useDispatch();
   const isFormValid = postData.title && postData.tags && postData.description;
   const { user } = useSelector(selectUserAuth);
 
   const [posts, setPosts] = useState<IPost[]>([]);
-  const [editorState, setEditorState] = useState<EditorState | undefined>(undefined);
+  const [editorState, setEditorState] = useState<string | undefined>(undefined);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name } = e.target;
@@ -86,44 +70,27 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
       dispatch(setPostData({ ...postData, [name]: value }));
     }
   };
+
   useEffect(() => {
     filterValue(); 
   }, [activeIds]);
 
-  
- const filterValue = async () => {
+  const filterValue = async () => {
     let filteredPosts = allPosts.filter((postData: IPost) => {
-        const postTags = Array.isArray(postData.tags) ? postData.tags.map((tag) => tag.toLowerCase()) : [];
-        if (postData.id==post.id) {
-return false
-        }
-    
-        if ((activeIds.tags )) {
-          const isTagIncluded = activeIds.tags.some((activeId: string) =>
-            postTags.includes(activeId.toLowerCase())
-     
+      const postTags = Array.isArray(postData.tags) ? postData.tags.map((tag) => tag.toLowerCase()) : [];
+      if (postData.id == post.id) {
+        return false;
+      }
+      if ((activeIds.tags)) {
+        const isTagIncluded = activeIds.tags.some((activeId: string) =>
+          postTags.includes(activeId.toLowerCase())
         );
-    
-        return isTagIncluded?postData:null;
-        }
-        else { 
-        }
-
-       
-     
-
-     
+        return isTagIncluded ? postData : null;
+      }
     });
     setPosts(filteredPosts);
-return filteredPosts
-  
-};
-
-  
-  
-  console.log('activeIds:', activeIds);
-  console.log('posts:', posts);
-    
+    return filteredPosts;
+  };
 
   const fetchPosts = async () => {
     try {
@@ -151,10 +118,11 @@ return filteredPosts
       })
     );
   }, [post, dispatch]);
+
   useEffect(() => {
-    const formattedTags =  formatTag(postData).tags;
+    const formattedTags = formatTag(postData).tags;
     const result = { tags: formattedTags }; 
-    dispatch(setActiveIds({ value: result }))
+    dispatch(setActiveIds({ value: result }));
     onAuthStateChanged(auth, (user) => {
       if (user != null) {
         dispatch(setUserAuth(true));
@@ -162,20 +130,14 @@ return filteredPosts
         dispatch(setUserAuth(false));
       }
     });
- 
+
     const fetchData = async () => {
-                  
       if (allPosts.length === 0) {
-         fetchPosts();
-      }    
+        fetchPosts();
+      }
     };
     fetchData();
-
-
-
-
   }, [allPosts.length, postData, dispatch]);
-  
 
   function formatTagsArray(tagsArray: any) {
     if (!Array.isArray(tagsArray)) {
@@ -209,43 +171,38 @@ return filteredPosts
   const handleEditClick = () => {
     setIsEditing(true);
   };
-console.log(posts)
+
   useEffect(() => {
     if (!editorState) {
       if (postData.description) {
-        const blocksFromHTML = convertFromHTML(postData.description);
-        const state = ContentState.createFromBlockArray(
-          blocksFromHTML.contentBlocks,
-          blocksFromHTML.entityMap
-        );
-        setEditorState(EditorState.createWithContent(state));
-      } else {
-        setEditorState(EditorState.createEmpty());
+        setEditorState(postData.description);
       }
     }
-  }, [editorState, postData.description]);
+  }, []);
 
   const handleSaveClick = async () => {
+    const updatedPostData = { ...postData, description: editorState };
+    dispatch(setPostData(updatedPostData));
     setIsEditing(false);
     setTimerDisabled(false);
 
     try {
       const docRef = doc(firestore, "posts", postData.id);
-      let updatedPostData = { ...postData };
+      let updatedPostDataWithImage = updatedPostData;
 
       if (selectedImage) {
         const imageRef = ref(storage, post.fileUrl);
         await deleteObject(imageRef);
         const { fileUrl, fileName } = await uploadPhoto(selectedImage);
-        updatedPostData = {
+        updatedPostDataWithImage = {
           ...updatedPostData,
           fileUrl: fileUrl,
           fileName: fileName,
         };
       }
 
-      await setDoc(docRef, updatedPostData);
-      onUpdatePost(updatedPostData);
+      await setDoc(docRef, updatedPostDataWithImage);
+      onUpdatePost(updatedPostDataWithImage);
     } catch (error) {
       console.error("Error updating document:", error);
     }
@@ -282,20 +239,16 @@ console.log(posts)
     )
   ) : null;
 
-  const onEditorStateChange = (editorState: any) => {
-    setEditorState(editorState);
-    const contentState = editorState.getCurrentContent();
-    const rawContentState = convertToRaw(contentState);
-    const htmlContent = draftToHtml(rawContentState);
-    dispatch(setPostData({ ...postData, description: htmlContent }));
-  };
-
   const calculateReadingTime = (text: string) => {
     if (!text) return 0;
     const wordsPerMinute = 200;
     const words = text.split(/\s+/).length;
     const minutes = words / wordsPerMinute;
     return Math.ceil(minutes);
+  };
+
+  const handleEditorChange = (content: string, editor: any) => {
+    setEditorState(content);
   };
 
   return (
@@ -381,12 +334,10 @@ console.log(posts)
           )}
         </div>
         {isEditing ? (
-          <DynamicEditor
-            editorState={editorState}
-            toolbarClassName="bg-white static"
-            wrapperClassName="bg-white bg-white"
-            editorClassName="bg-white px-4"
-            onEditorStateChange={onEditorStateChange}
+          <Editor
+            initialValue={postData.description}
+            apiKey="xbfk6hhn4q3dh5nxtq3mhpqwbcpm9i4d0t2tjtnlz28rnght"
+            onEditorChange={handleEditorChange}
           />
         ) : (
           <div className="text-xl">{parse(postData.description)}</div>
@@ -396,9 +347,9 @@ console.log(posts)
         <div>
           You might also like:
           <div className="flex">
-          {posts.slice(0, 2).map((item: IPost) => ( 
-        <BlogPost key={item.id} {...item} />
-      ))}
+            {posts.slice(0, 2).map((item: IPost) => (
+              <BlogPost key={item.id} {...item} />
+            ))}
           </div>
         </div>
       )}
