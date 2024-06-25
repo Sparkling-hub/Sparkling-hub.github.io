@@ -128,10 +128,10 @@ const MyMultipleSelect: React.FC<IMultiSelect> = () => {
               <button onClick={scrollRight} className="absolute right-0 z-[100]  bg-gray-200 px-2 py-1 rounded">→</button>
             )}
           </div>
-          <div className='w-full px-2'>
+          <div className='w-full '>
             <input
               type="text"
-              className='bg-blue-100 focus:outline-none w-full'
+              className='bg-primary-lightTeal rounded-xl p-2 focus:outline-none w-full'
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
