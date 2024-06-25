@@ -7,7 +7,7 @@ import {
   setPostData,
 } from "@/store/redusers/postReduser";
 import ActiveItem from './multi-select-active-item';
-import { formatTag, getIds } from '@/components/helper/split';
+import { getIds } from '@/components/helper/split';
 
 const addTagToArray = (tags: string[], newTag: string): string[] => {
   const newTags: string[] = [...tags, newTag];
@@ -30,7 +30,7 @@ const MyMultipleSelect: React.FC<IMultiSelect> = () => {
       const scrollLeft = containerRef.current.scrollLeft;
 
       setShowScrollLeft(scrollLeft > 0);
-      setShowScrollRight(scrollLeft + containerWidth +10 < contentWidth);
+      setShowScrollRight(scrollLeft + containerWidth + 10 < contentWidth);
     }
   }, []);
 
@@ -119,9 +119,17 @@ const MyMultipleSelect: React.FC<IMultiSelect> = () => {
             )}
             <div ref={containerRef} className={`w-full flex relative h-full overflow-hidden ${showScrollLeft || showScrollRight ? "mx-10" : ''}`}>
               <div className='flex'>
-                {Array.isArray(postData.tags) ? postData.tags.map((tag: string) => (
-                  <ActiveItem key={uuidv4()} id={tag} name={tag} />
-                )) : postData.tags ? <ActiveItem key={uuidv4()} id={postData.tags} name={postData.tags} /> : ''}
+                {(() => {
+                  if (Array.isArray(postData.tags)) {
+                    return postData.tags.map((tag: string) => (
+                      <ActiveItem key={uuidv4()} id={tag} name={tag} />
+                    ));
+                  } else if (postData.tags) {
+                    return <ActiveItem key={uuidv4()} id={postData.tags} name={postData.tags} />;
+                  } else {
+                    return '';
+                  }
+                })()}
               </div>
             </div>
             {showScrollRight && (
@@ -138,15 +146,15 @@ const MyMultipleSelect: React.FC<IMultiSelect> = () => {
               onBlur={addTag}
             />
             {filteredTags.length > 0 && (
-              <div className="absolute bg-white border border-gray-300 rounded shadow-lg z-50">
+              <div className="absolute bg-white border flex flex-col border-gray-300 rounded shadow-lg z-50">
                 {filteredTags.map(tag => (
-                  <div
+                  <button
                     key={uuidv4()}
                     className="p-2 cursor-pointer hover:bg-gray-200"
                     onMouseDown={() => handleTagClick(tag)}
                   >
                     {tag}
-                  </div>
+                  </button>
                 ))}
               </div>
             )}

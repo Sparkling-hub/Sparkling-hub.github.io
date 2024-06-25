@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import IMultiSelectActiveItem from '@/interface/IMultiSelectActiveItem';
-import { deleteActiveItem, selectFilter } from '@/store/redusers/filterReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectPostFormData,
@@ -65,16 +64,16 @@ const MultiSelectActiveItem: React.FC<IMultiSelectActiveItem> = ({id, name}) => 
             autoFocus
           />
         ) : (
-          <div className=" bg-primary-lightTeal font-semibold text-lg rounded-lg text-white" title="Remove item" aria-label="Remove item" aria-describedby="">
+          <div className=" bg-primary-lightTeal font-semibold text-lg rounded-lg text-white flex items-center" title="Remove item" aria-label="Remove item" aria-describedby="">
         
-          <span className="item-title p-2" onClick={toggleEditor}>{id}</span>
-          <span
+          <button className="item-title p-2" onClick={toggleEditor}>{id}</button>
+          <button
             className='text-primary-darkTeal font-bold text-xl pr-2 '
             id={id}
             aria-hidden="true"
             onClick={(event) => deleteItem(event)}>
             ×
-          </span>
+          </button>
         </div>
         )}
     </div>

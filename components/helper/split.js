@@ -18,6 +18,35 @@ export function formatTag(data) {
 
 
 
+const getCount = (data, name, lowerCaseValue) => {
+  return data.filter((el) => 
+    Array.isArray(el[name])
+      ? el[name].map(t => t.toLowerCase()).includes(lowerCaseValue)
+      : el[name].toLowerCase() === lowerCaseValue
+  ).length;
+};
+
+const processArrayValue = (value, data, name, result, uniqueValues) => {
+  value.filter(tag => tag.trim() !== '').forEach((tag) => {
+    const lowerCaseTag = tag.toLowerCase();
+    if (!uniqueValues.has(lowerCaseTag)) {
+      const count = getCount(data, name, lowerCaseTag);
+      result.push({ value: capitalizeFirstLetter(tag), count });
+      uniqueValues.add(lowerCaseTag);
+    }
+  });
+};
+
+const processStringValue = (value, data, name, result, uniqueValues) => {
+  const trimmedValue = value.trim();
+  const lowerCaseValue = trimmedValue.toLowerCase();
+  if (lowerCaseValue !== '' && !uniqueValues.has(lowerCaseValue)) {
+    const count = getCount(data, name, lowerCaseValue);
+    result.push({ value: capitalizeFirstLetter(trimmedValue), count });
+    uniqueValues.add(lowerCaseValue);
+  }
+};
+
 export const getIds = (data, name) => {
   const result = [];
   const uniqueValues = new Set();
@@ -25,24 +54,12 @@ export const getIds = (data, name) => {
   data.forEach((item) => {
     const value = item[name];
     if (Array.isArray(value)) {
-      value.filter(tag => tag.trim() !== '').forEach((tag) => {
-        const lowerCaseTag = tag.toLowerCase();
-        if (!uniqueValues.has(lowerCaseTag)) {
-          let count = data.filter((el) => Array.isArray(el[name]) ? el[name].map(t => t.toLowerCase()).includes(lowerCaseTag) : el[name].toLowerCase() === lowerCaseTag).length;
-          result.push({ value: capitalizeFirstLetter(tag), count });
-          uniqueValues.add(lowerCaseTag);
-        }
-      });
+      processArrayValue(value, data, name, result, uniqueValues);
     } else if (typeof value === 'string') {
-      const trimmedValue = value.trim();
-      const lowerCaseValue = trimmedValue.toLowerCase();
-      if (lowerCaseValue !== '' && !uniqueValues.has(lowerCaseValue)) {
-        let count = data.filter((el) => Array.isArray(el[name]) ? el[name].map(t => t.toLowerCase()).includes(lowerCaseValue) : el[name].toLowerCase() === lowerCaseValue).length;
-        result.push({ value: capitalizeFirstLetter(trimmedValue), count });
-        uniqueValues.add(lowerCaseValue);
-      }
+      processStringValue(value, data, name, result, uniqueValues);
     }
-  });  
+  });
+
   return result;
 };
 

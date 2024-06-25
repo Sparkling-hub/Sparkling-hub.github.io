@@ -7,7 +7,6 @@ import {
   setPostData,
   setUniqueIds,
   addPostsToAllPosts,
-  setUpdate
 } from "@/store/redusers/postReduser";
 import {
   selectFilter,
@@ -18,15 +17,12 @@ import { firestore, storage, auth } from "@/config/firebase-client";
 import { deleteObject, ref } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { getPost, uploadPhoto } from "@/lib/api";
-import TextArea from "@/components/ui/text-area-component/text-area";
 import { selectUserAuth, setUserAuth } from "@/store/redusers/userReducer";
 import { onAuthStateChanged } from "firebase/auth";
 import parse from "html-react-parser";
-import dynamic from "next/dynamic";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"; // Импорт стилей здесь
 import BlogPost from "@/components/blog-post";
 import { formatTags, getIds } from "@/components/helper/split";
-import { data } from "jquery";
 import { Editor } from '@tinymce/tinymce-react';
 import TagsInput from '@/components/ui/tags-input/tags-input'
 interface PostComponentProps {
@@ -39,7 +35,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [timerDisabled, setTimerDisabled] = useState(true);
   const { activeIds } = useSelector(selectFilter);
-  const { postData, allPosts, update } = useSelector(selectPostFormData);
+  const { postData, allPosts } = useSelector(selectPostFormData);
   const dispatch = useDispatch();
   const isFormValid = postData.title && postData.tags && postData.description;
   const { user } = useSelector(selectUserAuth);
@@ -73,7 +69,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
 
   useEffect(() => {
     console.log(postData.tags)
-    filterValue(); 
+    filterValue();
   }, [activeIds]);
 
   const filterValue = async () => {
@@ -93,7 +89,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
     setPosts(filteredPosts);
     return filteredPosts;
   };
-  
+
 
   const fetchPosts = async () => {
     try {
@@ -124,8 +120,8 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
 
   useEffect(() => {
     const formattedTags = (postData).tags;
-    
-    const result = { tags: formattedTags }; 
+
+    const result = { tags: formattedTags };
     dispatch(setActiveIds({ value: result }));
 
     onAuthStateChanged(auth, (user) => {
@@ -215,34 +211,42 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
     setTimerDisabled(true);
   };
 
-  const verification = user ? (
-    isEditing ? (
-      <div className="flex">
+  let verification;
+
+  if (user) {
+    if (isEditing) {
+      verification = (
+        <div className="flex">
+          <button
+            onClick={handleSaveClick}
+            disabled={!timerDisabled || !isFormValid}
+            className="no-underline mx-2 relative text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700"
+          >
+            Save
+          </button>
+          <button
+            onClick={reset}
+            disabled={!timerDisabled}
+            className="no-underline relative text-white py-3 px-8 mx-2 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700"
+          >
+            Exit
+          </button>
+        </div>
+      );
+    } else {
+      verification = (
         <button
-          onClick={handleSaveClick}
-          disabled={!timerDisabled || !isFormValid}
-          className="no-underline mx-2 relative text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700"
-        >
-          Save
-        </button>
-        <button
-          onClick={reset}
+          onClick={handleEditClick}
           disabled={!timerDisabled}
-          className="no-underline relative text-white py-3 px-8 mx-2 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700"
+          className="no-underline relative w-auto text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700"
         >
-          Exit
+          Edit
         </button>
-      </div>
-    ) : (
-      <button
-        onClick={handleEditClick}
-        disabled={!timerDisabled}
-        className="no-underline relative w-auto text-white py-3 px-8 bg-color-primary-dark rounded-full z-10 block hover:bg-teal-700"
-      >
-        Edit
-      </button>
-    )
-  ) : null;
+      );
+    }
+  } else {
+    verification = null;
+  }
 
   const calculateReadingTime = (text: string) => {
     if (!text) return 0;
