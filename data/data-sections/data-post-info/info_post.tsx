@@ -25,6 +25,7 @@ import BlogPost from "@/components/blog-post";
 import { formatTags, getIds } from "@/components/helper/split";
 import { Editor } from '@tinymce/tinymce-react';
 import TagsInput from '@/components/ui/tags-input/tags-input'
+import { EditorState } from "draft-js";
 interface PostComponentProps {
   post: IPost;
   onUpdatePost: (updatedPost: IPost) => void;
@@ -41,7 +42,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
   const { user } = useSelector(selectUserAuth);
 
   const [posts, setPosts] = useState<IPost[]>([]);
-  const [editorState, setEditorState] = useState<string | undefined>(undefined);
+  const [editorState, setEditorState] = useState<string | EditorState>("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name } = e.target;
@@ -78,13 +79,13 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
       if (postData.id === post.id) {
         return false;
       }
-      if (Array.isArray(activeIds?.tags)) { // Check if activeIds.tags is an array
+      if (Array.isArray(activeIds?.tags)) {
         const isTagIncluded = activeIds.tags.some((activeId: string) =>
           postTags.includes(activeId.toLowerCase())
         );
         return isTagIncluded;
       }
-      return false; // Handle the case where activeIds.tags is not an array
+      return false;
     });
     setPosts(filteredPosts);
     return filteredPosts;
@@ -262,13 +263,13 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
 
   return (
     <div className="my-14 max-w-screen-2xl pb-14 mx-auto w-full px-8">
-      <meta name="description" content={post.description} />
+      <meta name="description" content={post.title} />
       <meta
         name="keywords"
         content="web development, programming, frontend, backend, website, careers, work"
       />
       <meta property="og:title" content={`Sparkling.Co. ${post.title}`} />
-      <meta property="og:description" content={post.description} />
+      <meta property="og:description" content={post.title} />
       <meta property="og:url" content={`/careers/postData?id=${post.id}`} />
 
       <div className="flex flex-row justify-between">
@@ -312,7 +313,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
             <h1 className="text-5xl mb-6 mx-1 ">{post.title}</h1>
           )}
           <div className="flex text-sm font-bold">
-            <span className="">{`${calculateReadingTime(post.description)} min read`}</span>
+            <span className="">{`${calculateReadingTime(post.description.toString())} min read`}</span>
             <svg
               width="4"
               height="4"
@@ -331,7 +332,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
       <div className="my-5 border-y-[1px] py-10">
         <div>
           {isEditing ? (
-            <TagsInput postData={postData}
+            <TagsInput 
             />
           ) : (
             <h2 className="text-2xl underline mb-10 mx-1">{formatTagsArray(post.tags)}</h2>
@@ -339,12 +340,12 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
         </div>
         {isEditing ? (
           <Editor
-            initialValue={postData.description}
+            initialValue={postData.description.toString()}
             apiKey="xbfk6hhn4q3dh5nxtq3mhpqwbcpm9i4d0t2tjtnlz28rnght"
             onEditorChange={handleEditorChange}
           />
         ) : (
-          <div className="text-xl">{parse(postData.description)}</div>
+          <div className="text-xl">{parse(postData.description.toString())}</div>
         )}
       </div>
       {posts.length > 0 && (

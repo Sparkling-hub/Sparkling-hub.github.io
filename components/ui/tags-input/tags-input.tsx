@@ -8,13 +8,14 @@ import {
 } from "@/store/redusers/postReduser";
 import ActiveItem from './multi-select-active-item';
 import { getIds } from '@/components/helper/split';
+import IPost from '@/interface/IPost';
 
 const addTagToArray = (tags: string[], newTag: string): string[] => {
   const newTags: string[] = [...tags, newTag];
   return newTags;
 };
 
-const MyMultipleSelect: React.FC<IMultiSelect> = () => {
+const MyMultipleSelect: React.FC = () => {
   const dispatch = useDispatch();
   const { postData, allPosts } = useSelector(selectPostFormData);
   const [inputValue, setInputValue] = useState('');

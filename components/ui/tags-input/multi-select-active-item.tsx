@@ -64,7 +64,7 @@ const MultiSelectActiveItem: React.FC<IMultiSelectActiveItem> = ({id, name}) => 
             autoFocus
           />
         ) : (
-          <div className=" bg-primary-lightTeal font-semibold text-lg rounded-lg text-white flex items-center" title="Remove item" aria-label="Remove item" aria-describedby="">
+          <div className=" bg-primary-lightTeal font-semibold text-lg rounded-lg text-white flex items-center" title="Remove item">
         
           <button className="item-title p-2" onClick={toggleEditor}>{id}</button>
           <button

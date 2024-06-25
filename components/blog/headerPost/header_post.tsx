@@ -115,7 +115,7 @@ const BlogPost: React.FC<IPost> = (data) => {
               >
                 {data.title}
               </Link></div>
-            <div className="my-5 h-[100px]  overflow-hidden text-white">{parse(data.description)}</div>
+            <div className="my-5 h-[100px]  overflow-hidden text-white">{parse(data.description.toString())}</div>
           </div>
           <div className="flex">
 

@@ -50,7 +50,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
     }
   };
 
-  const handleEditorChange = (content: string, editor) => {
+  const handleEditorChange = (content: string) => {
     dispatch(setPostData({
       ...postData,
       description: content,
@@ -97,7 +97,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
             onChange={handleInputChange}
             checked={!postData.tags}
           /> */}
-          <TagsInput id={""} placeholder={""}/>
+          <TagsInput />
           {typeof window !== 'undefined' && (
             <Editor
               value={postData.description}

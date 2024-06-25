@@ -32,7 +32,7 @@ const Blog: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 4;
-  const [posts, setPosts] = useState<IPost[]>(allPosts);
+  const [posts, setPosts] = useState<IPost[]>([]);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
