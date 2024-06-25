@@ -7,7 +7,7 @@ import {
 } from '@/store/redusers/postReduser';
 import Input from "../ui/input-component";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
+import TagsInput from '@/components/ui/tags-input/tags-input'
 interface BlogProps {
   onClick: (file: File | null) => void;
   closeModal: () => void;
@@ -89,14 +89,15 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
             onChange={handleInputChange}
             checked={!postData.title}
           />
-          <Input
+          {/* <Input
             type="text"
-            name="tags"
+            name="tags" 
             value={postData.tags}
             placeholder="Tags"
             onChange={handleInputChange}
             checked={!postData.tags}
-          />
+          /> */}
+          <TagsInput id={""} placeholder={""}/>
           {typeof window !== 'undefined' && (
             <Editor
               value={postData.description}

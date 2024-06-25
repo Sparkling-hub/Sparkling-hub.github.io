@@ -2,61 +2,56 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store'; 
 import { EditorState } from 'draft-js';
 
-
 interface FormValues {
-  id: string ;
-  date: string ;
+  id: string;
+  date: string;
   description: string | EditorState;
   fileUrl: string;
-  tags: string;
+  tags: string[];
   title: string;
   fileName: string;
-  [key: string]: string |EditorState;
+  [key: string]: string | EditorState | string[];
 }
 
 interface FilterValues {
-
   title: string;
   tags: string[];
   startDate: string | null;
   endDate: string | null;
 }
+
 interface ExtendedFilterValues extends FilterValues {
   sortOrder: boolean;
 }
+
 interface FormState {
   allPosts: FormValues[];
-  filter: ExtendedFilterValues ;
+  filter: ExtendedFilterValues;
   update: boolean;
   postData: FormValues;
   check: boolean | null;
   checkForm: FormValues;
-  activeIds:{  [key: string]: any;};
-  uniqueIds:string[],
-
+  activeIds: { [key: string]: any };
+  uniqueIds: string[];
 }
 
 const initialState: FormState = {
-  allPosts:[],
+  allPosts: [],
   update: false,
   postData: {
     title: '',
     description: '',
-    tags: '',
-    img: '',
+    tags: [],
     id: '',
     date: '',
     fileUrl: '',
     fileName: '',
-   
-  }, 
- 
+  },
   check: null,
   checkForm: {
     title: '',
     description: '',
-    tags: '',
-    img: '',
+    tags: [],
     id: '',
     date: '',
     fileUrl: '',
@@ -69,8 +64,8 @@ const initialState: FormState = {
     endDate: null,
     sortOrder: false,
   },
-  activeIds:{},
-  uniqueIds:[]
+  activeIds: {},
+  uniqueIds: []
 };
 
 const postSlice = createSlice({

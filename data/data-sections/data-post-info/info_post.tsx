@@ -25,10 +25,10 @@ import parse from "html-react-parser";
 import dynamic from "next/dynamic";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"; // Импорт стилей здесь
 import BlogPost from "@/components/blog-post";
-import { formatTag, formatTags, getIds } from "@/components/helper/split";
+import { formatTags, getIds } from "@/components/helper/split";
 import { data } from "jquery";
 import { Editor } from '@tinymce/tinymce-react';
-
+import TagsInput from '@/components/ui/tags-input/tags-input'
 interface PostComponentProps {
   post: IPost;
   onUpdatePost: (updatedPost: IPost) => void;
@@ -72,25 +72,28 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
   };
 
   useEffect(() => {
+    console.log(postData.tags)
     filterValue(); 
   }, [activeIds]);
 
   const filterValue = async () => {
     let filteredPosts = allPosts.filter((postData: IPost) => {
       const postTags = Array.isArray(postData.tags) ? postData.tags.map((tag) => tag.toLowerCase()) : [];
-      if (postData.id == post.id) {
+      if (postData.id === post.id) {
         return false;
       }
-      if ((activeIds.tags)) {
+      if (Array.isArray(activeIds?.tags)) { // Check if activeIds.tags is an array
         const isTagIncluded = activeIds.tags.some((activeId: string) =>
           postTags.includes(activeId.toLowerCase())
         );
-        return isTagIncluded ? postData : null;
+        return isTagIncluded;
       }
+      return false; // Handle the case where activeIds.tags is not an array
     });
     setPosts(filteredPosts);
     return filteredPosts;
   };
+  
 
   const fetchPosts = async () => {
     try {
@@ -120,9 +123,11 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
   }, [post, dispatch]);
 
   useEffect(() => {
-    const formattedTags = formatTag(postData).tags;
+    const formattedTags = (postData).tags;
+    
     const result = { tags: formattedTags }; 
     dispatch(setActiveIds({ value: result }));
+
     onAuthStateChanged(auth, (user) => {
       if (user != null) {
         dispatch(setUserAuth(true));
@@ -322,12 +327,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
       <div className="my-5 border-y-[1px] py-10">
         <div>
           {isEditing ? (
-            <Input
-              type="text"
-              name="tags"
-              value={postData.tags}
-              onChange={handleInputChange}
-              checked={!postData.tags}
+            <TagsInput postData={postData}
             />
           ) : (
             <h2 className="text-2xl underline mb-10 mx-1">{formatTagsArray(post.tags)}</h2>

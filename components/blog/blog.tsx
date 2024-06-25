@@ -72,7 +72,9 @@ const Blog: React.FC = () => {
       postData.tags &&
       postData.description
     ) {
+    
       await createPost(postData, selectedImage);
+      
       dispatch(resetPostData());
       closeModal();
       dispatch(setUpdate());
@@ -117,10 +119,13 @@ const Blog: React.FC = () => {
         ? post.tags.map((tag) => tag.toLowerCase())
         : [];
         const isTagIncluded =
-        activeIds && activeIds.tags && activeIds.tags.length === 0 ||
-        (activeIds.tags && activeIds.tags.some((activeId: string) =>
-          postTags.includes(activeId.toLowerCase())
-        ));
+        (activeIds && activeIds.tags && activeIds.tags.length === 0) ||
+        (activeIds.tags && Array.isArray(activeIds.tags) &&
+          activeIds.tags.some((activeId: string) =>
+            postTags.includes(activeId.toLowerCase())
+          )
+        );
+      
       
       const dateInRange = isDateInRange(post, filter.startDate, filter.endDate);
       return isTagIncluded && dateInRange && matchesText;

@@ -51,10 +51,12 @@ export const createPost = async (formData, file) => {
   form.maxFileSize =10 * 1024 * 1024
         form.append('title', formData.title);
         form.append('description',   formData.description);
-        form.append('tags', formData.tags);
+      
         form.append('img', formData.img);
-        form.append('file', file); // Добавляем файл в FormData
- 
+        form.append('file', file); 
+        formData.tags.forEach(tag => {
+          form.append('tags', tag);
+        });
   try {
       const response = await fetch("/api/create_post", {
           method: "POST",

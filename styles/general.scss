@@ -30,7 +30,24 @@ $weight-text: 400px;
         } 
 
 }
-
+.scrolling-wrapper {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+	
+	.card {
+	  display: inline-block;
+	}
+  }
+.scrolling-wrapper, .scrolling-wrapper-flexbox {
+	height: 80px;
+	margin-bottom: 20px;
+	width: 100%;
+	-webkit-overflow-scrolling: touch;
+	&::-webkit-scrollbar {
+	  display: none;
+	}
+  }
 .rdw-editor-toolbar ul {width: auto;
 position: absolute;}
 .admin_panel:hover{opacity:1}
@@ -574,7 +591,7 @@ nav {
 .my-multiple-select .active-item-container,
 .my-single-select .active-item-container {
 	background-color: transparent;
-	margin: 5px 5px 0 0;
+	margin: 0px 5px 0 0;
 	border: 1px solid grey;
 	border-radius: 4px;
 	padding: 1px;
