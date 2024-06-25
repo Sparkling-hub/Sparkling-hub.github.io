@@ -70,7 +70,7 @@ const MultiSelectActiveItem: React.FC<IMultiSelectActiveItem> = ({id, name}) => 
           <button
             className='text-primary-darkTeal font-bold text-xl pr-2 '
             id={id}
-            aria-hidden="true"
+          
             onClick={(event) => deleteItem(event)}>
             ×
           </button>
