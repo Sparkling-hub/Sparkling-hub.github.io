@@ -100,7 +100,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
           <TagsInput />
           {typeof window !== 'undefined' && (
             <Editor
-              value={postData.description}
+              value={postData.description.toString()}
               apiKey="xbfk6hhn4q3dh5nxtq3mhpqwbcpm9i4d0t2tjtnlz28rnght"
               onEditorChange={handleEditorChange}
             />
