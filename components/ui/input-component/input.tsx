@@ -5,7 +5,7 @@ interface InputProps {
   name: string ;
   type: string ;
   placeholder?: string ;
-  value: string | EditorState | string [];
+  value: string | EditorState | string [] | readonly string[];
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onClick?: Function;
   allowedFileTypes?:string
