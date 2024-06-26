@@ -126,12 +126,12 @@ const BlogPost: React.FC<IPost> = (data) => {
             </div>
             <div className="my-2 h-[100px]  overflow-hidden">
             
-      {parse(data.description)}
+      {parse(data.description.toString())}
             </div>
           </div>
           <div className="flex">
             <span className="card-read">{`${calculateReadingTime(
-              data.description
+          data.description.toString()
             )} min read`}</span>
             <svg
               width="4"
