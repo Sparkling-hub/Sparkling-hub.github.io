@@ -5,7 +5,7 @@ interface InputProps {
   name: string ;
   type: string ;
   placeholder?: string ;
-  value: string | EditorState | string [] | readonly string[];
+  value: string | EditorState | string [] | readonly string[] |undefined;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onClick?: Function;
   allowedFileTypes?:string
@@ -33,7 +33,7 @@ const Input: React.FC<InputProps> = ({ name, type, placeholder, value, onChange,
       name={name}
       type={type}
 
-      value={value}
+      value={value?.toString()}
       onChange={onChange}
       onClick={onClick as MouseEventHandler<HTMLInputElement>}
       accept={allowedFileTypes} 
