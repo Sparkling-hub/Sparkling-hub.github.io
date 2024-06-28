@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Editor } from '@tinymce/tinymce-react';
 import {
@@ -8,7 +8,7 @@ import {
 import Input from "../ui/input-component";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import TagsInput from '@/components/ui/tags-input/tags-input'
-import { getKey } from "@/lib/api";
+
 interface BlogProps {
   onClick: (file: File | null) => void;
   closeModal: () => void;

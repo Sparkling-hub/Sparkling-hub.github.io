@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import IMultiSelect from '@/interface/IMultiSelect';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -8,7 +7,7 @@ import {
 } from "@/store/redusers/postReduser";
 import ActiveItem from './multi-select-active-item';
 import { getIds } from '@/components/helper/split';
-import IPost from '@/interface/IPost';
+
 
 const addTagToArray = (tags: string[], newTag: string): string[] => {
   const newTags: string[] = [...tags, newTag];
