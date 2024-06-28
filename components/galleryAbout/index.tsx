@@ -48,7 +48,7 @@ function Gallery() {
       {[...Array(rows)].map((_, rowIndex) => (
         <div className="flex flex-row" key={'rows'+ rowIndex}>
       {dataImages
-            .slice(rowIndex * 7, rowIndex * 7 + 7)
+            .slice(rowIndex * 7, rowIndex * 6 + 7)
             .map((item, index) => (
               
           <div

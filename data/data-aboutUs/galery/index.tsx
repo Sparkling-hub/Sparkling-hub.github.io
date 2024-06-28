@@ -52,7 +52,7 @@ const imagesData = [
   },
   { image: photo8, profession: 'Full Stack Developer', name: 'Anastasia Katsura', linkedin:'https://www.linkedin.com/in/anastasia-katsura/'  },
   { image: photo3, profession: 'Full Stack Developer', name: 'Dmitry Panasenko' , linkedin:'https://www.linkedin.com/in/rogova-yelyzaveta/' },
-  { image: photo2, profession: 'Full Stack Developer', name: 'Maksim Sologubov' , linkedin:'https://www.linkedin.com/in/maksimsologubov/' },
+
   { image: photo1, profession: 'Full Stack Developer', name: 'Nikita Chumak' , linkedin:'https://www.linkedin.com/in/mykyta-chumak-5a602a223/' },
   { image: photo8, profession: 'Full Stack Developer', name: 'Tanya Tikhonovskaya' , linkedin:'https://www.linkedin.com/in/tetiana-tykhonovska/' },
   { image: photo2, profession: 'Full Stack Developer', name: 'Vitaly Nuriev' , linkedin:'https://www.linkedin.com/in/vitaly-nuriev/' },
