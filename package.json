@@ -23,6 +23,7 @@
     "express": "^4.19.2",
     "express-https-redirect": "^1.0.0",
     "firebase": "^10.12.2",
+    "firebase-admin": "^12.2.0",
     "formidable": "^3.5.1",
     "framer-motion": "^11.0.3",
     "fs": "^0.0.1-security",
