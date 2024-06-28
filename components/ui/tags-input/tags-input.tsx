@@ -151,7 +151,7 @@ const MyMultipleSelect: React.FC = () => {
                 {filteredTags.map(tag => (
                   <button
                     key={uuidv4()}
-                    className="p-2 cursor-pointer hover:bg-gray-200"
+                    className="p-2 cursor-pointer hover:bg-gray-200 "
                     onMouseDown={() => handleTagClick(tag)}
                   >
                     {tag}

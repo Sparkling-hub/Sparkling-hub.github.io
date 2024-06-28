@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Editor } from '@tinymce/tinymce-react';
 import {
@@ -8,6 +8,7 @@ import {
 import Input from "../ui/input-component";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import TagsInput from '@/components/ui/tags-input/tags-input'
+import { getKey } from "@/lib/api";
 interface BlogProps {
   onClick: (file: File | null) => void;
   closeModal: () => void;
@@ -17,7 +18,6 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
   const dispatch = useDispatch();
   const { postData } = useSelector(selectPostFormData);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-
   const imageUrl = selectedImage
     ? URL.createObjectURL(selectedImage)
     : postData.fileUrl || '';
@@ -98,10 +98,11 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
             checked={!postData.tags}
           /> */}
           <TagsInput />
+          
           {typeof window !== 'undefined' && (
             <Editor
               value={postData.description.toString()}
-              apiKey="xbfk6hhn4q3dh5nxtq3mhpqwbcpm9i4d0t2tjtnlz28rnght"
+              apiKey={process.env.NEXT_PUBLIC_EDITOR_API_KEY}
               onEditorChange={handleEditorChange}
             />
           )}

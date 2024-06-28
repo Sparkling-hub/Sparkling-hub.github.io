@@ -66,7 +66,7 @@ const MultiSelectActiveItem: React.FC<IMultiSelectActiveItem> = ({id, name}) => 
         ) : (
           <div className=" bg-primary-lightTeal font-semibold text-lg rounded-lg text-white flex items-center" title="Remove item">
         
-          <button className="item-title p-2" onClick={toggleEditor}>{id}</button>
+          <button className="item-title p-2 whitespace-nowrap" onClick={toggleEditor}>{id}</button>
           <button
             className='text-primary-darkTeal font-bold text-xl pr-2 '
             id={id}

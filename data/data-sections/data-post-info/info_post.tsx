@@ -341,7 +341,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, onUpdatePost }) => 
         {isEditing ? (
           <Editor
             initialValue={postData.description.toString()}
-            apiKey="xbfk6hhn4q3dh5nxtq3mhpqwbcpm9i4d0t2tjtnlz28rnght"
+            apiKey={process.env.NEXT_PUBLIC_EDITOR_API_KEY}
             onEditorChange={handleEditorChange}
           />
         ) : (
