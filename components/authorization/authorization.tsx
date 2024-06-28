@@ -8,11 +8,7 @@ import {
   setCheckFormByKey,
 } from "@/store/redusers/Authorization";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/config/firebase-client";
 
 const RegistrationForm = () => {
