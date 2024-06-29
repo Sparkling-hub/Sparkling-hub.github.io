@@ -54,7 +54,7 @@ function Gallery() {
           <div
             key={ index + rowIndex * 6}
             className={` ${
-              hoveredIndex ===  index + rowIndex * 6 ? "w-[39%]" : "w-[16%] filter grayscale" 
+              hoveredIndex ===  index + rowIndex * 6 ? "xl:w-[39%] lg:w-[59%] sm:w-[75%] w-full" : "sm:w-[16%] filter grayscale" 
             } h-[400px] image-gallery rounded-xl overflow-hidden relative  m-[5px] transition-all duration-500 ease-in-out shadow-lg `}
           >
                 
@@ -84,7 +84,7 @@ function Gallery() {
               
                 src={getImageSrc(item.image)}
                 alt={item.name}
-                className={`h-full bg-red-100 w-full relative  transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 6 ? "right-0" : "right-[25%]" }`}
+                className={`h-full bg-red-100 w-full relative  transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 6 ? "right-0" : "lg:right-[25%] right-[35%]" }`}
               />
             </button>
           
