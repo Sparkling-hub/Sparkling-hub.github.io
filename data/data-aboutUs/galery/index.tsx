@@ -44,12 +44,7 @@ const imagesData = [
     name: 'Stas Volozhanin',
     linkedin:'https://www.linkedin.com/in/stanislav-volozhanin-3b562a184/'
   },
-  {
-    image: photo1,
-    profession: 'UI/UX designer',
-    name: 'Adi Daniel',
-    linkedin:''
-  },
+
   { image: photo8, profession: 'Full Stack Developer', name: 'Anastasia Katsura', linkedin:'https://www.linkedin.com/in/anastasia-katsura/'  },
   { image: photo3, profession: 'Full Stack Developer', name: 'Dmitry Panasenko' , linkedin:'https://www.linkedin.com/in/rogova-yelyzaveta/' },
 

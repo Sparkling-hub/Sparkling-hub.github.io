@@ -48,19 +48,19 @@ function Gallery() {
       {[...Array(rows)].map((_, rowIndex) => (
         <div className="flex flex-row" key={'rows'+ rowIndex}>
       {dataImages
-            .slice(rowIndex * 7, rowIndex * 6 + 7)
+            .slice(rowIndex * 6 , rowIndex * 6 + 6)
             .map((item, index) => (
               
           <div
-            key={ index + rowIndex * 7}
+            key={ index + rowIndex * 6}
             className={` ${
-              hoveredIndex ===  index + rowIndex * 7 ? "w-[35%]" : "w-[14%] filter grayscale" 
+              hoveredIndex ===  index + rowIndex * 6 ? "w-[39%]" : "w-[16%] filter grayscale" 
             } h-[400px] image-gallery rounded-xl overflow-hidden relative  m-[5px] transition-all duration-500 ease-in-out shadow-lg `}
           >
                 
             <div
               className={` ${
-                hoveredIndex ===  index + rowIndex * 7 ? " px-4 opacity-1" : "opacity-0 " 
+                hoveredIndex ===  index + rowIndex * 6? " px-4 opacity-1" : "opacity-0 " 
               } image_title my-1 absolute bottom-0 right-0 z-10 h-[15%] bg-black  w-full flex overflow-hidden transition-all duration-500 ease-in-out justify-between `}
             >
               <div className=" flex-col flex text-nowrap text-white ">
@@ -76,7 +76,7 @@ function Gallery() {
             <button
            
               onMouseEnter={() => {
-                if ( index + rowIndex * 7 !== hoveredIndex) setHoveredIndex( index + rowIndex * 7);
+                if ( index + rowIndex * 6 !== hoveredIndex) setHoveredIndex( index + rowIndex * 6);
               }}
               className={`w-[400px]  h-[420px] absolute transition-all duration-300 ease-in-out cursor-default`}
             >
@@ -84,7 +84,7 @@ function Gallery() {
               
                 src={getImageSrc(item.image)}
                 alt={item.name}
-                className={`h-full bg-red-100 w-full relative  transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 7 ? "right-0" : "right-[25%]" }`}
+                className={`h-full bg-red-100 w-full relative  transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 6 ? "right-0" : "right-[25%]" }`}
               />
             </button>
           
