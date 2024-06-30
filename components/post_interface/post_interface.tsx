@@ -80,7 +80,7 @@ const Blog: React.FC<BlogProps> = ({ onClick, closeModal }) => {
           />      
           {imageUrl && <img src={imageUrl} alt="Selected Image" className="mt-2 max-h-[400px] max-w-full h-auto" />}
         </div>
-        <div className="w-full ml-10">
+        <div className="w-2/3 pl-10">
           <Input
             type="text"
             name="title"

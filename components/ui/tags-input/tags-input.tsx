@@ -117,8 +117,8 @@ const MyMultipleSelect: React.FC = () => {
             {showScrollLeft && (
               <button onClick={scrollLeft} className="absolute left-0 z-[100] bg-gray-200 px-2 py-1 rounded">←</button>
             )}
-            <div ref={containerRef} className={`w-full flex relative h-full overflow-hidden ${showScrollLeft || showScrollRight ? "mx-10" : ''}`}>
-              <div className='flex'>
+            <div ref={containerRef} className={`w-full  flex relative h-full overflow-hidden ${showScrollLeft || showScrollRight ? "mx-10" : ''}`}>
+              <div className='flex  w-full'>
                 {(() => {
                   if (Array.isArray(postData.tags)) {
                     return postData.tags.map((tag: string) => (
@@ -146,7 +146,7 @@ const MyMultipleSelect: React.FC = () => {
               onBlur={addTag}
             />
             {filteredTags.length > 0 && (
-              <div className="absolute bg-white border flex flex-col border-gray-300 rounded shadow-lg z-50">
+              <div className="absolute bg-white border flex flex-col border-gray-300 rounded shadow-lg z-50 max-h-[250px] overflow-y-auto">
                 {filteredTags.map(tag => (
                   <button
                     key={uuidv4()}
