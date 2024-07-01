@@ -64,18 +64,12 @@ const checkRecaptchaAndFields = async (recaptchaToken) => {
   const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
 
 
-  const response = await axios.post(verificationUrl);
-  try {
-    if (!response.data.success) {
-      throw new Error("Invalid reCAPTCHA token");
-    }
 
-    if (!requestBody.name || !requestBody.email) {
-      throw new Error("Required fields are missing in the request body");
-    }
-  }
-  catch (error) {
-    throw new Error("Error");
+  try {
+    const response = await axios.post(verificationUrl);
+
+  } catch (error) {
+    console.error('Error verifying reCAPTCHA:', error);
   }
 }
 export default async function handler(req, res) {
@@ -88,16 +82,14 @@ export default async function handler(req, res) {
         }
         resolve(null);
       });
-      const formData = req.body;
-
-      console.log(formData)
+  
     });
 
     checkRecaptchaAndFields(req.body.recaptcha);
 
 
 
-    await console.log(req.file)
+   
     if (req.file) {
       const clamscanConfig = {
         remove_infected: true,
