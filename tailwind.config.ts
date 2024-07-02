@@ -18,6 +18,9 @@ const config: Config = {
       'Ralevay_Light':['"Ralevay_Light"'], 
   },
     extend: {
+      width: {
+        'fill-available': '-webkit-fill-available',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

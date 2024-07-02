@@ -15,11 +15,11 @@ function Gallery() {
         {" "}
         <div className="w-full">
           {" "}
-          <h2 className="text-4xl text-primary-darkTeal">Meet our teem</h2>{" "}
+        
           <p className="text-xl my-5">
           At the heart of our success is a dedicated group of professionals who bring vision, expertise, and innovation to every project. Our diverse team of Software Engineers, Project Managers, and C-level executives work tirelessly in harmony to deliver outstanding results. With a passion for excellence and a commitment to pushing boundaries, they transform concepts into cutting-edge solutions that drive our company forward. Meet the team at Sparkling Co.          </p>
         </div>
-        <div className=" w-full flex justify-end items-end">
+        <div className=" w-full flex justify-end items-end lg:block hidden">
           {" "}
           <button
             className={`rounded-full ${
@@ -46,7 +46,7 @@ function Gallery() {
 
       <div className="">
       {[...Array(rows)].map((_, rowIndex) => (
-        <div className="flex flex-row" key={'rows'+ rowIndex}>
+        <div className="flex flex-col lg:flex-row  items-center " key={'rows'+ rowIndex}>
       {dataImages
             .slice(rowIndex * 6 , rowIndex * 6 + 6)
             .map((item, index) => (
@@ -54,20 +54,20 @@ function Gallery() {
           <div
             key={ index + rowIndex * 6}
             className={` ${
-              hoveredIndex ===  index + rowIndex * 6 ? "xl:w-[39%] lg:w-[59%] sm:w-[75%] w-full" : "sm:w-[16%] filter grayscale" 
-            } h-[400px] image-gallery rounded-xl overflow-hidden relative  m-[5px] transition-all duration-500 ease-in-out shadow-lg `}
+              hoveredIndex ===  index + rowIndex * 6 ? "xl:w-[39%] lg:w-[45%] lg:w-[80%] w-[100%] max-w-[400px]" : "lg:w-[16%] w-[100%] max-w-[400px] lg:grayscale" 
+            }  lg:h-[400px] image-gallery rounded-xl overflow-hidden relative  lg:m-[5px] m-8 transition-all duration-500 ease-in-out lg:shadow-lg `}
           >
                 
             <div
               className={` ${
-                hoveredIndex ===  index + rowIndex * 6? " px-4 opacity-1" : "opacity-0 " 
-              } image_title my-1 absolute bottom-0 right-0 z-10 h-[15%] bg-black  w-full flex overflow-hidden transition-all duration-500 ease-in-out justify-between `}
+                hoveredIndex ===  index + rowIndex * 6? " opacity-1" : "lg:opacity-0 " 
+              } image_title my-1 block absolute px-4  top-[345px] lg:top-[335px]  right-0 z-10 h-[15%]  w-full  max-w-[400px] flex flex-row-reverse lg:flex-row overflow-hidden transition-all duration-500 ease-in-out justify-between`}
             >
-              <div className=" flex-col flex text-nowrap text-white ">
-              <p className="font-bold text-2xl">{item.profession}</p>
-              <p className="font-bold text-xl">{item.name}</p>
+              <div className="flex-col flex text-nowrap text-white lg:block hidden ">
+              <p className="font-bold text-2xl lg:text-xl xl:text-2xl">{item.profession}</p>
+              <p className="font-bold text-xl lg:text-lg  xl:text-xl">{item.name}</p>
               </div>
-              <Link  target="_blank"  className="left-0 flex items-center w-15 h-15 transform transition-transform duration-500 hover:scale-[1.06]" 
+              <Link  target="_blank"  className="left-0 flex items-center w-14 h-14 transform transition-transform duration-500 hover:scale-[1.06]" 
  href={item.linkedin}>
      <img src="/img/about/linkedIn_icon.png" className="w-full h-full" alt="" />
             </Link>
@@ -78,16 +78,20 @@ function Gallery() {
               onMouseEnter={() => {
                 if ( index + rowIndex * 6 !== hoveredIndex) setHoveredIndex( index + rowIndex * 6);
               }}
-              className={`w-[400px]  h-[420px] absolute transition-all duration-300 ease-in-out cursor-default`}
+              className={`w-fill-available lg:w-[400px] h-[420px] lg:absolute transition-all duration-300 ease-in-out cursor-default`}
             >
               <img
               
                 src={getImageSrc(item.image)}
                 alt={item.name}
-                className={`h-full bg-red-100 w-full relative  transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 6 ? "right-0" : "lg:right-[25%] right-[35%]" }`}
+                className={`h-full bg-red-100 w-full relative  rounded-xl transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 6 ? "right-0" : "lg:right-[25%]" }`}
               />
+              
             </button>
-          
+            <div className="flex-col flex text-nowrap text-black leading-10 py-2">
+              <p className="font-black text-2xl">{item.profession}</p>
+              <p className="font-bold py-1 text-xl">{item.name}</p>
+              </div>
           </div>
         ))}</div> ))}
       </div>
