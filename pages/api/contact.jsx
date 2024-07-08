@@ -1,9 +1,9 @@
 import multer from "multer";
 import { mailOptions, transporter } from "../../config/nodemailer";
-import fs from "fs";
-import path from "path";
 import axios from "axios";
-import { secretKey} from "../../config/reCaptha";
+import { secretKey } from "../../config/reCaptha";
+import NodeClam from "clamscan";
+
 const CONTACT_MESSAGE_FIELDS = {
   vacancy: "Vacancy",
   name: "Name",
@@ -11,22 +11,20 @@ const CONTACT_MESSAGE_FIELDS = {
   select: "Select",
   company: "Company",
   phone: "Phone",
-  linkedin: "Linkdin",
+  linkedin: "LinkedIn",
   message: "Message",
-
 };
 
 const generateEmailContent = (data) => {
   const stringData = Object.entries(data).reduce((str, [key, val]) => {
-    if (CONTACT_MESSAGE_FIELDS[key] && val && val !== undefined) {
+    if (CONTACT_MESSAGE_FIELDS[key] && val !== undefined) {
       return `${str}${CONTACT_MESSAGE_FIELDS[key]}: \n${val} \n \n`;
     }
     return str;
   }, "");
 
   const htmlData = Object.entries(data).reduce((str, [key, val]) => {
-    if (val && CONTACT_MESSAGE_FIELDS[key] && val  !== undefined) {
-
+    if (CONTACT_MESSAGE_FIELDS[key] && val !== undefined) {
       return `${str}<h3 class="form-heading" align="left">${CONTACT_MESSAGE_FIELDS[key]}</h3><p class="form-answer" align="left">${val}</p>`;
     }
     return str;
@@ -39,36 +37,19 @@ const generateEmailContent = (data) => {
 };
 
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "uploads/");
-    
-    },
-    
-    filename: function (req, file, cb) {
-      cb(null, 'cv');
-    },
-    limits: {
-      fileSize: 5 * 1024 * 1024,
-    },
-  }),
-  fileFilter: function (req, file, cb) {
-  
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 8 * 1024 * 1024, 
+  },
+  fileFilter: (req, file, cb) => {
     if (file.mimetype !== "application/pdf") {
       return cb(new Error("Incorrect file format"));
     }
-
-   
     if (file.size > 5 * 1024 * 1024) {
       return cb(new Error("The file size exceeds the maximum limit (5MB)."));
     }
-
-
-    else cb(null, true);
+    cb(null, true);
   },
-  
-  limits:{
-    fileSize: 5000000 }
 });
 
 export const config = {
@@ -77,87 +58,61 @@ export const config = {
   },
 };
 
-export default async function handler(req, res) {
+const checkRecaptchaAndFields = async (recaptchaToken) => {
+  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
+  try {
+    const response = await axios.post(verificationUrl);
+    return response.data.success;
+  } catch (error) {
+    console.error('Error verifying reCAPTCHA:', error);
+    return false;
+  }
+};
 
+export default async function handler(req, res) {
   try {
     await new Promise((resolve, reject) => {
       upload.single("file")(req, res, (err) => {
-        if (err) {
-          return { success: false };
-        }
-        resolve(null);
+        if (err) return reject(err);
+        resolve();
       });
     });
 
-    const recaptchaToken = req.body.recaptcha; 
-    if (!recaptchaToken) {
-      throw new Error("Missing reCAPTCHA token");
+    const recaptchaValid = await checkRecaptchaAndFields(req.body.recaptcha);
+    if (!recaptchaValid) {
+      res.status(400).json({ error: "Invalid reCAPTCHA" });
+      return;
     }
 
-   
-    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
-
-    const response = await axios.post(verificationUrl); 
-    if (!response.data.success) {
-      throw new Error("Invalid reCAPTCHA token");
-    }
-
-    if (!req.body.name || !req.body.email) {
-      throw new Error("Missing required fields in request body");
-      
-    }
-    // if ( req.file) {
-    //   const clamscanConfig = {
-    //     remove_infected: true,
-    //     quarantine_infected: "./quarantine",
-    //   };
-    //   const NodeClam = require("clamscan");
-    //   const ClamScan = new NodeClam().init(clamscanConfig);
-
-    //   ClamScan.then(async (clamscan) => {
-    //     try {
-    //         await clamscan.isInfected(
-    //         req.file
-    //       );
-     
-    //     } catch (err) {
-    //       return { success: false };
-    //     }
-    //   }).catch((err) => {
-
-    //   });
-    // }
     let attachments = [];
-
     if (req.file) {
+      const clamscanConfig = {
+        remove_infected: true,
+        quarantine_infected: "./quarantine",
+      };
+      const clamscan = await new NodeClam().init(clamscanConfig);
+      const { isInfected } = await clamscan.isInfected(req.file.buffer);
+
+      if (isInfected) {
+        res.status(400).json({ error: "File is infected" });
+        return;
+      }
+
       attachments.push({
         filename: req.file.originalname,
-        path: req.file.path,
+        content: req.file.buffer,
       });
     }
+
     await transporter.sendMail({
       ...mailOptions,
       ...generateEmailContent(req.body),
       subject: req.body.email,
-      attachments: attachments,
+      attachments,
     });
 
     res.status(200).send("Email sent successfully");
-    return { success: true };
   } catch (error) {
     res.status(500).send(error.message);
-    return { success: false };
-  
-  } finally{ 
-    try {
-   
-    const filePath = path.resolve("uploads",'cv');
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        return { success: false };
-      } else {
-        return { success: true };
-      }
-  });} catch (err) {   }
-}
+  }
 }
