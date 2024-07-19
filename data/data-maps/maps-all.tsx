@@ -126,7 +126,7 @@ const createOfficeCard = (title: string, city: string, adress1: string, country:
 });
 
 const officeCardsData: IOfficeCards[] = [
-  createOfficeCard("Tunis Office", "Ariana", "Pôle Technologique", "Tunisia", "2083", "Tunis",),
+  createOfficeCard("Tunis Office", "Tunis", "Pôle Technologique", "Tunisia", "2083", "Tunis",),
   createOfficeCard("Switzerland Headquarter", "Lugano", "Via Cattedrale 7", "Switzerland", "6900", "Switzerland",),
   createOfficeCard("Ukraine Office", "Zaporizhzhia", "Haharina St, 3", "Ukraine", "69061", "Ukraine"),
   createOfficeCard("UK Office", "London", "16-18 Montagu Place", "United Kingdom", "W1H 2BQ", "UK Office",),
