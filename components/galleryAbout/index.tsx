@@ -54,8 +54,8 @@ function Gallery() {
           <div
             key={ index + rowIndex * 6}
             className={` ${
-              hoveredIndex ===  index + rowIndex * 6 ? "xl:w-[39%] lg:w-[45%] lg:w-[80%] w-[100%] max-w-[400px]" : "lg:w-[16%] w-[100%] max-w-[400px] lg:grayscale" 
-            }  lg:h-[400px] image-gallery rounded-xl overflow-hidden relative  lg:m-[5px] m-8 transition-all duration-500 ease-in-out lg:shadow-lg `}
+              hoveredIndex ===  index + rowIndex * 6 ? "xl:w-[39%] lg:w-[45%] lg:w-[80%] w-[100%] max-w-[400px]" : "lg:w-[16%] w-[100%] max-w-[400px]" 
+            }  lg:h-[400px] image-gallery rounded-xl overflow-hidden relative  lg:m-[5px] m-8 transition-all duration-500 ease-in-out lg:shadow-custom `}
           >
                 
             <div
@@ -63,13 +63,13 @@ function Gallery() {
                 hoveredIndex ===  index + rowIndex * 6? " opacity-1" : "lg:opacity-0 " 
               } image_title my-1 block absolute px-4  top-[345px] lg:top-[335px]  right-0 z-10 h-[15%]  w-full  max-w-[400px] flex flex-row-reverse lg:flex-row overflow-hidden transition-all duration-500 ease-in-out justify-between`}
             >
-              <div className="flex-col flex text-nowrap text-white lg:block hidden ">
+              <div className="flex-col flex text-nowrap text-primary-lightTeal lg:block hidden ">
               <p className="font-bold text-2xl lg:text-xl xl:text-2xl">{item.profession}</p>
               <p className="font-bold text-xl lg:text-lg  xl:text-xl">{item.name}</p>
               </div>
               <Link  target="_blank"  className="left-0 flex items-center w-14 h-14 transform transition-transform duration-500 hover:scale-[1.06]" 
  href={item.linkedin}>
-     <img src="/img/about/linkedIn_icon.png" className="w-full h-full" alt="" />
+     <img src="/img/about/linkedIn_icon.png" className={` w-full h-full`} alt="" />
             </Link>
             </div>
 
@@ -84,7 +84,7 @@ function Gallery() {
               
                 src={getImageSrc(item.image)}
                 alt={item.name}
-                className={`h-full bg-red-100 w-full relative  rounded-xl transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 6 ? "right-0" : "lg:right-[25%]" }`}
+                className={`h-full bg-red-100 w-full relative  rounded-xl transition-all duration-500 ease-in-out ${hoveredIndex ===  index + rowIndex * 6 ? "right-0 " : "lg:right-[25%] lg:grayscale" }`}
               />
               
             </button>
