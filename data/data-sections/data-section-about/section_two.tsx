@@ -5,13 +5,13 @@ const header =
 
 const content =
 <div className="px-8 text-center text-white rounded-2xl mx-auto">
-  <p>
+  <p className="mb-10">
     Sparkling Co. is an industry expert in digital services with over a decade of field experience in Software Development.
     Our expertise extends to providing dedicated teams of developers and project managers for both in-house project as well
     as in Team Augmentation, where our experts seamlessly integrate into client-led endeavours. Headquartered in Switzerland
     our branches reach out across Europe and North Africa, from London to Tunis.
-  <br/>
-  <br/>
+</p>
+<p>
     Specialising in delivering top-tier Software Development solutions we excel in
     long-term projects such as spearheading Research and Development (R&D) initiatives,
     implementing efficient Project Management methodologies, and offering strategic IT Consulting.

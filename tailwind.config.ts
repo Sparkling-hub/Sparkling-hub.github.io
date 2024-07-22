@@ -12,7 +12,7 @@ const config: Config = {
   
   theme: {
     boxShadow: {
-'custom': '0 10px 15px rgba(40, 92, 92, 0.8), 0 5px 5px rgba(40, 92, 92, 0.5)'
+'custom': '0 10px 15px rgba(40, 92, 92, 0.8), 0 5px 5px rgba(40, 92, 92, 0.5)',
 
     },
     fontFamily: {
