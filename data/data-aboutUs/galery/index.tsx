@@ -10,7 +10,7 @@ import photo9 from './Anastasia - Sparkling icon.jpg';
 import photo10 from './Tanya - Sparkling icon.jpg';
 import photo11 from './Vitaly - Sparkling icon.jpg';
 import photo12 from './Yelyzaveta - Sparkling icon.jpg';
-import missing from './missing.jpg';
+
 
 const imagesData = [
   {image: photo1,profession: 'Founder',name: 'Andrea Arthofer',linkedin:'https://www.linkedin.com/in/andreas-arthofer/'},
