@@ -45,3 +45,11 @@ export const getKey = async (formData, fileData) => {
     throw new Error("Failed to fetch");
   }
 };
+
+
+export const registration  = async (formData) => {
+
+
+
+
+}

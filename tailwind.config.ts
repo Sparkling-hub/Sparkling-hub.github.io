@@ -11,13 +11,20 @@ const config: Config = {
   ],
   
   theme: {
-    
+  
     fontFamily: {
       'Roboto': ['"Roboto_Light"'], 
       'Raleway':['Raleway'], 
       'Ralevay_Light':['"Ralevay_Light"'], 
   },
     extend: {
+      boxShadow: {
+        'custom': '0 10px 15px rgba(40, 92, 92, 0.8), 0 5px 5px rgba(40, 92, 92, 0.5)',
+        
+            },
+      width: {
+        'fill-available': '-webkit-fill-available',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -47,7 +54,7 @@ const config: Config = {
       },
       colors: {
         primary: {
-          light: '#409588', 
+          light: '#CBF0E9', 
           yellow: '#AECA13',
           darkTeal:'#255F5A',
           lightTeal:'#409588'    
