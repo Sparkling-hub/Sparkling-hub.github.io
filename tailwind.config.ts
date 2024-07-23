@@ -47,7 +47,7 @@ const config: Config = {
       },
       colors: {
         primary: {
-          light: '#409588', 
+          light: '#CBF0E9', 
           yellow: '#AECA13',
           darkTeal:'#255F5A',
           lightTeal:'#409588'    

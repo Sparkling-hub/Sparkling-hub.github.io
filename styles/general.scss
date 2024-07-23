@@ -31,7 +31,9 @@ $weight-text: 400px;
 
 }
 
-
+.rdw-editor-toolbar ul {width: auto;
+position: absolute;}
+.admin_panel:hover{opacity:1}
 .flag-dropdown  {width: 10% !important;     border-radius: 1.5rem 0 0 1.5rem !important; border-color: #255F5A !important;
 	.search{background-color: white ; z-index: 5;}
 }
@@ -506,7 +508,7 @@ nav {
 	border-radius: 0.75rem;
 	display: flex;
 	flex-direction: column;
-	z-index: 1;
+	z-index: 10;
 
 	box-shadow: -10px 10px 0px $primaryDarkColor;
 
@@ -572,7 +574,7 @@ nav {
 .my-multiple-select .active-item-container,
 .my-single-select .active-item-container {
 	background-color: transparent;
-	margin: 5px 5px 0 0;
+	margin: 0px 5px 0 0;
 	border: 1px solid grey;
 	border-radius: 4px;
 	padding: 1px;

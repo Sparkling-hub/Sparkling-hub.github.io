@@ -9,18 +9,21 @@ import ICareersProps from '@/interface/ICareersProps';
 
 import {
 	selectCareers,
-	setUniqueIds,
-	setActiveIds,
+
 	setJobsAction
 } from '@/store/redusers/CareersSliceReduser';
 
-
+import {
+		selectFilter,
+	  setUniqueIds,
+	  setActiveIds,
+	} from  "@/store/redusers/filterReducer";
 const Careers: React.FC<ICareersProps> = () => {
 	const dispatch = useDispatch();
 
 
 	const { dataJobs } = useSelector(selectCareers)
-
+	const { uniqueIds } = useSelector(selectFilter)
 	useEffect(() => {
 		dispatch(setJobsAction({ value: Jobs }));
 
@@ -30,15 +33,17 @@ const Careers: React.FC<ICareersProps> = () => {
 			location: getIds(Jobs, 'location'),
 		};
 
+
+		dispatch(setUniqueIds({ value: result }));
 		const activeIds = {
 			workMode: [],
 			experience: [],
 			location: [],
-		};
-
-
-		dispatch(setUniqueIds({ value: result }));
+		};	
+	
 		dispatch(setActiveIds({ value: activeIds }));
+	
+	
 	}, [dataJobs, dispatch]);
 
 

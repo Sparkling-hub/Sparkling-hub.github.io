@@ -3,15 +3,16 @@
 import type { AppProps } from 'next/app';
 import "../styles/global.css";
 import '../styles/general.scss';
-import { Provider } from 'react-redux';
-import store from '@/store/store';
 import Head from 'next/head';
-
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '@/store/store';
 function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 
 		<Provider store={store}>
+			      <PersistGate loading={null} persistor={persistor}>
 			<Head>
 				<title>Sparkling.co</title>
 				<meta name="author" content="Sparkling" />
@@ -38,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 			</Head>
 			<Component {...pageProps} />
-		
+			</PersistGate>
 		</Provider>
 
 

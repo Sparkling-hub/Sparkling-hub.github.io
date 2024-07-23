@@ -11,9 +11,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ href, text }) => {
 
 	return (
-
 		<Link className="no-underline relative text-white py-3 px-8 	bg-color-primary-dark  rounded-full z-10  hover:bg-teal-700" href={href} >{text}</Link>
-
 	);
 };
 

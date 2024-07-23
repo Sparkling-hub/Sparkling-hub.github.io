@@ -4,9 +4,12 @@ import MultiSelectActiveItem from '../multi-select-active-item';
 import IMultiSelect from '@/interface/IMultiSelect';
 import InputLocate from '../ui/custom-input-jobs';
 import { useSelector } from 'react-redux';
-import { selectCareers } from '@/store/redusers/CareersSliceReduser';
+
 import { get } from '../careers/search_function/search_function';
 import { v4 as uuidv4 } from 'uuid';
+import {
+  selectFilter,
+  } from  "@/store/redusers/filterReducer";
 const MyMultipleSelect: React.FC<IMultiSelect> = ({ id, placeholder }) => {
   const [isActive, setIsActive] = useState(false);
   const arrowButtonRef = useRef<HTMLDivElement>(null);
@@ -14,7 +17,8 @@ const MyMultipleSelect: React.FC<IMultiSelect> = ({ id, placeholder }) => {
   const {
     uniqueIds,
     activeIds,
-  } = useSelector(selectCareers);
+  } = useSelector(  selectFilter
+  );
 
   useEffect(() => {
     const handleArrowClick = () => {
@@ -32,28 +36,27 @@ const MyMultipleSelect: React.FC<IMultiSelect> = ({ id, placeholder }) => {
         arrowButton.removeEventListener('click', handleArrowClick);
       }
     };
-  }, [isActive]);
-
+  }, [isActive]);  
   const data = get(uniqueIds, id);
   const activeData = get(activeIds, id);
 
   return (
-    <div className={`my-multiple-select ${isActive ? 'active' : ''} m-4`} >
+    <div className={`my-multiple-select ${isActive ? 'active' : ''} py-1 m-1`} >
       <button
         className={`my-multiple-select-container w-full flex-col flex rounded-lg relative bg-color-primary-medium border-bg-color-primary-medium h-auto`}
       >
-        <div className={`min-h-[32px] flex left-3 flex-wrap items-center h-auto ${activeIds.length ? ' p-3' : ''}`}>
+        <div className={`min-h-[40px] flex left-3 flex-wrap items-center h-auto ${activeIds.length ? ' p-3' : ''}`}>
           {activeData.map((active) => (
             <MultiSelectActiveItem name={id} id={active} key={active} />
           ))}
         </div>
         <div
           ref={arrowButtonRef}
-          className={`arrow-open flex items-center absolute right-4 top-5 z-10`}
+          className={`arrow-open flex items-center absolute right-4 top-[15px] z-10`}
         >
           <img src="/img/down-arrow-svgrepo-com.svg" className={`h-3 w-3 transition-transform transform ${isActive ? 'rotate-180' : 'rotate-0'}`} alt="" />
         </div>
-        <div className={`mt-4 items-left w-full`} >
+        <div className={`items-left w-full`} >
           <InputLocate
             id={"focused_input"}
             type={"text"}
