@@ -10,7 +10,6 @@ import dropdownReducer from './redusers/SelectSliceReduser'
 import navbarReducer from './redusers/NavbarSliceReduser'
 import dropdownNavbarReducer from './redusers/dropdownNavbarReduser'
 import navigationReducer from './redusers/navigationReducer'
-import authorizationReducer from './redusers/Authorization'
 const store = configureStore({
   reducer: {
     navigation: navigationReducer,
@@ -21,7 +20,6 @@ const store = configureStore({
     dropdown: dropdownReducer,
     navbar: navbarReducer,
     dropdownNavbar: dropdownNavbarReducer,
-    authorization: authorizationReducer
   },
 });
 
