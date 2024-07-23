@@ -11,12 +11,12 @@ function Gallery() {
   const rows = Math.ceil(dataImages.length / 7);
   return (
     <div>
-      <div className="flex flex-col justify-between p-[5px]">
+      <div className="flex flex-col justify-between">
         {" "}
         <div className="w-full">
           {" "}
         
-          <p className="text-xl my-5">
+          <p className="text-xl my-9">
           At the heart of our success is a dedicated group of professionals who bring vision, expertise, and innovation to every project. Our diverse team of Software Engineers, Project Managers, and C-level executives work tirelessly in harmony to deliver outstanding results. With a passion for excellence and a commitment to pushing boundaries, they transform concepts into cutting-edge solutions that drive our company forward. Meet the team at Sparkling Co.          </p>
         </div>
         <div className=" w-full flex justify-end items-end lg:block hidden">
