@@ -55,19 +55,19 @@ function Gallery() {
             key={ index + rowIndex * 6}
             className={` ${
               hoveredIndex ===  index + rowIndex * 6 ? "xl:w-[39%] lg:w-[45%] lg:w-[80%] w-[100%] max-w-[400px]" : "lg:w-[16%] w-[100%] max-w-[400px]" 
-            }  lg:h-[400px] image-gallery rounded-xl  overflow-hidden relative  lg:m-[5px]  m-8 transition-all duration-500 ease-in-out lg:shadow-custom `}
+            }  lg:h-[400px]  image-gallery rounded-xl  lg:overflow-hidden relative  lg:m-[5px]  m-8 transition-all duration-500 ease-in-out lg:shadow-custom `}
           >
                 
             <div
               className={` ${
-                hoveredIndex ===  index + rowIndex * 6? " opacity-1" : "lg:opacity-0 " 
+                hoveredIndex ===  index + rowIndex * 6? " opacity-1" : "lg:opacity-0 "  
               } image_title my-1 block absolute px-4 flex lg:items-center   top-[345px] lg:top-[324px] lg:shadow-custom  right-0 z-10 h-[18%]  w-full  max-w-[400px] flex flex-row-reverse lg:flex-row overflow-hidden transition-all duration-500 ease-in-out justify-between`}
             >
-              <div className="flex-col flex text-nowrap text-white lg:flex hidden  justify-center">
+              <div className="flex-col flex text-nowrap text-white lg:flex hidden  justify-center ">
               <p className="font-bold text-2xl lg:text-xl xl:text-2xl">{item.profession}</p>
               <p className="font-bold text-xl lg:text-lg  xl:text-xl">{item.name}</p>
               </div>
-              <Link  target="_blank"  className="left-0  hidden items-center lg:flex  w-14 h-14 transform transition-transform duration-500 hover:scale-[1.06]" 
+              <Link  target="_blank"  className="left-0  hidden items-center lg:flex  w-14 h-14 transform transition-transform duration-500  hover:scale-[1.06]" 
               
  href={item.linkedin}>
      <img src="/img/about/linkedIn_icon.png" className={` w-full h-full `} alt="" />
@@ -84,7 +84,7 @@ function Gallery() {
               onMouseEnter={() => {
                 if ( index + rowIndex * 6 !== hoveredIndex) setHoveredIndex( index + rowIndex * 6);
               }}
-              className={`w-fill-available lg:w-[400px] h-[420px] lg:absolute transition-all duration-300 ease-in-out cursor-default`}
+              className={`w-fill-available shadow-custom rounded-xl   lg:w-[400px] h-[420px] lg:absolute transition-all duration-300 ease-in-out cursor-default`}
             >
               <img
               
@@ -94,7 +94,7 @@ function Gallery() {
               />
               
             </button>
-            <div className="flex-col flex text-nowrap text-black leading-10 py-2">
+            <div className="flex-col flex text-nowrap text-black leading-10 py-2 mt-1">
               <p className="font-black text-2xl">{item.profession}</p>
               <p className="font-bold py-1 text-xl">{item.name}</p>
               </div>
