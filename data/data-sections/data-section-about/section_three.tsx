@@ -1,14 +1,16 @@
 
-import Gallery from "@/components/galleryAbout"
-const header = <h2 className="text-4xl w-full text-left text-primary-darkTeal">Meet our teem</h2>
-const content = <Gallery  />
+import About from "@/components/row-aboutus"
+const head= <h2 className="text-primary-lightTeal m-auto mt-20 mb-12 text-5xl  w-fit">Our <strong className="text-primary-darkTeal font-bold">Core Principles</strong></h2>
+const content =
+  <About/>
+
 
 const element = {
-  header: header,
+  header: head,
   content:content,
  
   background: '', 
-  id: "about_teem"
+  id: "principle"
 
 }
 export default element
