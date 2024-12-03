@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
       </nav>
       <div className={`lg:hidden `}>
         <div className={`fixed inset-0 z-10 transition-all w-0 ease-in-out`} />
-        <div className={`min-w-[24rem] fixed inset-y-0 right-0 z-20 overflow-hidden bg-white px-6 py-6 sm:ring-1 sm:ring-gray-900/10 w-full transform transition-all ease-in-out ${mobileMenuOpen ? 'translate-x-0 opacity-1' : 'translate-x-full opacity-10'} duration-500`}>
+        <div className={`min-w-[24rem] fixed inset-y-0 right-0 z-20 overflow-hidden bg-white px-6 py-6 sm:ring-1 sm:ring-gray-900/10 w-full transform transition-all ease-in-out ${mobileMenuOpen ? 'translate-x-0 opacity-1' : 'translate-x-full opacity-10'} h-[110%] duration-500`}>
 
           <div className="flex justify-between text-xl items-center px-1 ">
           <Link href="/" className="-m-1.5 pt-2">

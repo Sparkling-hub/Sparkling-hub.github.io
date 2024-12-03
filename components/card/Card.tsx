@@ -77,7 +77,9 @@ const Card: React.FC = () => {
       `}
       style={{
         top: `calc(${Math.round(activeOfficePointCoords[0] - 199)}px)`,
-        left: `calc(${Math.round(activeOfficePointCoords[1] - 85)}px)`
+        left: `calc(${Math.round(activeOfficePointCoords[1] - 85)}px)`,
+        transform: `translateZ(0)`
+
     }}><div className={`overflow-hidden flex items-center justify-center relative lg:absolute w-full bg-[#B0D311] duration-300 rounded-3xl ease-out  transition-height  ${isVisible ? 'opacity-100 h-[100%] top-[0%] ' : '100 h-[100%] top-[0%]'}`} >
         <div className={`w-full left-0 px-6`}>
 

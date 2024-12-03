@@ -12,7 +12,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
 	return (
 
-		<div className='w-full min-w-[400px] font-Roboto'>
+		<div className='w-full min-w-[350px] font-Roboto'>
 	
 			<Navbar />
 			<main>{children}</main>
